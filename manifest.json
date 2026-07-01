@@ -1,0 +1,265 @@
+{
+  "project": "WCD 2026 Assets",
+  "event": {
+    "name": "Celebrating Independence: White Cane Day Walk",
+    "organization": "Envision Dallas",
+    "venue": "Dallas Zoo",
+    "year": 2026
+  },
+  "description": "Photo, icon, and video assets for the Envision Dallas White Cane Day Walk, plus a post-visit thank-you email template. Every photo was individually reviewed; descriptions and tags below are written for keyword search and AI-assisted retrieval.",
+  "usage_notes": [
+    "Event and brand photos can be renamed or moved freely; nothing references them by name.",
+    "The 7 image files in email/ MUST keep their exact filenames — VisitUs-EMAIL.html references them by name.",
+    "Photos contain identifiable event attendees; use per Envision Dallas photo-consent and privacy practices."
+  ],
+  "categories": {
+    "event-photos/the-walk": "Participants walking/marching with white canes, and the start banner.",
+    "event-photos/ceremony-and-program": "Seated audience and the outdoor program.",
+    "event-photos/animal-encounters": "Dallas Zoo animal encounters: giraffe, tortoise, opossum.",
+    "event-photos/registration-and-booths": "Check-in and the Envision info/braille booth.",
+    "event-photos/group-photos-and-portraits": "Posed group photos and portraits.",
+    "event-photos/candid-moments": "Candid, close-up, and human-interest shots.",
+    "brand": "Brand/marketing imagery.",
+    "email": "Thank-you email template and its referenced image assets."
+  },
+  "assets": [
+    {
+      "path": "event-photos/the-walk/walk-participant-white-cane-tree-path.jpg",
+      "category": "the-walk",
+      "dimensions": "7087x4725",
+      "description": "A smiling woman holding a white cane walks a tree-lined zoo path beside a younger attendee in a 'Rollin' to the Beat / Bowl-A-Thon' T-shirt.",
+      "tags": ["white cane", "walking", "path", "two people", "participant", "smiling", "outdoor", "trees"]
+    },
+    {
+      "path": "event-photos/the-walk/guided-walk-cane-user-with-escort.jpg",
+      "category": "the-walk",
+      "dimensions": "7087x4725",
+      "description": "A cane user in an Envision Dallas polo is sighted-guided arm-in-arm by a companion while another woman films on her phone.",
+      "tags": ["white cane", "sighted guide", "blind", "walking", "Envision polo", "phone", "group"]
+    },
+    {
+      "path": "event-photos/the-walk/two-women-walking-cane-user.jpg",
+      "category": "the-walk",
+      "dimensions": "7087x4725",
+      "description": "A blind woman with a white cane (navy skirt, clip-on fan) walks and chats with a younger woman companion.",
+      "tags": ["white cane", "blind", "walking", "two women", "companion", "path"]
+    },
+    {
+      "path": "event-photos/the-walk/participants-walking-boardwalk.jpg",
+      "category": "the-walk",
+      "dimensions": "7087x4725",
+      "description": "A stream of participants in lanyards and event shirts walking the zoo's wooden boardwalk.",
+      "tags": ["boardwalk", "walking", "crowd", "lanyards", "event shirts", "outdoor"]
+    },
+    {
+      "path": "event-photos/the-walk/crowd-behind-independence-banner.jpg",
+      "category": "the-walk",
+      "dimensions": "7087x4725",
+      "description": "A dense crowd, many raising white canes, marching behind the large green 'INDEPENDENCE' banner; a 'White Cane Day' T-shirt in front.",
+      "tags": ["banner", "crowd", "white canes raised", "independence", "White Cane Day shirt", "march"]
+    },
+    {
+      "path": "event-photos/the-walk/walk-start-banner-group-with-sponsors.jpg",
+      "category": "the-walk",
+      "dimensions": "6000x4000",
+      "description": "Wide marquee shot: the whole group behind the 'Celebrating Independence — White Cane Day Walk — Dallas Zoo' start banner with sponsor logos (Southwest, Comerica, Atmos, ABC).",
+      "tags": ["start banner", "group photo", "sponsors", "Southwest", "Comerica", "Atmos", "hero shot", "crowd", "white canes"]
+    },
+    {
+      "path": "event-photos/ceremony-and-program/audience-member-raising-white-cane.jpg",
+      "category": "ceremony-and-program",
+      "dimensions": "7087x4725",
+      "description": "A woman in a black-and-white floral top raises a folded white cane amid the seated crowd; a 'U.S. Navy Veteran' cap nearby.",
+      "tags": ["seated audience", "white cane raised", "program", "veteran cap", "event guide"]
+    },
+    {
+      "path": "event-photos/ceremony-and-program/seated-audience-teal-shirts.jpg",
+      "category": "ceremony-and-program",
+      "dimensions": "7087x4725",
+      "description": "Wide shot of the seated audience in teal event shirts watching the program; wheelchair users in front, a Pepsi machine and PA speaker at right.",
+      "tags": ["audience", "seated", "teal shirts", "wheelchair", "accessibility", "program", "crowd", "children"]
+    },
+    {
+      "path": "event-photos/animal-encounters/giraffe-feeding-deck.jpg",
+      "category": "animal-encounters",
+      "dimensions": "7087x4725",
+      "description": "Attendees at the Dallas Zoo giraffe deck hold out lettuce to feed a giraffe leaning over the wooden enclosure.",
+      "tags": ["giraffe", "animal", "feeding", "zoo", "lettuce", "attendees", "smiling"]
+    },
+    {
+      "path": "event-photos/animal-encounters/zoo-keeper-tortoise-presentation.jpg",
+      "category": "animal-encounters",
+      "dimensions": "7087x4725",
+      "description": "Two Dallas Zoo keepers in purple polos present a tortoise beside the 'White Cane Day Walk — Animal Encounter Sponsor' banner.",
+      "tags": ["tortoise", "animal", "zoo keeper", "presentation", "microphone", "banner", "purple polo"]
+    },
+    {
+      "path": "event-photos/animal-encounters/zoo-keeper-opossum-presentation.jpg",
+      "category": "animal-encounters",
+      "dimensions": "7087x4725",
+      "description": "A Dallas Zoo keeper with a microphone presents an opossum to the seated audience near the thatched huts.",
+      "tags": ["opossum", "animal", "zoo keeper", "presentation", "microphone", "audience", "thatched hut"]
+    },
+    {
+      "path": "event-photos/registration-and-booths/envision-info-booth-braille-demo.jpg",
+      "category": "registration-and-booths",
+      "dimensions": "7087x4725",
+      "description": "The Envision Dallas info booth under a pavilion — staff demonstrate Perkins braille typewriters at a banner-draped table; visitors and children gather.",
+      "tags": ["Envision Dallas", "info booth", "braille", "Perkins typewriter", "banner", "staff", "children", "outreach"]
+    },
+    {
+      "path": "event-photos/registration-and-booths/indoor-registration-check-in.jpg",
+      "category": "registration-and-booths",
+      "dimensions": "7087x4725",
+      "description": "Indoor check-in in a lodge room with elephant-silhouette decor — a man in a white polo hands out materials at a black-draped table.",
+      "tags": ["registration", "check-in", "indoor", "lodge", "staff", "welcome table", "T-shirts"]
+    },
+    {
+      "path": "event-photos/group-photos-and-portraits/group-portrait-boardwalk-navy-veteran.jpg",
+      "category": "group-photos-and-portraits",
+      "dimensions": "7087x4725",
+      "description": "Posed group of four by the boardwalk railing — a U.S. Navy veteran in a cap and three participants in Envision walk shirts.",
+      "tags": ["group portrait", "veteran", "Navy cap", "Envision shirt", "posed", "boardwalk"]
+    },
+    {
+      "path": "event-photos/group-photos-and-portraits/delta-gamma-volunteers-group.jpg",
+      "category": "group-photos-and-portraits",
+      "dimensions": "7087x4725",
+      "description": "Seven smiling Delta Gamma sorority volunteers pose together on the zoo path.",
+      "tags": ["volunteers", "Delta Gamma", "sorority", "group portrait", "posed", "smiling"]
+    },
+    {
+      "path": "event-photos/group-photos-and-portraits/family-portrait-led-tunnel.jpg",
+      "category": "group-photos-and-portraits",
+      "dimensions": "7087x4725",
+      "description": "A family with children poses under the colorful LED-lit tunnel ceiling; White Cane Day shirts and a folded cane.",
+      "tags": ["family", "portrait", "LED tunnel", "children", "White Cane Day shirt", "posed", "colorful lights"]
+    },
+    {
+      "path": "event-photos/group-photos-and-portraits/large-group-portrait-led-tunnel.jpg",
+      "category": "group-photos-and-portraits",
+      "dimensions": "7087x4725",
+      "description": "A large multi-generational group (with a stroller) poses under the LED tunnel's blue/green light strips.",
+      "tags": ["large group", "portrait", "LED tunnel", "multi-generational", "stroller", "posed", "lights"]
+    },
+    {
+      "path": "event-photos/group-photos-and-portraits/group-portrait-tunnel-mural.jpg",
+      "category": "group-photos-and-portraits",
+      "dimensions": "7087x4725",
+      "description": "A group of attendees poses in the mural tunnel, including cane users and a child in a stroller.",
+      "tags": ["group portrait", "tunnel", "mural", "cane users", "stroller", "posed"]
+    },
+    {
+      "path": "event-photos/candid-moments/guest-waving-lanyard.jpg",
+      "category": "candid-moments",
+      "dimensions": "7087x4725",
+      "description": "A smiling, balding man in a dark polo and lanyard waves at the camera during the event.",
+      "tags": ["candid", "waving", "smiling", "lanyard", "portrait", "attendee"]
+    },
+    {
+      "path": "event-photos/candid-moments/attendees-hug-at-concession-stand.jpg",
+      "category": "candid-moments",
+      "dimensions": "7087x4725",
+      "description": "Two women share a warm hug in front of a Pepsi/Dole Whip concession stand; a baby in a stroller at left.",
+      "tags": ["candid", "hug", "concession stand", "Pepsi", "Dole Whip", "baby", "stroller", "emotion"]
+    },
+    {
+      "path": "event-photos/candid-moments/volunteer-handing-treat-to-child.jpg",
+      "category": "candid-moments",
+      "dimensions": "7087x4725",
+      "description": "A volunteer bends down to hand a treat to a delighted young boy in blue near a shaded path.",
+      "tags": ["candid", "volunteer", "child", "treat", "smiling", "human interest"]
+    },
+    {
+      "path": "event-photos/candid-moments/white-cane-closeup-sneaker-keychain.jpg",
+      "category": "candid-moments",
+      "dimensions": "7087x4725",
+      "description": "Close-up of a hand gripping a white cane with a small sneaker keychain tied to the grip; crowd blurred behind.",
+      "tags": ["white cane", "close-up", "detail", "hand", "keychain", "sneaker", "shallow depth of field"]
+    },
+    {
+      "path": "brand/envision-dallas-building-exterior.png",
+      "category": "brand",
+      "dimensions": "1536x1024",
+      "description": "Clean exterior photo of the Envision Dallas building (brown brick, blue/green logo signage) under a blue sky.",
+      "tags": ["brand", "building", "exterior", "Envision Dallas", "logo", "blue sky", "marketing"]
+    },
+    {
+      "path": "brand/white-cane-day-logo-animation.mp4",
+      "category": "brand",
+      "dimensions": "1280x720",
+      "duration_seconds": 52,
+      "description": "Animated hero/background video: the 'Celebrating Independence — White Cane Day Walk — Dallas Zoo' logo animating in (white-cane motif, blue/green type).",
+      "tags": ["brand", "video", "animation", "hero", "logo", "White Cane Day Walk", "background"]
+    },
+    {
+      "path": "email/VisitUs-EMAIL.html",
+      "category": "email",
+      "description": "Responsive post-visit thank-you email for Envision Dallas. Image src's use a placeholder host (REPLACE-WITH-YOUR-IMAGE-URL/); host the 7 email images and swap that base URL before sending.",
+      "tags": ["email", "template", "html", "thank you", "post-visit", "Envision Dallas"]
+    },
+    {
+      "path": "email/hero.jpg",
+      "category": "email",
+      "dimensions": "1200x420",
+      "referenced_by": "VisitUs-EMAIL.html",
+      "rename_locked": true,
+      "description": "Email hero/banner: the Envision Dallas building with a navy overlay.",
+      "tags": ["email", "hero", "banner", "building", "navy overlay"]
+    },
+    {
+      "path": "email/icon-share.png",
+      "category": "email",
+      "dimensions": "120x120",
+      "referenced_by": "VisitUs-EMAIL.html",
+      "rename_locked": true,
+      "description": "Circular blue/green 'Share' icon (share-node glyph).",
+      "tags": ["email", "icon", "share"]
+    },
+    {
+      "path": "email/icon-kroger.png",
+      "category": "email",
+      "dimensions": "120x120",
+      "referenced_by": "VisitUs-EMAIL.html",
+      "rename_locked": true,
+      "description": "Circular blue/green 'Kroger Community Rewards' icon (shopping cart).",
+      "tags": ["email", "icon", "kroger", "shopping cart", "rewards"]
+    },
+    {
+      "path": "email/icon-donate.png",
+      "category": "email",
+      "dimensions": "120x120",
+      "referenced_by": "VisitUs-EMAIL.html",
+      "rename_locked": true,
+      "description": "Circular blue/green 'Make a donation' icon (heart).",
+      "tags": ["email", "icon", "donate", "heart"]
+    },
+    {
+      "path": "email/soc-facebook.png",
+      "category": "email",
+      "dimensions": "96x96",
+      "referenced_by": "VisitUs-EMAIL.html",
+      "rename_locked": true,
+      "description": "Facebook app-style icon.",
+      "tags": ["email", "icon", "social", "facebook"]
+    },
+    {
+      "path": "email/soc-instagram.png",
+      "category": "email",
+      "dimensions": "96x96",
+      "referenced_by": "VisitUs-EMAIL.html",
+      "rename_locked": true,
+      "description": "Instagram app-style icon.",
+      "tags": ["email", "icon", "social", "instagram"]
+    },
+    {
+      "path": "email/soc-linkedin.png",
+      "category": "email",
+      "dimensions": "96x96",
+      "referenced_by": "VisitUs-EMAIL.html",
+      "rename_locked": true,
+      "description": "LinkedIn app-style icon.",
+      "tags": ["email", "icon", "social", "linkedin"]
+    }
+  ]
+}

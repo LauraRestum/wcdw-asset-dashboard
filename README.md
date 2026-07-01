@@ -1,49 +1,105 @@
 # WCD 2026 Assets
 
-Image, icon, and video assets for **Envision Dallas — "Celebrating Independence: White Cane Day Walk"** at the **Dallas Zoo** (2026), plus the post-visit thank-you email (`VisitUs-EMAIL.html`).
+Photo, icon, and video assets for **Envision Dallas — "Celebrating Independence: White Cane Day Walk"** held at the **Dallas Zoo (2026)**, plus the post-visit thank-you email (`email/VisitUs-EMAIL.html`).
 
-Files keep their original camera/source names so existing references (e.g. the email's `hero.jpg`, `icon-*.png`, `soc-*.png`) stay intact. This catalog identifies what each photo actually shows.
+Everything is sorted into clearly-named folders, and every file has a descriptive name that says what the photo actually shows. If you need a specific picture, you can find it two ways:
 
-## Event photos
+1. **Browse the folders** below (or the tables in this README).
+2. **Read [`manifest.json`](manifest.json)** — a machine-readable index of every asset with a description and keyword tags, built for search tools and AI assistants.
+
+> Looking for a photo but not sure where it is? Search `manifest.json` for a keyword (e.g. `giraffe`, `braille`, `banner`, `tunnel`, `wheelchair`) — each entry lists the file's path, description, and tags.
+
+## Folder map
+
+```
+.
+├── event-photos/                 Photos from the White Cane Day Walk at the Dallas Zoo
+│   ├── the-walk/                 Participants walking/marching, canes raised, start banner
+│   ├── ceremony-and-program/     Seated audience and the outdoor program
+│   ├── animal-encounters/        Giraffe feeding, tortoise & opossum keeper presentations
+│   ├── registration-and-booths/  Check-in and the Envision info/braille booth
+│   ├── group-photos-and-portraits/  Posed group photos and portraits
+│   └── candid-moments/           Candid, close-up, and human-interest shots
+├── brand/                        Brand/marketing imagery (building exterior, logo video)
+└── email/                        The thank-you email template + its 7 image assets
+```
+
+## event-photos/the-walk
+
+| File | What it shows |
+| --- | --- |
+| `walk-participant-white-cane-tree-path.jpg` | A smiling woman holding a white cane walks a tree-lined zoo path beside a younger attendee in a "Rollin' to the Beat / Bowl-A-Thon" tee. |
+| `guided-walk-cane-user-with-escort.jpg` | A cane user in an Envision Dallas polo is sighted-guided arm-in-arm by a companion while another woman films on her phone. |
+| `two-women-walking-cane-user.jpg` | A blind woman with a white cane (navy skirt, clip-on fan) walks and chats with a younger woman companion. |
+| `participants-walking-boardwalk.jpg` | A stream of participants in lanyards and event shirts walking the zoo's wooden boardwalk. |
+| `crowd-behind-independence-banner.jpg` | A dense crowd, many raising white canes, marching behind the large green "…INDEPENDENCE" banner; a "White Cane Day" tee in front. |
+| `walk-start-banner-group-with-sponsors.jpg` | Wide marquee shot: the whole group behind the "Celebrating Independence — White Cane Day Walk — Dallas Zoo" start banner with sponsor logos (Southwest, Comerica, Atmos, ABC). |
+
+## event-photos/ceremony-and-program
+
+| File | What it shows |
+| --- | --- |
+| `audience-member-raising-white-cane.jpg` | A woman in a black-and-white floral top raises a folded white cane amid the seated crowd; a "U.S. Navy Veteran" cap nearby. |
+| `seated-audience-teal-shirts.jpg` | Wide shot of the seated audience in teal event shirts watching the program; wheelchair users in front, a Pepsi machine and PA speaker at right. |
+
+## event-photos/animal-encounters
+
+| File | What it shows |
+| --- | --- |
+| `giraffe-feeding-deck.jpg` | Attendees at the Dallas Zoo giraffe deck hold out lettuce to feed a giraffe leaning over the wooden enclosure. |
+| `zoo-keeper-tortoise-presentation.jpg` | Two Dallas Zoo keepers in purple polos present a tortoise beside the "White Cane Day Walk — Animal Encounter Sponsor" banner. |
+| `zoo-keeper-opossum-presentation.jpg` | A Dallas Zoo keeper with a microphone presents an opossum to the seated audience near the thatched-hut huts. |
+
+## event-photos/registration-and-booths
+
+| File | What it shows |
+| --- | --- |
+| `envision-info-booth-braille-demo.jpg` | The Envision Dallas info booth under a pavilion — staff demonstrate Perkins braille typewriters at a banner-draped table; visitors and children gather. |
+| `indoor-registration-check-in.jpg` | Indoor check-in in a lodge room with elephant-silhouette decor — a man in a white polo hands out materials at a black-draped table. |
+
+## event-photos/group-photos-and-portraits
+
+| File | What it shows |
+| --- | --- |
+| `group-portrait-boardwalk-navy-veteran.jpg` | Posed group of four by the boardwalk railing — a U.S. Navy veteran in a cap and three participants in Envision walk shirts. |
+| `delta-gamma-volunteers-group.jpg` | Seven smiling Delta Gamma sorority volunteers pose together on the zoo path. |
+| `family-portrait-led-tunnel.jpg` | A family with children poses under the colorful LED-lit tunnel ceiling; White Cane Day shirts and a folded cane. |
+| `large-group-portrait-led-tunnel.jpg` | A large multi-generational group (with a stroller) poses under the LED tunnel's blue/green light strips. |
+| `group-portrait-tunnel-mural.jpg` | A group of attendees poses in the mural tunnel, including cane users and a child in a stroller. |
+
+## event-photos/candid-moments
+
+| File | What it shows |
+| --- | --- |
+| `guest-waving-lanyard.jpg` | A smiling, balding man in a dark polo and lanyard waves at the camera during the event. |
+| `attendees-hug-at-concession-stand.jpg` | Two women share a warm hug in front of a Pepsi/Dole Whip concession stand; a baby in a stroller at left. |
+| `volunteer-handing-treat-to-child.jpg` | A volunteer bends down to hand a treat to a delighted young boy in blue near a shaded path. |
+| `white-cane-closeup-sneaker-keychain.jpg` | Close-up of a hand gripping a white cane, a small sneaker keychain tied to the grip; crowd blurred behind. |
+
+## brand/
+
+| File | What it shows |
+| --- | --- |
+| `envision-dallas-building-exterior.png` | Clean exterior photo of the Envision Dallas building (brown brick, blue/green logo signage) under a blue sky. |
+| `white-cane-day-logo-animation.mp4` | Animated hero/background video (1280×720, ~52 s, H.264): the "Celebrating Independence — White Cane Day Walk — Dallas Zoo" logo animating in. |
+
+## email/
+
+The post-visit thank-you email template and the 7 image files it references.
 
 | File | What it is |
 | --- | --- |
-| `A7407677.jpg` | Two walk participants on a tree-lined zoo path — a smiling woman holding a white cane walks beside a younger attendee wearing a "Rollin' to the Beat / 30th Annual Owl-A-Thon" T-shirt. |
-| `A7407826.jpg` | A smiling, balding man in a dark polo and lanyard waving at the camera during the event, other attendees behind him. |
-| `A7408232.jpg` | Seated crowd at the outdoor program — a woman in a black-and-white floral top raises a folded white cane; older attendees (one in a "U.S. Navy Veteran" cap) seated nearby. |
-| `A7408349.jpg` | Wide shot of the seated audience in teal volunteer/event shirts watching the program, wheelchair users in front, a Pepsi vending machine and PA speaker to the right. |
-| `A7408699.jpg` | Attendees at the Dallas Zoo giraffe-feeding deck — a young man and woman hold out lettuce to feed a giraffe leaning over the wooden enclosure. |
-| `DSC00289.jpg` | The **Envision Dallas** info/registration booth under a pavilion — staff demonstrate Perkins braille typewriters at a table with the Envision Dallas banner and tablecloth; visitors and children gathered around. |
-| `DSC00327.jpg` | Group of participants walking the zoo's wooden boardwalk during the walk; several wear lanyards and event shirts. |
-| `DSC00332.jpg` | Posed group of four — a Navy-veteran-capped man and three participants in Envision walk T-shirts standing by the boardwalk railing. |
-| `DSC09654.jpg` | Indoor check-in/registration inside a lodge-style room with elephant-silhouette decor — a man in a white polo and lanyard at a black-draped table handing out materials; staff and an attendee in the background. |
+| `VisitUs-EMAIL.html` | Responsive thank-you email for Envision Dallas. Image `src`s use a placeholder host (`REPLACE-WITH-YOUR-IMAGE-URL/`) — host the 7 files below and swap that base URL in before sending. |
+| `hero.jpg` | Email hero/banner: the Envision Dallas building with a navy overlay (1200×420). |
+| `icon-share.png` | Circular blue/green "Share" icon (share-node glyph). |
+| `icon-kroger.png` | Circular blue/green "Kroger Community Rewards" icon (shopping cart). |
+| `icon-donate.png` | Circular blue/green "Make a donation" icon (heart). |
+| `soc-facebook.png` | Facebook app-style icon. |
+| `soc-instagram.png` | Instagram app-style icon. |
+| `soc-linkedin.png` | LinkedIn app-style icon. |
 
-## Brand / marketing imagery
+> **Do not rename the 7 image files in `email/`.** The email's `<img>` tags reference them by these exact filenames. The event and brand photos, by contrast, can be renamed freely — nothing links to them.
 
-| File | What it is |
-| --- | --- |
-| `ChatGPT Image Apr 10, 2026 at 09_16_58 AM.png` | Exterior photo of the **Envision Dallas** building (brown brick, blue/green Envision Dallas logo signage) under a blue sky — AI-generated/edited image. |
-| `hero.jpg` | The Envision Dallas building exterior with a navy color overlay — the hero/banner image used at the top of `VisitUs-EMAIL.html`. |
-| `wcd-hero-bg.mp4` | Animated hero/background video (1280×720, ~52 s, H.264): the "Celebrating Independence — White Cane Day Walk — Dallas Zoo" logo animating in (white-cane motif, blue/green type). |
+---
 
-## UI icons (email)
-
-| File | What it is |
-| --- | --- |
-| `icon-share.png` | Circular blue/green icon with a white "share" node glyph — "Share" card in the email. |
-| `icon-kroger.png` | Circular blue/green icon with a white shopping cart — "Kroger Community Rewards" card. |
-| `icon-donate.png` | Circular blue/green icon with a white heart — "Make a donation" card. |
-
-## Social icons (email)
-
-| File | What it is |
-| --- | --- |
-| `soc-facebook.png` | Facebook "f" app-style icon (blue rounded square). |
-| `soc-instagram.png` | Instagram camera app-style icon (gradient rounded square). |
-| `soc-linkedin.png` | LinkedIn "in" app-style icon (blue rounded square). |
-
-## Other
-
-| File | What it is |
-| --- | --- |
-| `VisitUs-EMAIL.html` | Responsive post-visit thank-you email template for Envision Dallas (references `hero.jpg`, `icon-*.png`, `soc-*.png`; image URLs are placeholders to be hosted before sending). |
+*Every photo was individually reviewed to write these descriptions and the tags in `manifest.json`. Faces of event attendees appear throughout; use in line with Envision Dallas's photo-consent and privacy practices.*
