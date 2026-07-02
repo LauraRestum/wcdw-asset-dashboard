@@ -655,6 +655,7 @@ window.WCDW_MANIFEST = {
       "type": "image",
       "dimensions": "1200x300",
       "thumbnail": "dashboard/thumbnails/email-banners/every-step-counts.jpg",
+      "hosted_url": "https://mcusercontent.com/6e3f0d354d8de00f19f8da328/images/fa25a7da-4a37-b9c3-9565-cbddb8a83cdb.jpg",
       "description": "\u201cEvery step counts\u201d email banner: a crowd raising white canes beside a white panel with whitecanedaywalk.com and the Oct. 17, 2026 Dallas Zoo date.",
       "tags": [
         "email banner",

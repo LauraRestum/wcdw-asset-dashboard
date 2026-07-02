@@ -581,6 +581,7 @@
       kv += a.duration_seconds ? row("Duration", a.duration_seconds + " s") : '';
       kv += row("Type", a.type.toUpperCase());
       kv += row("Path", a.path);
+      kv += a.hosted_url ? ('<dt>Hosted URL</dt><dd><a href="'+esc(a.hosted_url)+'" target="_blank" rel="noopener">'+esc(a.hosted_url)+'</a></dd>') : '';
       kv += a.referenced_by ? row("Used by", a.referenced_by) : '';
       function row(k, v){ return '<dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd>'; }
 
@@ -599,10 +600,13 @@
           '<a class="btn primary" href="'+esc(a.path)+'" download>Download original</a>' +
           '<a class="btn" href="'+esc(a.path)+'" target="_blank" rel="noopener">Open in new tab</a>' +
           '<button class="btn js-copy2" type="button" data-path="'+esc(a.path)+'">Copy path</button>' +
+          (a.hosted_url ? '<button class="btn js-copyurl" type="button" data-url="'+esc(a.hosted_url)+'">Copy hosted URL</button>' : '') +
         '</div>' +
         '<p class="lb-note" style="background:transparent;border:0;padding:0">Asset '+(lbIndex+1)+' of '+current.length+'</p>';
 
       $(".js-copy2", lbPanel).addEventListener("click", function () { copyPath(a.path); });
+      var copyUrlBtn = $(".js-copyurl", lbPanel);
+      if (copyUrlBtn) copyUrlBtn.addEventListener("click", function () { copyPath(a.hosted_url); });
       $("#lbClose").focus();
     }
     function step(d) {

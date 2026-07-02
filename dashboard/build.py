@@ -75,7 +75,7 @@ def build_thumbnails():
 def enrich(manifest, thumbs):
     order = [
         "path", "filename", "category", "type", "dimensions", "duration_seconds",
-        "thumbnail", "referenced_by", "rename_locked", "description", "tags",
+        "thumbnail", "hosted_url", "referenced_by", "rename_locked", "description", "tags",
     ]
     clean = []
     for a in manifest["assets"]:
