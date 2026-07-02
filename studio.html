@@ -384,7 +384,7 @@
   <div class="modal-top"><i class="g"></i><i class="b"></i></div>
   <div class="modal-body"><button class="modal-x" onclick="closeModal()" aria-label="Close">×</button>
     <h3 id="mTitle"></h3><iframe id="mFrame" title="Email preview" hidden></iframe><img id="mImg" alt="" hidden><pre id="mBody"></pre>
-    <div class="modal-acts" id="mActs" hidden><button class="btn btn-green" id="mDl" type="button">Download</button></div>
+    <div class="modal-acts" id="mActs" hidden><button class="btn btn-green" id="mDl" type="button">Download</button><button class="btn btn-ghost" id="mCopy" type="button" hidden>Copy HTML</button></div>
   </div>
 </div></div>
 
@@ -468,6 +468,7 @@ function renderAssets(){grid.innerHTML='';
     const acts=el.querySelector('.acts');
     acts.appendChild(mkAct('View',()=>a.file?openEmail(a.t,getMail(a.file)):openModal(a.t,assetText(a))));
     acts.appendChild(mkAct('Download',()=>downloadAsset(a)));
+    if(a.file)acts.appendChild(mkAct('Copy HTML',(e)=>copyText(getMail(a.file),e.target,'HTML copied!')));
     if(a.mode&&!a.file)acts.appendChild(mkAct('Customize',()=>customizeAsset(a)));
     grid.appendChild(el);
   });
@@ -523,9 +524,13 @@ function previewInner(a){
 
 /* ---------- modal ---------- */
 function getMail(id){const e=document.getElementById(id);return e?e.textContent:'';}
-function resetModal(){const fr=$('mFrame');fr.hidden=true;fr.srcdoc='';const img=$('mImg');img.hidden=true;img.removeAttribute('src');$('mBody').hidden=true;$('mActs').hidden=true;$('mDl').onclick=null;}
+function resetModal(){const fr=$('mFrame');fr.hidden=true;fr.srcdoc='';const img=$('mImg');img.hidden=true;img.removeAttribute('src');$('mBody').hidden=true;$('mActs').hidden=true;$('mDl').onclick=null;const c=$('mCopy');c.hidden=true;c.onclick=null;c.textContent='Copy HTML';}
+function copyText(txt,btn,label){const done=()=>{const o=btn.textContent;btn.textContent=label||'Copied!';setTimeout(()=>{btn.textContent=o;},1400);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,()=>{legacyCopy(txt);done();});}
+  else{legacyCopy(txt);done();}}
+function legacyCopy(txt){const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);}
 function openModal(t,b){resetModal();$('mTitle').textContent=t;const pre=$('mBody');pre.hidden=false;pre.textContent=b;$('modal').classList.add('open');}
-function openEmail(t,html){resetModal();$('mTitle').textContent=t;const fr=$('mFrame');fr.hidden=false;fr.srcdoc=html;$('mActs').hidden=false;$('mDl').textContent='Download HTML';$('mDl').onclick=()=>dl(new Blob([html],{type:'text/html'}),'wcdw-'+slug(t)+'.html');$('modal').classList.add('open');}
+function openEmail(t,html){resetModal();$('mTitle').textContent=t;const fr=$('mFrame');fr.hidden=false;fr.srcdoc=html;$('mActs').hidden=false;$('mDl').textContent='Download HTML';$('mDl').onclick=()=>dl(new Blob([html],{type:'text/html'}),'wcdw-'+slug(t)+'.html');const c=$('mCopy');c.hidden=false;c.onclick=()=>copyText(html,c,'HTML copied!');$('modal').classList.add('open');}
 function openPhoto(im){resetModal();$('mTitle').textContent=im.name||'Event photo';const img=$('mImg');img.hidden=false;img.src=im.src;img.alt=im.name||'';$('mActs').hidden=false;$('mDl').textContent='Download image';$('mDl').onclick=()=>downloadPhoto(im);$('modal').classList.add('open');}
 function closeModal(){$('modal').classList.remove('open');resetModal();}
 document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal();};
