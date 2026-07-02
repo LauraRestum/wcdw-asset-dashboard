@@ -151,7 +151,7 @@ The post-visit thank-you email template and the 7 image files it references.
 | `soc-instagram.png` | Instagram app-style icon. |
 | `soc-linkedin.png` | LinkedIn app-style icon. |
 
-> **Do not rename the 7 image files in `email/`.** The email's `<img>` tags reference them by these exact filenames. If you rename or move an `event-photos/` file, also update its path in the `PHOTO_FILES` list near the top of `index.html`, or that tile will drop out of the studio's image picker.
+> **Do not rename the 7 image files in `email/`.** The email's `<img>` tags reference them by these exact filenames. If you rename or move an `event-photos/` file, also update its path in the `PHOTO_FILES` list near the top of `studio.html`, or that tile will drop out of the studio's image picker.
 
 ---
 
