@@ -26,11 +26,27 @@ The gallery uses small thumbnails in `dashboard/thumbnails/` (≈1.5 MB total) i
 1. **Browse the folders** below (or the per-collection tables further down).
 2. **Read [`manifest.json`](manifest.json)** — a machine-readable index of every asset with a description and keyword tags, built for search tools and AI assistants. Each entry lists the file's path, type, dimensions, description, and tags.
 
+## Campaign Studio (`studio.html`)
+
+`studio.html` at the repo root is a self-contained studio for building on-brand White Cane Day Walk assets (emails, graphics, social posts) from preapproved copy. No build step — just open it from any static server. (The site home page, `index.html`, is the asset dashboard described above.)
+
+Its Graphic and Email image pickers load photos from `event-photos/`, wired up by two lines near the top of the `<script>`:
+
+```js
+const PHOTO_BASE='event-photos/';                              // where the photos live
+const PHOTO_FILES=['the-walk/walk-participant-white-cane-tree-path.jpg', ...];  // paths relative to PHOTO_BASE
+```
+
+To add, remove, or swap photos in the picker, edit `PHOTO_FILES`. Photos load same-origin (or cross-origin with `crossOrigin='anonymous'`), so PNG export from the graphic generator works without tainting the canvas.
+
+Run locally with any static server, e.g. `python3 -m http.server 5173` then open <http://localhost:5173/studio.html>.
+
 ## Folder map
 
 ```
 .
 ├── index.html                    The asset dashboard (open this)
+├── studio.html                   Campaign Studio: build emails/graphics/social from preapproved copy
 ├── manifest.json                 Machine-readable index of every asset (source of truth)
 ├── dashboard/                    Dashboard build output
 │   ├── build.py                  Regenerates thumbnails + data.js from the assets & manifest
@@ -135,7 +151,7 @@ The post-visit thank-you email template and the 7 image files it references.
 | `soc-instagram.png` | Instagram app-style icon. |
 | `soc-linkedin.png` | LinkedIn app-style icon. |
 
-> **Do not rename the 7 image files in `email/`.** The email's `<img>` tags reference them by these exact filenames. The event and brand photos, by contrast, can be renamed freely — nothing links to them.
+> **Do not rename the 7 image files in `email/`.** The email's `<img>` tags reference them by these exact filenames. If you rename or move an `event-photos/` file, also update its path in the `PHOTO_FILES` list near the top of `studio.html`, or that tile will drop out of the studio's image picker.
 
 ---
 
