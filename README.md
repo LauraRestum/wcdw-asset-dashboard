@@ -9,6 +9,21 @@ Everything is sorted into clearly-named folders, and every file has a descriptiv
 
 > Looking for a photo but not sure where it is? Search `manifest.json` for a keyword (e.g. `giraffe`, `braille`, `banner`, `tunnel`, `wheelchair`) — each entry lists the file's path, description, and tags.
 
+## Campaign Studio (`index.html`)
+
+`index.html` at the repo root is a self-contained studio for building on-brand White Cane Day Walk assets (emails, graphics, social posts) from preapproved copy. No build step — just open it from any static server.
+
+Its Graphic and Email image pickers load photos from `event-photos/`, wired up by two lines near the top of the `<script>`:
+
+```js
+const PHOTO_BASE='event-photos/';                              // where the photos live
+const PHOTO_FILES=['the-walk/walk-participant-white-cane-tree-path.jpg', ...];  // paths relative to PHOTO_BASE
+```
+
+To add, remove, or swap photos in the picker, edit `PHOTO_FILES`. Photos load same-origin (or cross-origin with `crossOrigin='anonymous'`), so PNG export from the graphic generator works without tainting the canvas.
+
+Run locally with any static server, e.g. `python3 -m http.server 5173` then open <http://localhost:5173>. Deploy as a static site (e.g. `vercel --prod`) — `index.html` is the site root.
+
 ## Folder map
 
 ```
@@ -98,7 +113,7 @@ The post-visit thank-you email template and the 7 image files it references.
 | `soc-instagram.png` | Instagram app-style icon. |
 | `soc-linkedin.png` | LinkedIn app-style icon. |
 
-> **Do not rename the 7 image files in `email/`.** The email's `<img>` tags reference them by these exact filenames. The event and brand photos, by contrast, can be renamed freely — nothing links to them.
+> **Do not rename the 7 image files in `email/`.** The email's `<img>` tags reference them by these exact filenames. If you rename or move an `event-photos/` file, also update its path in the `PHOTO_FILES` list near the top of `index.html`, or that tile will drop out of the studio's image picker.
 
 ---
 
