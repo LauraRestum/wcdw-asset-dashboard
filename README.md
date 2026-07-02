@@ -30,16 +30,11 @@ The gallery uses small thumbnails in `dashboard/thumbnails/` (≈1.5 MB total) i
 
 `studio.html` at the repo root is a self-contained studio for building on-brand White Cane Day Walk assets (emails, graphics, social posts) from preapproved copy. No build step — just open it from any static server. (The site home page, `index.html`, is the asset dashboard described above.)
 
-Its Graphic and Email image pickers load photos from `event-photos/`, wired up by two lines near the top of the `<script>`:
+Its Graphic and Email image pickers **populate the photo library from [`manifest.json`](manifest.json)** at runtime — the same source of truth the dashboard uses — so the two never drift. It picks up every `type: "image"` asset whose path starts with `event-photos/`, shows the web-sized `thumbnail` (`dashboard/thumbnails/…`) on each tile for speed, and uses the full-resolution original (`path`) as the graphic background / email hero when a tile is selected. Both are same-origin, so PNG export never taints the canvas.
 
-```js
-const PHOTO_BASE='event-photos/';                              // where the photos live
-const PHOTO_FILES=['the-walk/walk-participant-white-cane-tree-path.jpg', ...];  // paths relative to PHOTO_BASE
-```
+To add, remove, or swap photos in the picker, edit `manifest.json` and run `python3 dashboard/build.py` (see [Adding or changing assets](#adding-or-changing-assets)) — the new photo appears in both the dashboard and the studio automatically.
 
-To add, remove, or swap photos in the picker, edit `PHOTO_FILES`. Photos load same-origin (or cross-origin with `crossOrigin='anonymous'`), so PNG export from the graphic generator works without tainting the canvas.
-
-Run locally with any static server, e.g. `python3 -m http.server 5173` then open <http://localhost:5173/studio.html>.
+Because the library is fetched, `studio.html` must be **served over http**, not opened from `file://`. Run any static server, e.g. `python3 -m http.server 5173` then open <http://localhost:5173/studio.html>.
 
 ## Folder map
 

@@ -509,16 +509,38 @@ const SUBBODIES=[{label:'None',text:''},{label:'Funds-raised line',text:'Funds r
 function opt(html,pressed,fn){const b=document.createElement('button');b.className='opt';b.innerHTML=html;b.setAttribute('aria-pressed',pressed);b.onclick=fn;return b;}
 function trunc(s,n){s=s||'';return s.length>n?s.slice(0,n).trim()+'\u2026':s;}
 function ph(label,c1,c2){return 'data:image/svg+xml,'+encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 300'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='"+c1+"'/><stop offset='1' stop-color='"+c2+"'/></linearGradient></defs><rect width='600' height='300' fill='url(#g)'/><rect width='132' height='7' fill='#78BE21'/><text x='40' y='158' font-family='Montserrat,Arial' font-size='34' font-weight='800' fill='#ffffff'>"+label+"</text><text x='40' y='192' font-family='Montserrat,Arial' font-size='15' fill='#cdd8ea'>Placeholder, swap for a real photo</text></svg>");}
-const PHOTO_BASE='event-photos/'; /* repo folder holding the White Cane Day Walk photos; each PHOTO_FILES entry is a path relative to this base. Change to '' if the photos sit next to index.html, or to a raw URL prefix */
-const PHOTO_FILES=['the-walk/walk-participant-white-cane-tree-path.jpg','the-walk/guided-walk-cane-user-with-escort.jpg','the-walk/two-women-walking-cane-user.jpg','the-walk/participants-walking-boardwalk.jpg','the-walk/walk-start-banner-group-with-sponsors.jpg','the-walk/crowd-behind-independence-banner.jpg','ceremony-and-program/seated-audience-teal-shirts.jpg','ceremony-and-program/audience-member-raising-white-cane.jpg','animal-encounters/giraffe-feeding-deck.jpg','animal-encounters/zoo-keeper-tortoise-presentation.jpg','animal-encounters/zoo-keeper-opossum-presentation.jpg','registration-and-booths/indoor-registration-check-in.jpg','registration-and-booths/envision-info-booth-braille-demo.jpg','group-photos-and-portraits/delta-gamma-volunteers-group.jpg','group-photos-and-portraits/family-portrait-led-tunnel.jpg','group-photos-and-portraits/large-group-portrait-led-tunnel.jpg','group-photos-and-portraits/group-portrait-tunnel-mural.jpg','group-photos-and-portraits/group-portrait-boardwalk-navy-veteran.jpg','candid-moments/attendees-hug-at-concession-stand.jpg','candid-moments/guest-waving-lanyard.jpg','candid-moments/volunteer-handing-treat-to-child.jpg','candid-moments/white-cane-closeup-sneaker-keychain.jpg'];
-const LIBRARY=PHOTO_FILES.map(f=>({name:f.split('/').pop().replace(/\.[^.]+$/,'').replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()),src:PHOTO_BASE+f}));
+/* The photo library is populated at runtime from the dashboard's manifest.json
+   (the single source of truth), so the studio and dashboard never drift. Every
+   type:"image" asset under event-photos/ becomes a tile: the tile shows the
+   web-sized thumbnail (dashboard/thumbnails/…) for speed, while selecting it
+   uses the full-resolution original (path) as the graphic background / email
+   hero. Both are same-origin, so the export canvas is never tainted.
+   If manifest.json moves, update MANIFEST_URL below. */
+const MANIFEST_URL='manifest.json';
+let LIBRARY=[];           /* [{name, src(full-res path), thumb(thumbnail), cat}] */
+let libState='loading';   /* 'loading' | 'ready' | 'error' */
+function titleFromPath(p){return (p||'').split('/').pop().replace(/\.[^.]+$/,'').replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase());}
+function loadLibrary(){
+  return fetch(MANIFEST_URL,{cache:'no-cache'})
+    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+    .then(m=>{
+      LIBRARY=(m.assets||[])
+        .filter(a=>a.type==='image'&&a.thumbnail&&/^event-photos\//.test(a.path||''))
+        .map(a=>({name:a.description||titleFromPath(a.path),src:a.path,thumb:a.thumbnail,cat:a.category||''}));
+      libState=LIBRARY.length?'ready':'error';
+    })
+    .catch(e=>{console.warn('Could not load photo library from '+MANIFEST_URL+':',e);LIBRARY=[];libState='error';});
+}
 
 function buildBanner(){const c=$('bannerOpts');c.innerHTML='';
   [['none','No banner','Just the header'],['graphic','Graphic','Navy WCDW banner'],['photo','Photo','Library or upload']].forEach(([v,l,d])=>
     c.appendChild(opt('<span class="o-l">'+l+'</span><span class="o-t">'+d+'</span>',bannerStyle===v,()=>{bannerStyle=v;$('b-image').hidden=!(mode==='email'&&v==='photo');buildBanner();render();})));}
 function buildLib(){const c=$('libOpts');c.innerHTML='';
   c.appendChild(opt('<span class="o-l">None</span>Solid navy',$('f-img').value==='',()=>{$('f-img').value='';buildLib();render();}));
-  LIBRARY.forEach(im=>{const b=document.createElement('button');b.className='libtile';b.style.backgroundImage='url("'+im.src+'")';b.title=im.name;
+  if(!LIBRARY.length){const s=document.createElement('span');s.className='o-t';s.style.padding='6px 4px';
+    s.textContent=libState==='loading'?'Loading photo library from manifest.json…':'Photo library unavailable — manifest.json could not be read (serve over http, not file://).';
+    c.appendChild(s);return;}
+  LIBRARY.forEach(im=>{const b=document.createElement('button');b.className='libtile';b.style.backgroundImage='url("'+(im.thumb||im.src)+'")';b.title=im.name;
     b.setAttribute('aria-pressed',$('f-img').value===im.src);b.onclick=()=>{$('f-img').value=im.src;buildLib();render();};c.appendChild(b);});}
 function buildHead(){const c=$('headOpts');c.innerHTML='';
   HEADERS.forEach(h=>c.appendChild(opt(h,$('f-head').value===h,()=>{$('f-head').value=h;buildHead();render();})));}
@@ -686,6 +708,7 @@ function showTab(id){['assets','gen'].forEach(t=>{$('p-'+t).hidden=t!==id;$('t-'
 
 /* init */
 buildBanner();buildLib();buildSub();buildAdjust();applyAudience();setMode('email');
+loadLibrary().then(()=>{buildLib();render();});
 </script>
 <script type="text/html" id="mail01"><!DOCTYPE html>
 <html lang="en">
