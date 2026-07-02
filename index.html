@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WCDW Asset Dashboard — Envision Dallas White Cane Day Walk</title>
+<meta name="description" content="Browse, search, and download photo, brand, and email assets for the Envision Dallas Celebrating Independence: White Cane Day Walk at the Dallas Zoo (2026).">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231c5cab'/%3E%3Cpath d='M9 22 L20 8' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='21' cy='7' r='2.5' fill='white'/%3E%3C/svg%3E">
+<style>
+  :root {
+    /* Surfaces & ink (light) */
+    --page:        #f9f9f7;
+    --surface:     #ffffff;
+    --surface-2:   #f4f4f1;
+    --ink:         #0b0b0b;
+    --ink-2:       #52514e;
+    --muted:       #6f6e69;
+    --hairline:    #e1e0d9;
+    --ring:        rgba(11,11,11,.10);
+    /* Brand accents (Envision blue/green) */
+    --accent:      #1c5cab;   /* blue */
+    --accent-ink:  #ffffff;
+    --accent-soft: #e8f0fb;
+    --aqua:        #0f8f63;
+    --focus:       #2a78d6;
+    /* Category hues */
+    --c-walk:      #2a78d6;
+    --c-ceremony:  #0f8f63;
+    --c-animals:   #b9791a;
+    --c-register:  #008300;
+    --c-group:     #5a49c0;
+    --c-candid:    #c0567f;
+    --c-brand:     #cf5a2c;
+    --c-email:     #cf3a3a;
+    --shadow:      0 1px 2px rgba(11,11,11,.06), 0 6px 20px rgba(11,11,11,.06);
+    --radius:      14px;
+  }
+  html[data-theme="dark"] {
+    --page:        #0d0d0d;
+    --surface:     #1a1a19;
+    --surface-2:   #232321;
+    --ink:         #ffffff;
+    --ink-2:       #c3c2b7;
+    --muted:       #9a988f;
+    --hairline:    #2c2c2a;
+    --ring:        rgba(255,255,255,.12);
+    --accent:      #3987e5;
+    --accent-ink:  #0b0b0b;
+    --accent-soft: #16273d;
+    --aqua:        #199e70;
+    --focus:       #5598e7;
+    --c-walk:      #5598e7;
+    --c-ceremony:  #1baf7a;
+    --c-animals:   #d99a2b;
+    --c-register:  #3fae3f;
+    --c-group:     #9085e9;
+    --c-candid:    #d55181;
+    --c-brand:     #e0724a;
+    --c-email:     #e66767;
+    --shadow:      0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    html[data-theme="auto"] {
+      --page:#0d0d0d;--surface:#1a1a19;--surface-2:#232321;--ink:#fff;--ink-2:#c3c2b7;
+      --muted:#9a988f;--hairline:#2c2c2a;--ring:rgba(255,255,255,.12);--accent:#3987e5;
+      --accent-ink:#0b0b0b;--accent-soft:#16273d;--aqua:#199e70;--focus:#5598e7;
+      --c-walk:#5598e7;--c-ceremony:#1baf7a;--c-animals:#d99a2b;--c-register:#3fae3f;
+      --c-group:#9085e9;--c-candid:#d55181;--c-brand:#e0724a;--c-email:#e66767;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--page);
+    color: var(--ink);
+    font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); }
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  .skip {
+    position: absolute; left: 12px; top: -60px;
+    background: var(--surface); color: var(--ink);
+    padding: 10px 16px; border-radius: 10px; z-index: 100;
+    box-shadow: var(--shadow); transition: top .15s;
+  }
+  .skip:focus { top: 12px; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+
+  /* Header */
+  header.site {
+    background: var(--surface);
+    border-bottom: 1px solid var(--hairline);
+    position: sticky; top: 0; z-index: 40;
+  }
+  .site .wrap { display: flex; align-items: center; gap: 16px; padding: 14px 20px; }
+  .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .brand .mark {
+    flex: none; width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--aqua));
+    display: grid; place-items: center; color: #fff; font-weight: 700;
+  }
+  .brand h1 { font-size: 17px; margin: 0; line-height: 1.2; letter-spacing: -.01em; }
+  .brand p { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .site .spacer { flex: 1; }
+  .iconbtn {
+    flex: none; display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface-2); color: var(--ink); border: 1px solid var(--hairline);
+    border-radius: 999px; padding: 8px 14px; font: inherit; font-size: 13px; cursor: pointer;
+  }
+  .iconbtn:hover { border-color: var(--accent); }
+
+  /* Hero + stats */
+  .hero { padding: 28px 0 6px; }
+  .hero h2 { margin: 0 0 4px; font-size: 22px; letter-spacing: -.02em; }
+  .hero .lede { margin: 0 0 20px; color: var(--ink-2); max-width: 70ch; }
+  .stats {
+    display: grid; gap: 14px;
+    grid-template-columns: 1.4fr repeat(4, 1fr);
+  }
+  @media (max-width: 860px){ .stats { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px){ .stats { grid-template-columns: 1fr 1fr; } }
+  .tile {
+    background: var(--surface); border: 1px solid var(--hairline);
+    border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow);
+  }
+  .tile .label { font-size: 12.5px; color: var(--muted); text-transform: none; }
+  .tile .value { font-size: 30px; font-weight: 650; letter-spacing: -.02em; margin-top: 4px; }
+  .tile.hero-tile { background: linear-gradient(150deg, var(--accent), #14477f); border: none; color: #fff; }
+  .tile.hero-tile .label { color: rgba(255,255,255,.85); }
+  .tile.hero-tile .value { font-size: 44px; }
+
+  /* Controls */
+  .controls { margin: 26px 0 8px; display: grid; gap: 14px; }
+  .searchrow { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .search {
+    flex: 1 1 320px; display: flex; align-items: center; gap: 10px;
+    background: var(--surface); border: 1px solid var(--hairline);
+    border-radius: 999px; padding: 0 16px; min-height: 46px;
+  }
+  .search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .search svg { flex: none; color: var(--muted); }
+  .search input {
+    flex: 1; border: 0; background: transparent; color: var(--ink);
+    font: inherit; font-size: 15px; padding: 12px 0; min-width: 0;
+  }
+  .search input:focus { outline: none; }
+  .search .clear { border:0; background:transparent; color:var(--muted); cursor:pointer; font-size:20px; line-height:1; padding:6px; border-radius:8px; }
+  select.sort {
+    font: inherit; padding: 12px 14px; border-radius: 999px;
+    border: 1px solid var(--hairline); background: var(--surface); color: var(--ink);
+    min-height: 46px; cursor: pointer;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--hairline); color: var(--ink);
+    border-radius: 999px; padding: 8px 14px; font: inherit; font-size: 13px; cursor: pointer;
+    transition: background .12s, border-color .12s;
+  }
+  .chip .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); flex: none; }
+  .chip .n { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .chip:hover { border-color: var(--accent); }
+  .chip[aria-pressed="true"] {
+    background: var(--accent); border-color: var(--accent); color: var(--accent-ink);
+  }
+  .chip[aria-pressed="true"] .n { color: var(--accent-ink); opacity: .85; }
+  .chip[aria-pressed="true"] .dot { background: currentColor; }
+
+  .resultbar { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 18px 0 12px; flex-wrap: wrap; }
+  .resultbar .count { color: var(--ink-2); font-size: 14px; }
+  .resultbar .count b { color: var(--ink); }
+
+  /* Gallery */
+  .grid {
+    display: grid; gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    padding-bottom: 40px;
+  }
+  .card {
+    background: var(--surface); border: 1px solid var(--hairline);
+    border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+  }
+  .card .thumbbtn {
+    display: block; width: 100%; padding: 0; border: 0; cursor: pointer;
+    background: var(--surface-2); position: relative; aspect-ratio: 3 / 2; overflow: hidden;
+  }
+  .card .thumbbtn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card .thumbbtn.icon-fit img { object-fit: contain; padding: 22px; background: repeating-conic-gradient(var(--surface-2) 0% 25%, var(--surface) 0% 50%) 0 0 / 22px 22px; }
+  .card .thumbbtn:hover img { transform: scale(1.03); }
+  .card .thumbbtn img { transition: transform .25s ease; }
+  .badge-type {
+    position: absolute; left: 10px; top: 10px; display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(11,11,11,.72); color: #fff; border-radius: 999px;
+    padding: 5px 10px; font-size: 11.5px; font-weight: 600; letter-spacing: .02em; backdrop-filter: blur(4px);
+  }
+  .badge-lock {
+    position: absolute; right: 10px; top: 10px; display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(207,58,58,.92); color: #fff; border-radius: 999px; padding: 5px 10px; font-size: 11px; font-weight: 600;
+  }
+  .videoplay {
+    position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none;
+  }
+  .videoplay span {
+    width: 58px; height: 58px; border-radius: 50%; background: rgba(11,11,11,.6);
+    display: grid; place-items: center; color: #fff;
+  }
+  .card .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .card .cat { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--ink-2); font-weight: 600; }
+  .card .cat .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .card h3 { margin: 0; font-size: 14px; font-weight: 600; word-break: break-word; }
+  .card .desc {
+    margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.5;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .card .foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 4px; }
+  .card .dims { font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .miniacts { display: flex; gap: 6px; }
+  .miniacts button, .miniacts a {
+    display: inline-grid; place-items: center; width: 34px; height: 34px;
+    border-radius: 9px; border: 1px solid var(--hairline); background: var(--surface);
+    color: var(--ink-2); cursor: pointer; text-decoration: none;
+  }
+  .miniacts button:hover, .miniacts a:hover { border-color: var(--accent); color: var(--accent); }
+
+  .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+  .empty h3 { color: var(--ink); margin: 0 0 6px; }
+
+  /* Lightbox */
+  dialog.lb {
+    padding: 0; border: 0; background: transparent; max-width: 100vw; max-height: 100vh;
+    width: 100%; height: 100%; margin: 0;
+  }
+  dialog.lb::backdrop { background: rgba(6,6,6,.82); backdrop-filter: blur(3px); }
+  .lb-inner {
+    display: grid; grid-template-columns: minmax(0,1fr) 340px; height: 100vh;
+  }
+  @media (max-width: 880px){ .lb-inner { grid-template-columns: 1fr; grid-template-rows: 1fr auto; } }
+  .lb-stage {
+    position: relative; display: grid; place-items: center; padding: 24px; min-height: 0; min-width: 0;
+  }
+  .lb-stage img, .lb-stage video { max-width: 100%; max-height: calc(100vh - 48px); border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,.5); }
+  .lb-stage iframe { width: 100%; height: calc(100vh - 48px); border: 0; border-radius: 8px; background: #fff; }
+  .lb-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 46px; height: 46px; border-radius: 50%; border: 0; cursor: pointer;
+    background: rgba(255,255,255,.14); color: #fff; display: grid; place-items: center;
+  }
+  .lb-nav:hover { background: rgba(255,255,255,.28); }
+  .lb-nav.prev { left: 14px; } .lb-nav.next { right: 14px; }
+  .lb-panel {
+    background: var(--surface); color: var(--ink); padding: 22px; overflow-y: auto;
+    border-left: 1px solid var(--hairline); display: flex; flex-direction: column; gap: 14px;
+  }
+  .lb-panel .cat { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--ink-2); }
+  .lb-panel .cat .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .lb-panel h2 { margin: 0; font-size: 18px; line-height: 1.3; word-break: break-word; }
+  .lb-panel .desc { margin: 0; color: var(--ink-2); font-size: 14px; }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; font-size: 13px; }
+  .kv dt { color: var(--muted); }
+  .kv dd { margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; word-break: break-all; }
+  .taglist { display: flex; flex-wrap: wrap; gap: 6px; }
+  .taglist span { background: var(--surface-2); border: 1px solid var(--hairline); color: var(--ink-2); border-radius: 999px; padding: 4px 10px; font-size: 12px; }
+  .lb-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; font: inherit; font-size: 13.5px;
+    padding: 10px 14px; border-radius: 10px; cursor: pointer; text-decoration: none;
+    border: 1px solid var(--hairline); background: var(--surface); color: var(--ink);
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn:hover { border-color: var(--accent); }
+  .btn.primary:hover { filter: brightness(1.05); }
+  .lb-close {
+    position: fixed; top: 14px; right: 14px; z-index: 3; width: 42px; height: 42px; border-radius: 50%;
+    border: 0; background: rgba(255,255,255,.16); color: #fff; cursor: pointer; display: grid; place-items: center;
+  }
+  .lb-close:hover { background: rgba(255,255,255,.3); }
+  .lb-note { font-size: 12px; color: var(--muted); background: var(--surface-2); border-radius: 8px; padding: 10px 12px; border: 1px solid var(--hairline); }
+
+  footer.site { border-top: 1px solid var(--hairline); background: var(--surface); margin-top: 20px; }
+  footer.site .wrap { padding: 22px 20px 34px; color: var(--muted); font-size: 13px; }
+  footer.site a { color: var(--accent); }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: var(--page); padding: 11px 18px; border-radius: 999px;
+    font-size: 13.5px; box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 90;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+    .card .thumbbtn img { transition: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#gallery">Skip to asset gallery</a>
+
+<header class="site">
+  <div class="wrap">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">WC</div>
+      <div>
+        <h1>WCDW Asset Dashboard</h1>
+        <p>Envision Dallas · White Cane Day Walk · Dallas Zoo 2026</p>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <button class="iconbtn" id="themeBtn" type="button" aria-pressed="false">
+      <span id="themeIcon" aria-hidden="true">◐</span><span id="themeLabel">Theme</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero" aria-labelledby="hero-h">
+    <h2 id="hero-h">Media library</h2>
+    <p class="lede">Every photo, brand asset, and email image for the “Celebrating Independence” White Cane Day Walk, searchable by description and keyword. Click any asset to preview it full size and copy or download the original file.</p>
+    <div class="stats" id="stats" role="group" aria-label="Library summary"></div>
+  </section>
+
+  <section class="wrap controls" aria-label="Filter assets">
+    <div class="searchrow">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+        <label class="sr-only" for="q">Search assets by keyword, description, or file name</label>
+        <input id="q" type="search" placeholder="Search “giraffe”, “braille”, “banner”, “tunnel”…" autocomplete="off">
+        <button class="clear" id="clearQ" type="button" aria-label="Clear search" hidden>×</button>
+      </div>
+      <label class="sr-only" for="sort">Sort assets</label>
+      <select class="sort" id="sort">
+        <option value="group">Sort: by collection</option>
+        <option value="az">Sort: file name A–Z</option>
+        <option value="res">Sort: largest first</option>
+      </select>
+    </div>
+    <div class="chips" id="cats" role="group" aria-label="Filter by collection"></div>
+  </section>
+
+  <div class="wrap resultbar">
+    <p class="count" id="count" aria-live="polite" role="status"></p>
+  </div>
+
+  <div class="wrap">
+    <div class="grid" id="gallery"></div>
+    <div class="empty" id="empty" hidden>
+      <h3>No assets match your filters</h3>
+      <p>Try a different keyword or choose “All collections”.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p style="margin:0 0 8px"><strong style="color:var(--ink)">Source of truth:</strong> <a href="manifest.json">manifest.json</a> indexes every asset with a description and keyword tags. This dashboard is generated from it — run <code>python3 dashboard/build.py</code> after adding files.</p>
+    <p style="margin:0">The 7 image files in <code>email/</code> keep fixed names (the email template references them). Photos contain identifiable attendees — use per Envision Dallas photo-consent and privacy practices.</p>
+  </div>
+</footer>
+
+<dialog class="lb" id="lb" aria-label="Asset preview">
+  <button class="lb-close" id="lbClose" type="button" aria-label="Close preview">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="lb-inner">
+    <div class="lb-stage" id="lbStage">
+      <button class="lb-nav prev" id="lbPrev" type="button" aria-label="Previous asset">‹</button>
+      <div id="lbMedia"></div>
+      <button class="lb-nav next" id="lbNext" type="button" aria-label="Next asset">›</button>
+    </div>
+    <aside class="lb-panel" id="lbPanel" aria-live="polite"></aside>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="dashboard/data.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var CAT_META = {
+    "the-walk":                  { label: "The walk",            color: "var(--c-walk)" },
+    "ceremony-and-program":      { label: "Ceremony & program",  color: "var(--c-ceremony)" },
+    "animal-encounters":         { label: "Animal encounters",   color: "var(--c-animals)" },
+    "registration-and-booths":   { label: "Registration & booths", color: "var(--c-register)" },
+    "group-photos-and-portraits":{ label: "Groups & portraits",  color: "var(--c-group)" },
+    "candid-moments":            { label: "Candid moments",      color: "var(--c-candid)" },
+    "brand":                     { label: "Brand",               color: "var(--c-brand)" },
+    "email":                     { label: "Email",               color: "var(--c-email)" }
+  };
+  function catLabel(c){ return (CAT_META[c] && CAT_META[c].label) || c; }
+  function catColor(c){ return (CAT_META[c] && CAT_META[c].color) || "var(--muted)"; }
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var esc = function (s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c];
+    });
+  };
+  function area(dim){ if(!dim) return 0; var p=String(dim).split("x"); return (+p[0]||0)*(+p[1]||0); }
+
+  // ---- Load data (embedded generated file, with fetch fallback) ----
+  function boot(data) {
+    if (!data || !data.assets) { fatal(); return; }
+    var ASSETS = data.assets.slice();
+    var state = { q: "", cat: "all", sort: "group" };
+
+    // Stats
+    var groupOf = function (p) { return p.split("/")[0]; };
+    var total = ASSETS.length;
+    var nEvent = ASSETS.filter(function(a){ return groupOf(a.path) === "event-photos"; }).length;
+    var nBrand = ASSETS.filter(function(a){ return groupOf(a.path) === "brand"; }).length;
+    var nEmail = ASSETS.filter(function(a){ return groupOf(a.path) === "email"; }).length;
+    var nCats  = Object.keys(data.categories || {}).length ||
+                 Object.keys(ASSETS.reduce(function(m,a){ m[a.category]=1; return m; },{})).length;
+    var statsHtml =
+      tile("Total assets", total, true) +
+      tile("Event photos", nEvent) +
+      tile("Brand assets", nBrand) +
+      tile("Email assets", nEmail) +
+      tile("Collections", nCats);
+    $("#stats").innerHTML = statsHtml;
+    function tile(label, value, hero){
+      return '<div class="tile'+(hero?' hero-tile':'')+'">' +
+        '<div class="label">'+esc(label)+'</div>' +
+        '<div class="value">'+value+'</div></div>';
+    }
+
+    // Category chips (ordered by CAT_META, then any extras)
+    var counts = ASSETS.reduce(function (m, a) { m[a.category] = (m[a.category]||0)+1; return m; }, {});
+    var order = Object.keys(CAT_META).filter(function(c){ return counts[c]; });
+    Object.keys(counts).forEach(function(c){ if (order.indexOf(c)===-1) order.push(c); });
+    var chips = ['<button class="chip" role="button" data-cat="all" aria-pressed="true">' +
+      '<span class="dot" style="background:var(--ink-2)"></span>All collections <span class="n">'+total+'</span></button>'];
+    order.forEach(function (c) {
+      chips.push('<button class="chip" data-cat="'+esc(c)+'" aria-pressed="false">' +
+        '<span class="dot" style="background:'+catColor(c)+'"></span>'+esc(catLabel(c))+
+        ' <span class="n">'+counts[c]+'</span></button>');
+    });
+    $("#cats").innerHTML = chips.join("");
+    $("#cats").addEventListener("click", function (e) {
+      var b = e.target.closest(".chip"); if (!b) return;
+      state.cat = b.getAttribute("data-cat");
+      Array.prototype.forEach.call($("#cats").children, function (el) {
+        el.setAttribute("aria-pressed", el === b ? "true" : "false");
+      });
+      render();
+    });
+
+    // Search + sort
+    var qEl = $("#q"), clearBtn = $("#clearQ");
+    qEl.addEventListener("input", function () {
+      state.q = qEl.value.trim().toLowerCase();
+      clearBtn.hidden = !qEl.value;
+      render();
+    });
+    clearBtn.addEventListener("click", function () {
+      qEl.value = ""; state.q = ""; clearBtn.hidden = true; qEl.focus(); render();
+    });
+    $("#sort").addEventListener("change", function (e) { state.sort = e.target.value; render(); });
+
+    // Filtering
+    var current = [];
+    function matches(a) {
+      if (state.cat !== "all" && a.category !== state.cat) return false;
+      if (!state.q) return true;
+      var hay = [a.filename, a.path, a.description, catLabel(a.category)]
+        .concat(a.tags || []).join(" ").toLowerCase();
+      return state.q.split(/\s+/).every(function (t) { return hay.indexOf(t) !== -1; });
+    }
+    function sortList(list) {
+      var s = state.sort;
+      if (s === "az") return list.sort(function(a,b){ return a.filename.localeCompare(b.filename); });
+      if (s === "res") return list.sort(function(a,b){ return area(b.dimensions)-area(a.dimensions); });
+      var ord = order;
+      return list.sort(function (a, b) {
+        var d = ord.indexOf(a.category) - ord.indexOf(b.category);
+        return d !== 0 ? d : a.filename.localeCompare(b.filename);
+      });
+    }
+
+    var gallery = $("#gallery"), emptyEl = $("#empty"), countEl = $("#count");
+    function render() {
+      current = sortList(ASSETS.filter(matches));
+      countEl.innerHTML = "Showing <b>" + current.length + "</b> of " + total + " assets" +
+        (state.cat !== "all" ? " in " + esc(catLabel(state.cat)) : "") +
+        (state.q ? ' for “' + esc(state.q) + '”' : "");
+      emptyEl.hidden = current.length !== 0;
+      gallery.innerHTML = current.map(cardHtml).join("");
+    }
+
+    function typeBadge(a) {
+      if (a.type === "video") return '<span class="badge-type">▶ Video</span>';
+      if (a.type === "html")  return '<span class="badge-type">&lt;/&gt; Email HTML</span>';
+      return '<span class="badge-type">' + (a.dimensions ? "Photo" : "Image") + '</span>';
+    }
+    function thumbFor(a) {
+      if (a.thumbnail) return a.thumbnail;
+      return null;
+    }
+    function cardHtml(a, i) {
+      var thumb = thumbFor(a);
+      var isIcon = a.category === "email" && a.type === "image" && area(a.dimensions) < 200000;
+      var media;
+      if (thumb) {
+        media = '<img src="'+esc(thumb)+'" alt="'+esc(a.description || a.filename)+'" loading="lazy">';
+      } else if (a.type === "video") {
+        media = '<div style="position:absolute;inset:0;background:linear-gradient(135deg,var(--accent),var(--aqua))"></div>';
+      } else {
+        media = '<div style="position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:34px">&lt;/&gt;</div>';
+      }
+      return '<article class="card">' +
+        '<button class="thumbbtn'+(isIcon?' icon-fit':'')+'" type="button" data-i="'+i+'" ' +
+          'aria-label="Preview '+esc(a.filename)+'">' +
+          media + typeBadge(a) +
+          (a.rename_locked ? '<span class="badge-lock" title="Filename is locked — referenced by the email">🔒 Locked</span>' : '') +
+          (a.type === "video" ? '<span class="videoplay"><span>▶</span></span>' : '') +
+        '</button>' +
+        '<div class="body">' +
+          '<span class="cat"><span class="dot" style="background:'+catColor(a.category)+'"></span>'+esc(catLabel(a.category))+'</span>' +
+          '<h3>'+esc(a.filename)+'</h3>' +
+          '<p class="desc">'+esc(a.description || "")+'</p>' +
+          '<div class="foot">' +
+            '<span class="dims">'+esc(a.dimensions || a.type.toUpperCase())+'</span>' +
+            '<div class="miniacts">' +
+              '<button type="button" class="js-copy" data-path="'+esc(a.path)+'" title="Copy file path" aria-label="Copy file path for '+esc(a.filename)+'">' +
+                '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>' +
+              '<a href="'+esc(a.path)+'" download title="Download original" aria-label="Download '+esc(a.filename)+'">' +
+                '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg></a>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</article>';
+    }
+
+    // Gallery interactions (event delegation)
+    gallery.addEventListener("click", function (e) {
+      var copy = e.target.closest(".js-copy");
+      if (copy) { e.preventDefault(); copyPath(copy.getAttribute("data-path")); return; }
+      var thumb = e.target.closest(".thumbbtn");
+      if (thumb) { openLb(+thumb.getAttribute("data-i")); }
+    });
+
+    // ---- Lightbox ----
+    var lb = $("#lb"), lbMedia = $("#lbMedia"), lbPanel = $("#lbPanel");
+    var lbIndex = -1, lastFocus = null;
+    function openLb(i) {
+      if (i < 0 || i >= current.length) return;
+      lbIndex = i; lastFocus = document.activeElement;
+      paintLb();
+      if (!lb.open) lb.showModal();
+    }
+    function paintLb() {
+      var a = current[lbIndex];
+      var m;
+      if (a.type === "image") {
+        m = '<img src="'+esc(a.path)+'" alt="'+esc(a.description || a.filename)+'">';
+      } else if (a.type === "video") {
+        m = '<video src="'+esc(a.path)+'" controls autoplay playsinline ' +
+            (a.thumbnail?('poster="'+esc(a.thumbnail)+'"'):'')+'>Your browser cannot play this video. ' +
+            '<a href="'+esc(a.path)+'">Download it instead.</a></video>';
+      } else if (a.type === "html") {
+        m = '<iframe src="'+esc(a.path)+'" title="Email preview: '+esc(a.filename)+'"></iframe>';
+      } else {
+        m = '<a class="btn" href="'+esc(a.path)+'">Open file</a>';
+      }
+      lbMedia.innerHTML = m;
+
+      var tags = (a.tags || []).map(function (t) { return '<span>'+esc(t)+'</span>'; }).join("");
+      var kv = '';
+      kv += a.dimensions ? row("Dimensions", a.dimensions) : '';
+      kv += a.duration_seconds ? row("Duration", a.duration_seconds + " s") : '';
+      kv += row("Type", a.type.toUpperCase());
+      kv += row("Path", a.path);
+      kv += a.referenced_by ? row("Used by", a.referenced_by) : '';
+      function row(k, v){ return '<dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd>'; }
+
+      var note = a.type === "html"
+        ? '<p class="lb-note">Image <code>src</code>s use a placeholder host (<code>REPLACE-WITH-YOUR-IMAGE-URL/</code>); host the email images and swap that base URL before sending, so the preview above may show broken images.</p>'
+        : (a.rename_locked ? '<p class="lb-note">🔒 This file’s name is referenced by the email template — do not rename it.</p>' : '');
+
+      lbPanel.innerHTML =
+        '<span class="cat"><span class="dot" style="background:'+catColor(a.category)+'"></span>'+esc(catLabel(a.category))+'</span>' +
+        '<h2>'+esc(a.filename)+'</h2>' +
+        '<p class="desc">'+esc(a.description || "")+'</p>' +
+        (kv ? '<dl class="kv">'+kv+'</dl>' : '') +
+        (tags ? '<div class="taglist">'+tags+'</div>' : '') +
+        note +
+        '<div class="lb-actions">' +
+          '<a class="btn primary" href="'+esc(a.path)+'" download>Download original</a>' +
+          '<a class="btn" href="'+esc(a.path)+'" target="_blank" rel="noopener">Open in new tab</a>' +
+          '<button class="btn js-copy2" type="button" data-path="'+esc(a.path)+'">Copy path</button>' +
+        '</div>' +
+        '<p class="lb-note" style="background:transparent;border:0;padding:0">Asset '+(lbIndex+1)+' of '+current.length+'</p>';
+
+      $(".js-copy2", lbPanel).addEventListener("click", function () { copyPath(a.path); });
+      $("#lbClose").focus();
+    }
+    function step(d) {
+      var n = current.length; if (!n) return;
+      lbIndex = (lbIndex + d + n) % n; paintLb();
+    }
+    $("#lbPrev").addEventListener("click", function () { step(-1); });
+    $("#lbNext").addEventListener("click", function () { step(1); });
+    $("#lbClose").addEventListener("click", function () { lb.close(); });
+    lb.addEventListener("click", function (e) {
+      // click on backdrop / empty stage closes; clicks on media/panel/nav don't
+      if (e.target === lb || e.target.id === "lbStage") lb.close();
+    });
+    lb.addEventListener("close", function () {
+      lbMedia.innerHTML = ""; // stop video
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (!lb.open) return;
+      if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+    });
+
+    // Copy + toast
+    var toastEl = $("#toast"), toastT;
+    function toast(msg) {
+      toastEl.textContent = msg; toastEl.classList.add("show");
+      clearTimeout(toastT); toastT = setTimeout(function(){ toastEl.classList.remove("show"); }, 1800);
+    }
+    function copyPath(p) {
+      var done = function(){ toast("Copied  " + p); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(p).then(done, function(){ legacyCopy(p); done(); });
+      } else { legacyCopy(p); done(); }
+    }
+    function legacyCopy(p) {
+      var t = document.createElement("textarea"); t.value = p;
+      t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t);
+      t.select(); try { document.execCommand("copy"); } catch (e) {} document.body.removeChild(t);
+    }
+
+    render();
+  }
+
+  function fatal() {
+    document.getElementById("gallery").innerHTML =
+      '<div class="empty"><h3>Could not load the asset index</h3>' +
+      '<p>Run <code>python3 dashboard/build.py</code>, then serve the folder ' +
+      '(<code>python3 -m http.server</code>) or open it via GitHub Pages.</p></div>';
+  }
+
+  // ---- Theme toggle ----
+  (function () {
+    var root = document.documentElement, btn = $("#themeBtn");
+    var icon = $("#themeIcon"), label = $("#themeLabel");
+    var saved = null;
+    try { saved = localStorage.getItem("wcdw-theme"); } catch (e) {}
+    if (saved) root.setAttribute("data-theme", saved);
+    function sync() {
+      var t = root.getAttribute("data-theme");
+      var dark = t === "dark" || (t === "auto" && matchMedia("(prefers-color-scheme: dark)").matches);
+      icon.textContent = dark ? "☀" : "☾";
+      label.textContent = dark ? "Light" : "Dark";
+      btn.setAttribute("aria-pressed", dark ? "true" : "false");
+    }
+    sync();
+    btn.addEventListener("click", function () {
+      var t = root.getAttribute("data-theme");
+      var dark = t === "dark" || (t === "auto" && matchMedia("(prefers-color-scheme: dark)").matches);
+      var next = dark ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("wcdw-theme", next); } catch (e) {}
+      sync();
+    });
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", sync);
+  })();
+
+  // ---- Kick off ----
+  if (window.WCDW_MANIFEST) {
+    boot(window.WCDW_MANIFEST);
+  } else if (window.fetch) {
+    fetch("manifest.json").then(function (r) { return r.json(); }).then(boot).catch(fatal);
+  } else {
+    fatal();
+  }
+})();
+</script>
+</body>
+</html>
