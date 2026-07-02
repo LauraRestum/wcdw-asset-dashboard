@@ -1,17 +1,34 @@
-# WCD 2026 Assets
+# WCDW Asset Dashboard
 
-Photo, icon, and video assets for **Envision Dallas — "Celebrating Independence: White Cane Day Walk"** held at the **Dallas Zoo (2026)**, plus the post-visit thank-you email (`email/VisitUs-EMAIL.html`).
+A browsable **asset dashboard** for **Envision Dallas — "Celebrating Independence: White Cane Day Walk"** held at the **Dallas Zoo (2026)**: every photo, brand asset, and email image in one searchable gallery, plus the post-visit thank-you email (`email/VisitUs-EMAIL.html`).
 
-Everything is sorted into clearly-named folders, and every file has a descriptive name that says what the photo actually shows. If you need a specific picture, you can find it two ways:
+## The dashboard
 
-1. **Browse the folders** below (or the tables in this README).
-2. **Read [`manifest.json`](manifest.json)** — a machine-readable index of every asset with a description and keyword tags, built for search tools and AI assistants.
+Open **[`index.html`](index.html)** — a self-contained, accessible dashboard that lets you:
 
-> Looking for a photo but not sure where it is? Search `manifest.json` for a keyword (e.g. `giraffe`, `braille`, `banner`, `tunnel`, `wheelchair`) — each entry lists the file's path, description, and tags.
+- **Search** by description, keyword tag, collection, or file name (e.g. `giraffe`, `braille`, `banner`, `tunnel`).
+- **Filter** by collection and **sort** by collection, name, or resolution.
+- **Preview** any asset full size in a lightbox (photos, the logo video, and the email HTML), then **copy its path** or **download the original**.
+- Toggle **light / dark** mode. Built keyboard-first with alt text, focus management, and live region announcements — appropriate for a blindness-services organization.
 
-## Campaign Studio (`index.html`)
+**Three ways to view it:**
 
-`index.html` at the repo root is a self-contained studio for building on-brand White Cane Day Walk assets (emails, graphics, social posts) from preapproved copy. No build step — just open it from any static server.
+| How | Steps |
+| --- | --- |
+| **GitHub Pages** | Enable Pages for this branch (Settings → Pages) — the dashboard is the site's home page. |
+| **Local server** | `python3 -m http.server` in the repo root, then open `http://localhost:8000/`. |
+| **Straight from disk** | Double-click `index.html`. It reads the pre-generated `dashboard/data.js`, so it works with no server. |
+
+The gallery uses small thumbnails in `dashboard/thumbnails/` (≈1.5 MB total) instead of the full 350 MB of originals, so it stays fast; the originals are only fetched when you open or download an asset.
+
+## Finding assets without the dashboard
+
+1. **Browse the folders** below (or the per-collection tables further down).
+2. **Read [`manifest.json`](manifest.json)** — a machine-readable index of every asset with a description and keyword tags, built for search tools and AI assistants. Each entry lists the file's path, type, dimensions, description, and tags.
+
+## Campaign Studio (`studio.html`)
+
+`studio.html` at the repo root is a self-contained studio for building on-brand White Cane Day Walk assets (emails, graphics, social posts) from preapproved copy. No build step — just open it from any static server. (The site home page, `index.html`, is the asset dashboard described above.)
 
 Its Graphic and Email image pickers load photos from `event-photos/`, wired up by two lines near the top of the `<script>`:
 
@@ -22,12 +39,19 @@ const PHOTO_FILES=['the-walk/walk-participant-white-cane-tree-path.jpg', ...];  
 
 To add, remove, or swap photos in the picker, edit `PHOTO_FILES`. Photos load same-origin (or cross-origin with `crossOrigin='anonymous'`), so PNG export from the graphic generator works without tainting the canvas.
 
-Run locally with any static server, e.g. `python3 -m http.server 5173` then open <http://localhost:5173>. Deploy as a static site (e.g. `vercel --prod`) — `index.html` is the site root.
+Run locally with any static server, e.g. `python3 -m http.server 5173` then open <http://localhost:5173/studio.html>.
 
 ## Folder map
 
 ```
 .
+├── index.html                    The asset dashboard (open this)
+├── studio.html                   Campaign Studio: build emails/graphics/social from preapproved copy
+├── manifest.json                 Machine-readable index of every asset (source of truth)
+├── dashboard/                    Dashboard build output
+│   ├── build.py                  Regenerates thumbnails + data.js from the assets & manifest
+│   ├── data.js                   Generated: manifest embedded for the offline (file://) dashboard
+│   └── thumbnails/               Generated: web-sized previews mirroring the asset paths
 ├── event-photos/                 Photos from the White Cane Day Walk at the Dallas Zoo
 │   ├── the-walk/                 Participants walking/marching, canes raised, start banner
 │   ├── ceremony-and-program/     Seated audience and the outdoor program
@@ -38,6 +62,20 @@ Run locally with any static server, e.g. `python3 -m http.server 5173` then open
 ├── brand/                        Brand/marketing imagery (building exterior, logo video)
 └── email/                        The thank-you email template + its 7 image assets
 ```
+
+## Adding or changing assets
+
+`manifest.json` is the single source of truth. After you add, remove, or move a file:
+
+1. Add or edit its entry in `manifest.json` (path, category, description, tags).
+2. Run the build to regenerate thumbnails and the embedded data:
+
+   ```bash
+   pip install Pillow      # once
+   python3 dashboard/build.py
+   ```
+
+   This writes `dashboard/thumbnails/…`, refreshes `dashboard/data.js`, and backfills each asset's `type`, `filename`, `thumbnail`, and `dimensions` in `manifest.json`. Commit the results.
 
 ## event-photos/the-walk
 
