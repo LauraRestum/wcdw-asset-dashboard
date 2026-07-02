@@ -101,8 +101,6 @@
   .asset .body{padding:.9rem 1rem 1.05rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
   .asset h3{font-size:.9rem;font-weight:700;color:var(--navy);line-height:1.28}
   .asset .meta{font-size:.68rem;color:var(--muted);display:flex;align-items:center;gap:.45rem;margin-top:auto}
-  .dot{width:8px;height:8px;border-radius:50%}
-  .live{background:var(--green)}.prog{background:var(--gold)}.draft{background:var(--charcoal)}.idea{background:var(--terra)}
   .asset .acts{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
   .asset .act{background:none;border:none;color:var(--blue);font-weight:700;font-size:.74rem;padding:0}
   .asset .act:hover{text-decoration:underline}
@@ -292,6 +290,14 @@
           </div>
         </div>
 
+        <div class="block" id="b-textstyle" hidden>
+          <div class="block-h"><span>Text style</span></div>
+          <div style="display:grid;gap:.7rem">
+            <div><div class="mini-l">Headline size</div><div class="opts row" id="sizeOpts"></div></div>
+            <div><div class="mini-l">Headline weight</div><div class="opts row" id="weightOpts"></div></div>
+          </div>
+        </div>
+
         <div class="block">
           <div class="block-h">Accent color</div>
           <div class="swatches" id="swatches">
@@ -329,7 +335,7 @@
           <div class="block-h"><span>Call to action <span style="color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600">(one per asset)</span></span><button class="edit-t" onclick="tEdit('cta')">Edit text</button></div>
           <div class="opts row" id="ctaOpts"></div>
           <div class="field hidey" id="w-cta" hidden><input type="text" id="f-cta" placeholder="Write your own CTA"></div>
-          <div class="field" style="margin-top:.6rem"><label for="f-link">Button link</label><input type="text" id="f-link" value="https://whitecanedaywalk.com"></div>
+          <div class="field" id="w-link" style="margin-top:.6rem"><label for="f-link">Button link</label><input type="text" id="f-link" value="https://whitecanedaywalk.com"></div>
         </div>
 
         <div class="field" id="w-meta">
@@ -442,17 +448,12 @@ const ASSETS=[
   {t:"White Cane Safety Day email",type:'Email',cat:'email',status:'live',mode:'email',file:'mail04',head:"White Cane Safety Day",cta:"Join the walk",body:"On White Cane Safety Day, we celebrate the independence the white cane represents. Join Envision at the Dallas Zoo on Oct. 17 and walk with us for independence in support of people who are blind or have low vision across North Texas."},
   {t:"ADA anniversary email",type:'Email',cat:'email',status:'live',mode:'email',file:'mail05',head:"Celebrating the ADA",cta:"Join the walk",body:"As we mark the anniversary of the Americans with Disabilities Act, we celebrate progress and the work still ahead. Walk with us for independence at the White Cane Day Walk and support Envision\u2019s work for people who are blind or have low vision across North Texas."},
   {t:"Disability Pride Month email",type:'Email',cat:'email',status:'live',mode:'email',file:'mail06',head:"Disability Pride Month",cta:"Join the walk",body:"This Disability Pride Month, we celebrate the community and independence at the heart of the White Cane Day Walk. Join Envision at the Dallas Zoo on Oct. 17 and walk with us for independence across North Texas."},
-  {t:'Launch social post',type:'Social',cat:'social',status:'live',mode:'social',head:'Walk with us for independence.',cta:'',body:'Walk with us for independence. The White Cane Day Walk returns Saturday, Oct. 17 at the Dallas Zoo. Join Envision for an evening of community, awareness and action supporting people who are blind or have low vision across North Texas. Register, start a team or make a gift today.'},
-  {t:'Impact stat post',type:'Social',cat:'social',status:'prog',mode:'social',head:'Vision can change. Independence does not have to.',cta:'',body:'Vision can change. Independence does not have to. Each year, Envision helps thousands of North Texans who are blind or have low vision keep moving forward. Join the White Cane Day Walk and help support independence across North Texas.'},
-  {t:'Team recruitment post',type:'Social',cat:'social',status:'live',mode:'social',head:'You walked. Now lead the way.',cta:'',body:'You walked. Now lead the way. Start a team for the White Cane Day Walk and invite your family, friends, coworkers or community group to join you.'},
-  {t:'Corporate / LinkedIn post',type:'Social',cat:'social',status:'prog',mode:'social',head:'Assemble your team. Walk with us.',cta:'',body:'Assemble your team. Walk with us. The walk is an opportunity for companies and partners to stand with Envision in support of people who are blind or have low vision across North Texas. Bring your team to the Dallas Zoo on Oct. 17.'},
-  {t:'Final push post',type:'Social',cat:'social',status:'draft',mode:'social',head:'Every step counts.',cta:'',body:'Every step counts. The White Cane Day Walk is coming up Oct. 17 at the Dallas Zoo. Register, start a team or make a gift today to help support Envision\u2019s work across North Texas.'},
   {t:'PSA scripts :10 / :30',type:'Media',cat:'media',status:'live',view:':10 spot\n\u201cAfter vision loss, even a familiar walk can require a new approach. Walk with us for independence at the White Cane Day Walk on Saturday, October 17 at the Dallas Zoo. Register or start a team at whitecanedaywalk.com.\u201d\n\n:30 spot\n\u201cAfter vision loss, even a familiar walk can require a new approach. At Envision, we help North Texans who are blind or have low vision build skills, access tools and find support to keep moving forward. That\u2019s why every step matters, walk with us for independence at the White Cane Day Walk on Saturday, October 17 at the Dallas Zoo. Register or start a team today at whitecanedaywalk.com.\u201d\n\nOne ask in the voiceover: register. Sponsor recognition on the end card only.'},
   {t:'Email header banner',type:'Banner',cat:'banner',status:'live',mode:'graphic',head:'Walk with us for independence.',view:'600x200 email header. Customize opens it in the banner builder.'}
 ];
 
 /* ---------- assets render ---------- */
-const CATS=[['all','All'],['email','Emails'],['social','Social'],['media','Media / PSA'],['banner','Banners'],['photos','Photos']];
+const CATS=[['all','All'],['email','Emails'],['media','Media / PSA'],['banner','Banners'],['photos','Photos']];
 let activeCat='all';
 let LIBRARY=[];           /* [{name, src(full-res path), thumb(thumbnail), cat}] populated from manifest.json */
 let BANNERS=[];           /* [{name, title, src, thumb, dim}] premade email banners from manifest.json */
@@ -462,11 +463,10 @@ CATS.forEach(([id,l])=>{const b=document.createElement('button');b.className='ch
   b.onclick=()=>{activeCat=id;[...filters.children].forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');renderAssets();};filters.appendChild(b);});
 function renderAssets(){grid.innerHTML='';
   ASSETS.filter(a=>activeCat==='all'||a.cat===activeCat).forEach(a=>{
-    const sN={live:'Live',prog:'In progress',draft:'Draft',idea:'Idea'}[a.status];
     const el=document.createElement('div');el.className='asset';
     el.innerHTML=`<div class="thumb ${['banner','social'].includes(a.cat)?'dark':''}">${previewInner(a)}</div>
       <div class="body"><h3>${a.t}</h3>
-      <div class="meta"><span class="dot ${a.status}"></span>${sN}</div>
+      <div class="meta">${a.type||''}</div>
       <div class="acts"></div></div>`;
     const acts=el.querySelector('.acts');
     acts.appendChild(mkAct('View',()=>a.file?openEmail(a.t,getMail(a.file)):openModal(a.t,assetText(a))));
@@ -483,7 +483,7 @@ function renderBannerTiles(){
     const el=document.createElement('div');el.className='asset';
     el.innerHTML=`<div class="thumb banner"><img src="${ph_esc(bn.thumb||bn.src)}" alt="${ph_esc(bn.name)}" loading="lazy"></div>
       <div class="body"><h3>${ph_esc(bn.title)}</h3>
-      <div class="meta"><span class="dot live"></span>Email banner${bn.dim?' &middot; '+ph_esc(bn.dim):''}</div>
+      <div class="meta">Email banner${bn.dim?' &middot; '+ph_esc(bn.dim):''}</div>
       <div class="note">Add to an email, then <strong>hyperlink the image</strong> to whitecanedaywalk.com so it&rsquo;s clickable and takes readers straight to registration.</div>
       <div class="acts"></div></div>`;
     const acts=el.querySelector('.acts');
@@ -503,7 +503,7 @@ function renderPhotoTiles(){
     const el=document.createElement('div');el.className='asset';
     el.innerHTML=`<div class="thumb photo"><img src="${ph_esc(im.thumb||im.src)}" alt="${ph_esc(im.name)}" loading="lazy"></div>
       <div class="body"><h3>${ph_esc(im.name)}</h3>
-      <div class="meta"><span class="dot live"></span>Event photo</div>
+      <div class="meta">Event photo</div>
       <div class="acts"></div></div>`;
     const acts=el.querySelector('.acts');
     acts.appendChild(mkAct('View',()=>openPhoto(im)));
@@ -555,7 +555,7 @@ document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal
 
 /* ---------- generator ---------- */
 const $=id=>document.getElementById(id);
-let mode='email',accent='#78BE21',bw=600,bh=200,gAlign='left',gPos='top';
+let mode='email',accent='#78BE21',bw=600,bh=200,gAlign='left',gPos='top',gFontScale=1,gWeight=800;
 const aud=$('f-aud'),phase=$('f-phase');
 AUDIENCES.forEach(a=>aud.add(new Option(a.name,a.id)));
 PHASES.forEach(p=>phase.add(new Option(p.name,p.id)));
@@ -605,11 +605,15 @@ function buildHead(){const c=$('headOpts');c.innerHTML='';
 function buildBody(){const c=$('bodyOpts');c.innerHTML='';
   BODYOPTS.forEach(o=>c.appendChild(opt('<span class="o-l">'+o.label+'</span><span class="o-t">'+trunc(o.text,88)+'</span>',$('f-body').value===o.text,()=>{$('f-body').value=o.text;buildBody();render();})));}
 function buildCta(){const c=$('ctaOpts');c.innerHTML='';
+  c.appendChild(opt('No CTA',$('f-cta').value==='',()=>{$('f-cta').value='';buildCta();render();}));
   CTAOPTS.forEach(t=>c.appendChild(opt(t,$('f-cta').value===t,()=>{$('f-cta').value=t;buildCta();render();})));}
 function buildSub(){const c=$('subOpts');c.innerHTML='';
   SUBBODIES.forEach(o=>c.appendChild(opt(o.text?'<span class="o-l">'+o.label+'</span><span class="o-t">'+trunc(o.text,80)+'</span>':'<span class="o-l">None</span>No sub-body',$('f-sub').value===o.text,()=>{$('f-sub').value=o.text;buildSub();render();})));}
 function buildAdjust(){const A=$('alignOpts');A.innerHTML='';[['left','Left'],['center','Center']].forEach(([v,l])=>A.appendChild(opt(l,gAlign===v,()=>{gAlign=v;buildAdjust();render();})));
   const P=$('posOpts');P.innerHTML='';[['top','Top'],['middle','Middle'],['bottom','Bottom']].forEach(([v,l])=>P.appendChild(opt(l,gPos===v,()=>{gPos=v;buildAdjust();render();})));}
+function buildTextStyle(){
+  const S=$('sizeOpts');S.innerHTML='';[['0.85','Small'],['1','Medium'],['1.2','Large']].forEach(([v,l])=>S.appendChild(opt(l,gFontScale===+v,()=>{gFontScale=+v;buildTextStyle();render();})));
+  const W=$('weightOpts');W.innerHTML='';[['600','Regular'],['700','Bold'],['800','Extra bold']].forEach(([v,l])=>W.appendChild(opt(l,gWeight===+v,()=>{gWeight=+v;buildTextStyle();render();})));}
 function tEdit(k){const w=$('w-'+k);w.hidden=!w.hidden;if(!w.hidden)$('f-'+k).focus();}
 function setField(k,v){const inp=$('f-'+k);if(inp)inp.value=v;
   if(k==='head')buildHead();else if(k==='body')buildBody();else if(k==='cta')buildCta();}
@@ -632,9 +636,11 @@ function setMode(m){mode=m;['email','graphic','social'].forEach(x=>$('mo-'+x).se
   $('lbl-image').textContent=m==='email'?'Hero image':'Background image (optional)';
   $('b-size').hidden=m==='email';
   $('b-adjust').hidden=m==='email';
+  $('b-textstyle').hidden=m==='email';
   $('b-body').hidden=m==='graphic';
   $('lbl-body').textContent=m==='social'?'Caption':'Body copy';
-  $('b-cta').hidden=m!=='email';
+  $('b-cta').hidden=false;
+  $('w-link').hidden=m!=='email';
   $('exportBtn').textContent=m==='email'?'Export HTML':'Download PNG';
   $('copyBtn').textContent=m==='social'?'Copy caption':'Copy';
   if(m==='graphic'||m==='social'){bw=1080;bh=1080;[...$('presets').children].forEach(p=>p.setAttribute('aria-pressed',p.dataset.w==='1080'&&p.dataset.h==='1080'));}
@@ -702,7 +708,7 @@ function emailHTML(o){
     ${headline}
     <tr><td style="padding:${bpad} 40px 4px;font-size:15px;line-height:1.7;color:#53565A">${b}</td></tr>
     ${sub?`<tr><td style="padding:2px 40px 6px;font-size:13px;line-height:1.6;color:#6a7789">${sub}</td></tr>`:''}
-    <tr><td style="padding:22px 40px 8px"><a href="${link}" style="display:inline-block;background:#003087;color:#fff;font-weight:700;font-size:14px;text-decoration:none;padding:14px 30px;border-radius:6px">${cta}</a></td></tr>
+    ${cta?`<tr><td style="padding:22px 40px 8px"><a href="${link}" style="display:inline-block;background:#003087;color:#fff;font-weight:700;font-size:14px;text-decoration:none;padding:14px 30px;border-radius:6px">${cta}</a></td></tr>`:''}
     <tr><td style="padding:12px 40px 28px;font-size:13px;font-weight:700;color:${accent}">${meta} · whitecanedaywalk.com</td></tr>
     <tr><td style="background:#002855;padding:22px 40px;color:#fff;font-size:11px;line-height:1.65">
       <div style="font-weight:800;letter-spacing:.16em;text-transform:uppercase">Envision</div>
@@ -716,7 +722,10 @@ function renderEmail(){const html=emailHTML({head:$('f-head').value,body:$('f-bo
 function wrap(ctx,t,x,y,mw,lh){const ws=t.split(' ');let ln='',yy=y;for(const w of ws){const test=ln+w+' ';
   if(ctx.measureText(test).width>mw&&ln){ctx.fillText(ln.trim(),x,yy);ln=w+' ';yy+=lh;}else ln=test;}ctx.fillText(ln.trim(),x,yy);return yy;}
 function measure(ctx,text,mw){const ws=(text||'').split(' ');let ln='',out=[];for(const w of ws){const t=ln+w+' ';if(ctx.measureText(t).width>mw&&ln){out.push(ln.trim());ln=w+' ';}else ln=t;}if(ln.trim())out.push(ln.trim());return out;}
-function drawArt(ctx,w,ht,head,sub,meta,acc,imgEl){
+function roundRect(ctx,x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function textOn(hex){const c=(hex||'').replace('#','');if(c.length<6)return '#fff';const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16);return (0.299*r+0.587*g+0.114*b)>150?'#002855':'#ffffff';}
+function drawArt(ctx,w,ht,head,sub,meta,acc,imgEl,cta){
+  cta=cta||'';
   ctx.clearRect(0,0,w,ht);
   if(imgEl){
     const ir=imgEl.width/imgEl.height,cr=w/ht;let dw,dh,dx,dy;
@@ -728,30 +737,53 @@ function drawArt(ctx,w,ht,head,sub,meta,acc,imgEl){
     const gr=ctx.createRadialGradient(w*.85,0,0,w*.85,0,w*.7);gr.addColorStop(0,'rgba(65,182,230,.28)');gr.addColorStop(1,'rgba(65,182,230,0)');ctx.fillStyle=gr;ctx.fillRect(0,0,w,ht);
   }
   ctx.fillStyle=acc;ctx.fillRect(0,0,w*.22,7);ctx.fillRect(0,0,7,ht*.22);
-  const pad=ht>=500?76:46,big=Math.round(ht>=500?ht*.1:ht*.2);
-  const cx=gAlign==='center'?w/2:pad;ctx.textAlign=gAlign==='center'?'center':'left';ctx.textBaseline='top';
-  const ebF=Math.round(big*.34),hlLH=big*1.06,subF=Math.round(big*.42),subLH=big*.56,metaF=Math.round(big*.3),wmF=Math.round(big*.28);
-  ctx.font='800 '+big+'px Montserrat';const hl=measure(ctx,head,w-pad*2);
-  ctx.font='600 '+subF+'px Montserrat';const sl=sub?measure(ctx,sub,w-pad*2):[];
-  const blockH=ebF+big*.3+hl.length*hlLH+(sl.length?big*.22+sl.length*subLH:0);
-  const metaTop=ht-(ht>=500?58:34);
-  let y=gPos==='top'?pad:gPos==='bottom'?Math.max(pad,metaTop-blockH-big*.25):Math.max(pad,(metaTop-blockH)/2);
-  ctx.fillStyle=acc;ctx.font='700 '+ebF+'px Montserrat';ctx.fillText('WHITE CANE DAY WALK 2026',cx,y);
-  let yy=y+ebF+big*.3;
-  ctx.fillStyle='#fff';ctx.font='800 '+big+'px Montserrat';hl.forEach(l=>{ctx.fillText(l,cx,yy);yy+=hlLH;});
-  if(sl.length){yy+=big*.22;ctx.fillStyle='rgba(255,255,255,.92)';ctx.font='600 '+subF+'px Montserrat';sl.forEach(l=>{ctx.fillText(l,cx,yy);yy+=subLH;});}
-  ctx.fillStyle='#FFCF00';ctx.font='700 '+metaF+'px Montserrat';ctx.fillText(meta,cx,metaTop);
-  ctx.fillStyle='rgba(255,255,255,.82)';ctx.font='800 '+wmF+'px Montserrat';ctx.fillText('ENVISION  ·  whitecanedaywalk.com',cx,ht-wmF-12);
+  const pad=ht>=500?76:46,mw=w-pad*2;
+  const cx=gAlign==='center'?w/2:pad;
+  const limit=ht-Math.round(ht*(ht>=500?.17:.32));
+  const maxBig=Math.max(14,Math.round((ht>=500?ht*.1:ht*.2)*gFontScale));
+  const minBig=Math.max(12,Math.round(maxBig*.45));
+  /* shrink the whole block (eyebrow + headline + sub + CTA) until it clears the meta line, so nothing crowds the bottom */
+  let big=maxBig,L=null;
+  for(let sz=maxBig;;sz-=2){
+    const ebF=Math.round(sz*.34),hlLH=sz*1.06,subF=Math.round(sz*.42),subLH=sz*.56;
+    ctx.font=gWeight+' '+sz+'px Montserrat';const hl=measure(ctx,head,mw);
+    ctx.font='600 '+subF+'px Montserrat';const sl=sub?measure(ctx,sub,mw):[];
+    ctx.font='700 '+Math.round(sz*.34)+'px Montserrat';
+    const ctaF=Math.round(sz*.34),ctaPy=ctaF*.62,ctaH=cta?ctaF+ctaPy*2:0,ctaGap=cta?sz*.34:0;
+    const blockH=ebF+sz*.3+hl.length*hlLH+(sl.length?sz*.22+sl.length*subLH:0)+ctaGap+ctaH;
+    if(blockH<=limit-pad||sz<=minBig){big=sz;L={ebF,hlLH,subF,subLH,hl,sl,ctaF,ctaH,ctaGap,blockH};break;}
+  }
+  ctx.textAlign=gAlign==='center'?'center':'left';ctx.textBaseline='top';
+  const metaF=Math.round(big*.3),wmF=Math.round(big*.28);
+  const bottomPad=ht>=500?42:24,wmY=ht-wmF-bottomPad,metaY=wmY-metaF-(ht>=500?14:8);
+  let y=gPos==='top'?pad:gPos==='bottom'?Math.max(pad,limit-L.blockH):Math.max(pad,(limit-L.blockH)/2);
+  ctx.fillStyle=acc;ctx.font='700 '+L.ebF+'px Montserrat';ctx.fillText('WHITE CANE DAY WALK 2026',cx,y);
+  let yy=y+L.ebF+big*.3;
+  ctx.fillStyle='#fff';ctx.font=gWeight+' '+big+'px Montserrat';L.hl.forEach(l=>{ctx.fillText(l,cx,yy);yy+=L.hlLH;});
+  if(L.sl.length){yy+=big*.22;ctx.fillStyle='rgba(255,255,255,.92)';ctx.font='600 '+L.subF+'px Montserrat';L.sl.forEach(l=>{ctx.fillText(l,cx,yy);yy+=L.subLH;});}
+  if(cta){
+    yy+=L.ctaGap;
+    ctx.font='700 '+L.ctaF+'px Montserrat';
+    const ctaPx=L.ctaF*.9,tw=ctx.measureText(cta).width,pw=tw+ctaPx*2;
+    const bx=gAlign==='center'?cx-pw/2:cx;
+    ctx.fillStyle=acc;roundRect(ctx,bx,yy,pw,L.ctaH,L.ctaH/2);ctx.fill();
+    ctx.fillStyle=textOn(acc);ctx.textBaseline='middle';
+    ctx.fillText(cta,gAlign==='center'?cx:bx+ctaPx,yy+L.ctaH/2+1);
+    ctx.textBaseline='top';
+  }
+  ctx.fillStyle='#FFCF00';ctx.font='700 '+metaF+'px Montserrat';ctx.fillText(meta,cx,metaY);
+  ctx.fillStyle='rgba(255,255,255,.82)';ctx.font='800 '+wmF+'px Montserrat';ctx.fillText('ENVISION  ·  whitecanedaywalk.com',cx,wmY);
   ctx.textAlign='left';ctx.textBaseline='alphabetic';
 }
-function withArt(cb){document.fonts.load('800 40px Montserrat').then(()=>document.fonts.load('700 20px Montserrat')).then(()=>{
+function loadArtFonts(){return Promise.all([document.fonts.load('600 40px Montserrat'),document.fonts.load('700 40px Montserrat'),document.fonts.load('800 40px Montserrat')]);}
+function withArt(cb){loadArtFonts().then(()=>{
   const src=$('f-img').value;if(src){const im=new Image();im.crossOrigin='anonymous';im.onload=()=>cb(im);im.onerror=()=>cb(null);im.src=src;}else cb(null);}).catch(()=>cb(null));}
 function renderGraphic(){const c=$('bannerCanvas');c.width=bw;c.height=bh;
-  withArt(im=>drawArt(c.getContext('2d'),bw,bh,clean($('f-head').value),clean($('f-sub').value),clean($('f-meta').value),accent,im));
+  withArt(im=>drawArt(c.getContext('2d'),bw,bh,clean($('f-head').value),clean($('f-sub').value),clean($('f-meta').value),accent,im,clean($('f-cta').value)));
   if(mode==='social')$('socialCap').textContent=clean($('f-body').value);}
 function artBlob(head,w,ht,cb){const c=document.createElement('canvas');c.width=w;c.height=ht;
-  const go=()=>{drawArt(c.getContext('2d'),w,ht,clean(head),'','Saturday, October 17 · Dallas Zoo',accent,null);c.toBlob(cb);};
-  document.fonts.load('800 40px Montserrat').then(()=>document.fonts.load('700 20px Montserrat')).then(go).catch(go);}
+  const go=()=>{drawArt(c.getContext('2d'),w,ht,clean(head),'','Saturday, October 17 · Dallas Zoo',accent,null,'');c.toBlob(cb);};
+  loadArtFonts().then(go).catch(go);}
 
 /* ---------- export ---------- */
 function dl(blob,name){const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u);}
@@ -765,7 +797,7 @@ function showTab(id){['assets','gen'].forEach(t=>{$('p-'+t).hidden=t!==id;$('t-'
   if(id==='gen')render();}
 
 /* init */
-buildBanner();buildLib();buildSub();buildAdjust();applyAudience();setMode('email');
+buildBanner();buildLib();buildSub();buildAdjust();buildTextStyle();applyAudience();setMode('email');
 loadLibrary().then(()=>{buildLib();render();renderAssets();});
 </script>
 <script type="text/html" id="mail01"><!DOCTYPE html>
