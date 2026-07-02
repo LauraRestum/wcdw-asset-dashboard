@@ -82,6 +82,8 @@
   .asset:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
   .thumb{height:140px;position:relative;overflow:hidden;background:#fff;border-bottom:1px solid var(--line)}
   .thumb.dark{background:linear-gradient(135deg,var(--navy),var(--blue))}
+  .thumb.photo{background:#f2f6fc}
+  .thumb.photo img{width:100%;height:100%;object-fit:cover;display:block}
   .thumb .bar{height:4px;display:flex}
   .thumb .bar i{height:100%}.thumb .bar .g{width:24%;background:var(--green)}.thumb .bar .b{flex:1;background:var(--blue)}
   .thumb .pv{padding:.75rem .85rem}
@@ -195,6 +197,8 @@
   .modal-body h3{color:var(--navy);font-weight:800;font-size:1.2rem;margin-bottom:.9rem}
   .modal-body pre{white-space:pre-wrap;font-family:inherit;font-size:.86rem;line-height:1.6;color:var(--ink)}
   #mFrame{width:100%;height:70vh;border:1px solid var(--line);border-radius:8px;background:#eef2f8}
+  #mImg{width:100%;max-height:70vh;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#eef2f8;display:block}
+  .modal-acts{margin-top:1.1rem;display:flex;gap:.7rem;flex-wrap:wrap}
   .modal-x{float:right;background:none;border:none;font-size:1.4rem;color:var(--muted);line-height:1}
 
   footer.app{max-width:1200px;margin:0 auto;padding:1.6rem 2rem 3rem;color:var(--muted);
@@ -379,7 +383,8 @@
 <div class="modal" id="modal"><div class="modal-card">
   <div class="modal-top"><i class="g"></i><i class="b"></i></div>
   <div class="modal-body"><button class="modal-x" onclick="closeModal()" aria-label="Close">×</button>
-    <h3 id="mTitle"></h3><iframe id="mFrame" title="Email preview" hidden></iframe><pre id="mBody"></pre>
+    <h3 id="mTitle"></h3><iframe id="mFrame" title="Email preview" hidden></iframe><img id="mImg" alt="" hidden><pre id="mBody"></pre>
+    <div class="modal-acts" id="mActs" hidden><button class="btn btn-green" id="mDl" type="button">Download</button><button class="btn btn-ghost" id="mCopy" type="button" hidden>Copy HTML</button></div>
   </div>
 </div></div>
 
@@ -440,7 +445,6 @@ const ASSETS=[
   {t:'Corporate / LinkedIn post',type:'Social',cat:'social',status:'prog',mode:'social',head:'Assemble your team. Walk with us.',cta:'',body:'Assemble your team. Walk with us. The walk is an opportunity for companies and partners to stand with Envision in support of people who are blind or have low vision across North Texas. Bring your team to the Dallas Zoo on Oct. 17.'},
   {t:'Final push post',type:'Social',cat:'social',status:'draft',mode:'social',head:'Every step counts.',cta:'',body:'Every step counts. The White Cane Day Walk is coming up Oct. 17 at the Dallas Zoo. Register, start a team or make a gift today to help support Envision\u2019s work across North Texas.'},
   {t:'PSA scripts :10 / :30',type:'Media',cat:'media',status:'live',view:':10 spot\n\u201cAfter vision loss, even a familiar walk can require a new approach. Walk with us for independence at the White Cane Day Walk on Saturday, October 17 at the Dallas Zoo. Register or start a team at whitecanedaywalk.com.\u201d\n\n:30 spot\n\u201cAfter vision loss, even a familiar walk can require a new approach. At Envision, we help North Texans who are blind or have low vision build skills, access tools and find support to keep moving forward. That\u2019s why every step matters, walk with us for independence at the White Cane Day Walk on Saturday, October 17 at the Dallas Zoo. Register or start a team today at whitecanedaywalk.com.\u201d\n\nOne ask in the voiceover: register. Sponsor recognition on the end card only.'},
-  {t:'GitHub photo asset library',type:'Photos',cat:'photos',status:'live',view:'Real event photography, walkers, white canes, families and community in motion. Link the GitHub library here to pull thumbnails straight into the gallery and generator.'},
   {t:'Classy hero banner',type:'Banner',cat:'banner',status:'live',mode:'graphic',head:'Walk with us for independence.',view:'Hero banner for the Classy page. Customize opens it in the banner builder at any size.'},
   {t:'Email header banner',type:'Banner',cat:'banner',status:'live',mode:'graphic',head:'Walk with us for independence.',view:'600x200 email header. Customize opens it in the banner builder.'}
 ];
@@ -448,6 +452,8 @@ const ASSETS=[
 /* ---------- assets render ---------- */
 const CATS=[['all','All'],['email','Emails'],['social','Social'],['media','Media / PSA'],['banner','Banners'],['photos','Photos']];
 let activeCat='all';
+let LIBRARY=[];           /* [{name, src(full-res path), thumb(thumbnail), cat}] populated from manifest.json */
+let libState='loading';   /* 'loading' | 'ready' | 'error' */
 const grid=document.getElementById('assetGrid'),filters=document.getElementById('filters');
 CATS.forEach(([id,l])=>{const b=document.createElement('button');b.className='chip';b.textContent=l;b.setAttribute('aria-pressed',id==='all');
   b.onclick=()=>{activeCat=id;[...filters.children].forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');renderAssets();};filters.appendChild(b);});
@@ -462,9 +468,37 @@ function renderAssets(){grid.innerHTML='';
     const acts=el.querySelector('.acts');
     acts.appendChild(mkAct('View',()=>a.file?openEmail(a.t,getMail(a.file)):openModal(a.t,assetText(a))));
     acts.appendChild(mkAct('Download',()=>downloadAsset(a)));
+    if(a.file)acts.appendChild(mkAct('Copy HTML',(e)=>copyText(getMail(a.file),e.target,'HTML copied!')));
     if(a.mode&&!a.file)acts.appendChild(mkAct('Customize',()=>customizeAsset(a)));
     grid.appendChild(el);
-  });}
+  });
+  if(activeCat==='all'||activeCat==='photos')renderPhotoTiles();
+}
+function ph_esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function renderPhotoTiles(){
+  if(!LIBRARY.length){
+    const el=document.createElement('div');el.className='asset';
+    el.innerHTML=`<div class="thumb"><div class="pv"><div class="pv-t">Photos</div><div class="pv-h">${libState==='loading'?'Loading event photos…':'Photo library unavailable'}</div><div class="pv-b">${libState==='loading'?'Reading the asset library from manifest.json.':'Serve this page over http (not file://) so manifest.json can load.'}</div></div></div>`;
+    grid.appendChild(el);return;
+  }
+  LIBRARY.forEach(im=>{
+    const el=document.createElement('div');el.className='asset';
+    el.innerHTML=`<div class="thumb photo"><img src="${ph_esc(im.thumb||im.src)}" alt="${ph_esc(im.name)}" loading="lazy"></div>
+      <div class="body"><h3>${ph_esc(im.name)}</h3>
+      <div class="meta"><span class="dot live"></span>Event photo</div>
+      <div class="acts"></div></div>`;
+    const acts=el.querySelector('.acts');
+    acts.appendChild(mkAct('View',()=>openPhoto(im)));
+    acts.appendChild(mkAct('Download',()=>downloadPhoto(im)));
+    grid.appendChild(el);
+  });
+}
+function photoName(im){return (im.src||'photo').split('/').pop()||'photo.jpg';}
+function downloadPhoto(im){
+  fetch(im.src).then(r=>{if(!r.ok)throw 0;return r.blob();})
+    .then(b=>dl(b,photoName(im)))
+    .catch(()=>{const a=document.createElement('a');a.href=im.src;a.download=photoName(im);a.click();});
+}
 renderAssets();
 
 function mkAct(label,fn){const b=document.createElement('button');b.className='act';b.textContent=label;b.onclick=fn;return b;}
@@ -490,9 +524,15 @@ function previewInner(a){
 
 /* ---------- modal ---------- */
 function getMail(id){const e=document.getElementById(id);return e?e.textContent:'';}
-function openModal(t,b){document.getElementById('mTitle').textContent=t;const fr=document.getElementById('mFrame');fr.hidden=true;fr.srcdoc='';const pre=document.getElementById('mBody');pre.hidden=false;pre.textContent=b;document.getElementById('modal').classList.add('open');}
-function openEmail(t,html){document.getElementById('mTitle').textContent=t;const pre=document.getElementById('mBody');pre.hidden=true;const fr=document.getElementById('mFrame');fr.hidden=false;fr.srcdoc=html;document.getElementById('modal').classList.add('open');}
-function closeModal(){document.getElementById('modal').classList.remove('open');}
+function resetModal(){const fr=$('mFrame');fr.hidden=true;fr.srcdoc='';const img=$('mImg');img.hidden=true;img.removeAttribute('src');$('mBody').hidden=true;$('mActs').hidden=true;$('mDl').onclick=null;const c=$('mCopy');c.hidden=true;c.onclick=null;c.textContent='Copy HTML';}
+function copyText(txt,btn,label){const done=()=>{const o=btn.textContent;btn.textContent=label||'Copied!';setTimeout(()=>{btn.textContent=o;},1400);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,()=>{legacyCopy(txt);done();});}
+  else{legacyCopy(txt);done();}}
+function legacyCopy(txt){const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);}
+function openModal(t,b){resetModal();$('mTitle').textContent=t;const pre=$('mBody');pre.hidden=false;pre.textContent=b;$('modal').classList.add('open');}
+function openEmail(t,html){resetModal();$('mTitle').textContent=t;const fr=$('mFrame');fr.hidden=false;fr.srcdoc=html;$('mActs').hidden=false;$('mDl').textContent='Download HTML';$('mDl').onclick=()=>dl(new Blob([html],{type:'text/html'}),'wcdw-'+slug(t)+'.html');const c=$('mCopy');c.hidden=false;c.onclick=()=>copyText(html,c,'HTML copied!');$('modal').classList.add('open');}
+function openPhoto(im){resetModal();$('mTitle').textContent=im.name||'Event photo';const img=$('mImg');img.hidden=false;img.src=im.src;img.alt=im.name||'';$('mActs').hidden=false;$('mDl').textContent='Download image';$('mDl').onclick=()=>downloadPhoto(im);$('modal').classList.add('open');}
+function closeModal(){$('modal').classList.remove('open');resetModal();}
 document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal();};
 
 /* ---------- generator ---------- */
@@ -517,8 +557,6 @@ function ph(label,c1,c2){return 'data:image/svg+xml,'+encodeURIComponent("<svg x
    hero. Both are same-origin, so the export canvas is never tainted.
    If manifest.json moves, update MANIFEST_URL below. */
 const MANIFEST_URL='manifest.json';
-let LIBRARY=[];           /* [{name, src(full-res path), thumb(thumbnail), cat}] */
-let libState='loading';   /* 'loading' | 'ready' | 'error' */
 function titleFromPath(p){return (p||'').split('/').pop().replace(/\.[^.]+$/,'').replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase());}
 function loadLibrary(){
   return fetch(MANIFEST_URL,{cache:'no-cache'})
@@ -708,7 +746,7 @@ function showTab(id){['assets','gen'].forEach(t=>{$('p-'+t).hidden=t!==id;$('t-'
 
 /* init */
 buildBanner();buildLib();buildSub();buildAdjust();applyAudience();setMode('email');
-loadLibrary().then(()=>{buildLib();render();});
+loadLibrary().then(()=>{buildLib();render();renderAssets();});
 </script>
 <script type="text/html" id="mail01"><!DOCTYPE html>
 <html lang="en">
