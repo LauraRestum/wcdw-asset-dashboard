@@ -12,7 +12,8 @@ window.WCDW_MANIFEST = {
   "usage_notes": [
     "Event and brand photos can be renamed or moved freely; nothing references them by name.",
     "The 7 image files in email/ MUST keep their exact filenames \u2014 VisitUs-EMAIL.html references them by name.",
-    "Photos contain identifiable event attendees; use per Envision Dallas photo-consent and privacy practices."
+    "Photos contain identifiable event attendees; use per Envision Dallas photo-consent and privacy practices.",
+    "Email banners in email-banners/ are finished graphics: place one at the top of an email and hyperlink the whole image to https://whitecanedaywalk.com so readers can click it to register."
   ],
   "categories": {
     "event-photos/the-walk": "Participants walking/marching with white canes, and the start banner.",
@@ -22,7 +23,8 @@ window.WCDW_MANIFEST = {
     "event-photos/group-photos-and-portraits": "Posed group photos and portraits.",
     "event-photos/candid-moments": "Candid, close-up, and human-interest shots.",
     "brand": "Brand/marketing imagery.",
-    "email": "Thank-you email template and its referenced image assets."
+    "email": "Thank-you email template and its referenced image assets.",
+    "email-banners": "Ready-made White Cane Day Walk email header banners (1200x300). Drop into an email and hyperlink the image to whitecanedaywalk.com."
   },
   "assets": [
     {
@@ -586,6 +588,101 @@ window.WCDW_MANIFEST = {
         "icon",
         "social",
         "linkedin"
+      ]
+    },
+    {
+      "path": "email-banners/walk-for-independence-green-header.jpg",
+      "filename": "walk-for-independence-green-header.jpg",
+      "category": "email-banners",
+      "type": "image",
+      "dimensions": "1200x300",
+      "thumbnail": "dashboard/thumbnails/email-banners/walk-for-independence-green-header.jpg",
+      "description": "\u201cWalk for Independence\u201d email header banner: bold White Cane Day Walk 2026 headline on a soft green leaf background with the Oct. 17, 2026 Dallas Zoo date and a green \u201cRegister to walk\u201d button.",
+      "tags": [
+        "email banner",
+        "header",
+        "green",
+        "walk for independence",
+        "register",
+        "white cane day walk",
+        "2026",
+        "call to action"
+      ]
+    },
+    {
+      "path": "email-banners/registration-now-open-navy.jpg",
+      "filename": "registration-now-open-navy.jpg",
+      "category": "email-banners",
+      "type": "image",
+      "dimensions": "1200x300",
+      "thumbnail": "dashboard/thumbnails/email-banners/registration-now-open-navy.jpg",
+      "description": "\u201cRegistration is now open\u201d email banner on a navy background with a \u201cRegister to walk\u201d button, the Oct. 17, 2026 Dallas Zoo date and whitecanedaywalk.com.",
+      "tags": [
+        "email banner",
+        "header",
+        "navy",
+        "registration open",
+        "register",
+        "white cane day walk",
+        "2026",
+        "call to action",
+        "url"
+      ]
+    },
+    {
+      "path": "email-banners/who-do-you-walk-for.jpg",
+      "filename": "who-do-you-walk-for.jpg",
+      "category": "email-banners",
+      "type": "image",
+      "dimensions": "1200x300",
+      "thumbnail": "dashboard/thumbnails/email-banners/who-do-you-walk-for.jpg",
+      "description": "\u201cWho do you walk for?\u201d email banner pairing a photo of two smiling participants (one with a white cane) with a navy panel and the Oct. 17, 2026 Dallas Zoo date.",
+      "tags": [
+        "email banner",
+        "header",
+        "photo",
+        "who do you walk for",
+        "white cane",
+        "navy",
+        "2026",
+        "participants"
+      ]
+    },
+    {
+      "path": "email-banners/every-step-counts.jpg",
+      "filename": "every-step-counts.jpg",
+      "category": "email-banners",
+      "type": "image",
+      "dimensions": "1200x300",
+      "thumbnail": "dashboard/thumbnails/email-banners/every-step-counts.jpg",
+      "description": "\u201cEvery step counts\u201d email banner: a crowd raising white canes beside a white panel with whitecanedaywalk.com and the Oct. 17, 2026 Dallas Zoo date.",
+      "tags": [
+        "email banner",
+        "header",
+        "photo",
+        "every step counts",
+        "white cane",
+        "crowd",
+        "2026",
+        "url"
+      ]
+    },
+    {
+      "path": "email-banners/walk-with-us-for-independence.jpg",
+      "filename": "walk-with-us-for-independence.jpg",
+      "category": "email-banners",
+      "type": "image",
+      "dimensions": "1200x300",
+      "thumbnail": "dashboard/thumbnails/email-banners/walk-with-us-for-independence.jpg",
+      "description": "\u201cWalk with us for independence\u201d email banner: headline on a white panel beside a photo of two smiling participants, with the Oct. 17, 2026 Dallas Zoo date.",
+      "tags": [
+        "email banner",
+        "header",
+        "photo",
+        "walk with us for independence",
+        "white cane",
+        "participants",
+        "2026"
       ]
     }
   ]

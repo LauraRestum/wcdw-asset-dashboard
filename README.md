@@ -55,8 +55,13 @@ Because the library is fetched, `studio.html` must be **served over http**, not 
 │   ├── group-photos-and-portraits/  Posed group photos and portraits
 │   └── candid-moments/           Candid, close-up, and human-interest shots
 ├── brand/                        Brand/marketing imagery (building exterior, logo video)
+├── email-banners/                Ready-made 1200×300 email header banners (see Premade assets)
 └── email/                        The thank-you email template + its 7 image assets
 ```
+
+### Premade email banners
+
+`email-banners/` holds finished White Cane Day Walk header graphics (1200×300) that appear as downloadable tiles in the studio's **Premade assets → Banners** filter and in the dashboard gallery. They are read from `manifest.json` like every other asset, so adding one is just: drop the image in `email-banners/`, add a manifest entry, and run `python3 dashboard/build.py`. When you drop a banner into an email, **hyperlink the whole image to <https://whitecanedaywalk.com>** so readers can click it straight through to registration.
 
 ## Adding or changing assets
 

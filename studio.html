@@ -84,6 +84,9 @@
   .thumb.dark{background:linear-gradient(135deg,var(--navy),var(--blue))}
   .thumb.photo{background:#f2f6fc}
   .thumb.photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb.banner{background:#f2f6fc;display:flex;align-items:center}
+  .thumb.banner img{width:100%;height:100%;object-fit:contain;display:block}
+  .asset .note{font-size:.64rem;line-height:1.42;color:var(--navy);background:rgba(120,190,33,.14);border-left:3px solid var(--green);padding:.42rem .55rem;border-radius:5px}
   .thumb .bar{height:4px;display:flex}
   .thumb .bar i{height:100%}.thumb .bar .g{width:24%;background:var(--green)}.thumb .bar .b{flex:1;background:var(--blue)}
   .thumb .pv{padding:.75rem .85rem}
@@ -452,6 +455,7 @@ const ASSETS=[
 const CATS=[['all','All'],['email','Emails'],['social','Social'],['media','Media / PSA'],['banner','Banners'],['photos','Photos']];
 let activeCat='all';
 let LIBRARY=[];           /* [{name, src(full-res path), thumb(thumbnail), cat}] populated from manifest.json */
+let BANNERS=[];           /* [{name, title, src, thumb, dim}] premade email banners from manifest.json */
 let libState='loading';   /* 'loading' | 'ready' | 'error' */
 const grid=document.getElementById('assetGrid'),filters=document.getElementById('filters');
 CATS.forEach(([id,l])=>{const b=document.createElement('button');b.className='chip';b.textContent=l;b.setAttribute('aria-pressed',id==='all');
@@ -471,7 +475,22 @@ function renderAssets(){grid.innerHTML='';
     if(a.mode&&!a.file)acts.appendChild(mkAct('Customize',()=>customizeAsset(a)));
     grid.appendChild(el);
   });
+  if(activeCat==='all'||activeCat==='banner')renderBannerTiles();
   if(activeCat==='all'||activeCat==='photos')renderPhotoTiles();
+}
+function renderBannerTiles(){
+  BANNERS.forEach(bn=>{
+    const el=document.createElement('div');el.className='asset';
+    el.innerHTML=`<div class="thumb banner"><img src="${ph_esc(bn.thumb||bn.src)}" alt="${ph_esc(bn.name)}" loading="lazy"></div>
+      <div class="body"><h3>${ph_esc(bn.title)}</h3>
+      <div class="meta"><span class="dot live"></span>Email banner${bn.dim?' &middot; '+ph_esc(bn.dim):''}</div>
+      <div class="note">Add to an email, then <strong>hyperlink the image</strong> to whitecanedaywalk.com so it&rsquo;s clickable and takes readers straight to registration.</div>
+      <div class="acts"></div></div>`;
+    const acts=el.querySelector('.acts');
+    acts.appendChild(mkAct('View',()=>openPhoto(bn)));
+    acts.appendChild(mkAct('Download',()=>downloadPhoto(bn)));
+    grid.appendChild(el);
+  });
 }
 function ph_esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderPhotoTiles(){
@@ -561,9 +580,11 @@ function loadLibrary(){
   return fetch(MANIFEST_URL,{cache:'no-cache'})
     .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
     .then(m=>{
-      LIBRARY=(m.assets||[])
-        .filter(a=>a.type==='image'&&a.thumbnail&&/^event-photos\//.test(a.path||''))
+      const imgs=(m.assets||[]).filter(a=>a.type==='image'&&a.thumbnail);
+      LIBRARY=imgs.filter(a=>/^event-photos\//.test(a.path||''))
         .map(a=>({name:a.description||titleFromPath(a.path),src:a.path,thumb:a.thumbnail,cat:a.category||''}));
+      BANNERS=imgs.filter(a=>/^email-banners\//.test(a.path||''))
+        .map(a=>({name:a.description||titleFromPath(a.path),title:titleFromPath(a.path),src:a.path,thumb:a.thumbnail,dim:a.dimensions||''}));
       libState=LIBRARY.length?'ready':'error';
     })
     .catch(e=>{console.warn('Could not load photo library from '+MANIFEST_URL+':',e);LIBRARY=[];libState='error';});
