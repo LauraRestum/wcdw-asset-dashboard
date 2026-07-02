@@ -10,7 +10,7 @@ Does three things, all idempotent:
      source of truth.
   3. Emits ``dashboard/data.js`` (``window.WCDW_MANIFEST = {...}``) so the
      dashboard renders both on a web server / GitHub Pages *and* when
-     ``index.html`` is opened directly from disk (file://).
+     ``dashboard.html`` is opened directly from disk (file://).
 
 Requires Pillow (``pip install Pillow``). Run from anywhere:
 
