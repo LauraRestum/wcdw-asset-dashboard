@@ -1,4 +1,6 @@
-{
+/* GENERATED FILE - do not edit by hand.
+   Source of truth is /manifest.json; regenerate with dashboard/build.py. */
+window.WCDW_MANIFEST = {
   "project": "WCD 2026 Assets",
   "event": {
     "name": "Celebrating Independence: White Cane Day Walk",
@@ -587,4 +589,4 @@
       ]
     }
   ]
-}
+};
