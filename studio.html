@@ -454,10 +454,11 @@ const ASSETS=[
 ];
 
 /* ---------- assets render ---------- */
-const CATS=[['all','All'],['email','Emails'],['media','Media / PSA'],['banner','Banners'],['photos','Photos']];
+const CATS=[['all','All'],['email','Emails'],['media','Media / PSA'],['banner','Banners'],['social','Social'],['photos','Photos']];
 let activeCat='all';
 let LIBRARY=[];           /* [{name, src(full-res path), thumb(thumbnail), cat}] populated from manifest.json */
 let BANNERS=[];           /* [{name, title, src, thumb, dim}] premade email banners from manifest.json */
+let SOCIAL=[];            /* [{name, title, src, thumb, dim}] premade social graphics from manifest.json */
 let libState='loading';   /* 'loading' | 'ready' | 'error' */
 const grid=document.getElementById('assetGrid'),filters=document.getElementById('filters');
 CATS.forEach(([id,l])=>{const b=document.createElement('button');b.className='chip';b.textContent=l;b.setAttribute('aria-pressed',id==='all');
@@ -477,6 +478,7 @@ function renderAssets(){grid.innerHTML='';
     grid.appendChild(el);
   });
   if(activeCat==='all'||activeCat==='banner')renderBannerTiles();
+  if(activeCat==='all'||activeCat==='social')renderSocialTiles();
   if(activeCat==='all'||activeCat==='photos')renderPhotoTiles();
 }
 function renderBannerTiles(){
@@ -490,6 +492,19 @@ function renderBannerTiles(){
     const acts=el.querySelector('.acts');
     acts.appendChild(mkAct('View',()=>openPhoto(bn)));
     acts.appendChild(mkAct('Download',()=>downloadPhoto(bn)));
+    grid.appendChild(el);
+  });
+}
+function renderSocialTiles(){
+  SOCIAL.forEach(sn=>{
+    const el=document.createElement('div');el.className='asset';
+    el.innerHTML=`<div class="thumb banner"><img src="${ph_esc(sn.thumb||sn.src)}" alt="${ph_esc(sn.name)}" loading="lazy"></div>
+      <div class="body"><h3>${ph_esc(sn.title)}</h3>
+      <div class="meta">Social graphic${sn.dim?' &middot; '+ph_esc(sn.dim):''}</div>
+      <div class="acts"></div></div>`;
+    const acts=el.querySelector('.acts');
+    acts.appendChild(mkAct('View',()=>openPhoto(sn)));
+    acts.appendChild(mkAct('Download',()=>downloadPhoto(sn)));
     grid.appendChild(el);
   });
 }
@@ -585,6 +600,8 @@ function loadLibrary(){
       LIBRARY=imgs.filter(a=>/^event-photos\//.test(a.path||''))
         .map(a=>({name:a.description||titleFromPath(a.path),src:a.path,thumb:a.thumbnail,cat:a.category||''}));
       BANNERS=imgs.filter(a=>/^email-banners\//.test(a.path||''))
+        .map(a=>({name:a.description||titleFromPath(a.path),title:titleFromPath(a.path),src:a.path,thumb:a.thumbnail,dim:a.dimensions||''}));
+      SOCIAL=imgs.filter(a=>/^social\//.test(a.path||''))
         .map(a=>({name:a.description||titleFromPath(a.path),title:titleFromPath(a.path),src:a.path,thumb:a.thumbnail,dim:a.dimensions||''}));
       libState=LIBRARY.length?'ready':'error';
     })

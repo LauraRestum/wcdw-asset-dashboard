@@ -24,7 +24,8 @@ window.WCDW_MANIFEST = {
     "event-photos/candid-moments": "Candid, close-up, and human-interest shots.",
     "brand": "Brand/marketing imagery.",
     "email": "Thank-you email template and its referenced image assets.",
-    "email-banners": "Ready-made White Cane Day Walk email header banners (1200x300). Drop into an email and hyperlink the image to whitecanedaywalk.com."
+    "email-banners": "Ready-made White Cane Day Walk email header banners (1200x300). Drop into an email and hyperlink the image to whitecanedaywalk.com.",
+    "social": "Ready-to-post social media graphics: Facebook event cover and save-the-date post."
   },
   "assets": [
     {
@@ -680,6 +681,44 @@ window.WCDW_MANIFEST = {
         "header",
         "photo",
         "walk with us for independence",
+        "white cane",
+        "participants",
+        "2026"
+      ]
+    },
+    {
+      "path": "social/facebook-event-cover.jpg",
+      "filename": "facebook-event-cover.jpg",
+      "category": "social",
+      "type": "image",
+      "dimensions": "851x315",
+      "thumbnail": "dashboard/thumbnails/social/facebook-event-cover.jpg",
+      "description": "Facebook event cover (851x315): the \u2018Walk for Independence \u2014 White Cane Day Walk\u2019 logo on a soft green background with navy zoo-animal silhouettes, the Saturday Oct. 17, 2026 Dallas Zoo 5\u20137 PM date and \u2018Presented by Fifth Third\u2019.",
+      "tags": [
+        "social",
+        "facebook",
+        "event cover",
+        "green",
+        "logo",
+        "Fifth Third",
+        "2026",
+        "date and time"
+      ]
+    },
+    {
+      "path": "social/save-the-date-facebook-post.jpg",
+      "filename": "save-the-date-facebook-post.jpg",
+      "category": "social",
+      "type": "image",
+      "dimensions": "940x788",
+      "thumbnail": "dashboard/thumbnails/social/save-the-date-facebook-post.jpg",
+      "description": "\u2018Independence is worth celebrating twice.\u2019 Facebook save-the-date post: bold headline over a navy-tinted photo of two smiling participants (one with a white cane), with the White Cane Day Walk logo and the Saturday Oct. 17, 2026 Dallas Zoo date.",
+      "tags": [
+        "social",
+        "facebook",
+        "save the date",
+        "navy",
+        "photo",
         "white cane",
         "participants",
         "2026"
