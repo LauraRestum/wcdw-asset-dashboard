@@ -86,14 +86,16 @@
   .thumb.photo img{width:100%;height:100%;object-fit:cover;display:block}
   .thumb.banner{background:#f2f6fc;display:flex;align-items:center}
   .thumb.banner img{width:100%;height:100%;object-fit:contain;display:block}
-  .thumb .car-btn{position:absolute;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;
-    border:none;background:rgba(10,30,60,.72);color:#fff;font-size:1.05rem;font-weight:700;line-height:1;
+  .car-btn{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;
+    border:none;background:rgba(10,30,60,.72);color:#fff;font-size:1.2rem;font-weight:700;line-height:1;
     display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;z-index:2;padding:0}
-  .thumb .car-btn:hover{background:var(--navy)}
-  .thumb .car-btn.prev{left:8px}
-  .thumb .car-btn.next{right:8px}
-  .thumb .car-count{position:absolute;top:8px;right:8px;background:rgba(10,30,60,.72);color:#fff;
+  .car-btn:hover{background:var(--navy)}
+  .car-btn[hidden],.car-count[hidden]{display:none}
+  .car-btn.prev{left:10px}
+  .car-btn.next{right:10px}
+  .car-count{position:absolute;top:10px;right:10px;background:rgba(10,30,60,.72);color:#fff;
     font-size:0.7rem;font-weight:700;padding:.18rem .55rem;border-radius:999px;z-index:2}
+  .m-img-wrap{position:relative}
   .grid-count{font-size:0.75rem;font-weight:600;color:var(--muted);margin:-.6rem 0 1rem}
   .asset .note{font-size:0.75rem;line-height:1.42;color:var(--navy);background:rgba(120,190,33,.14);border-left:3px solid var(--green);padding:.42rem .55rem;border-radius:5px}
   .thumb .bar{height:4px;display:flex}
@@ -402,7 +404,12 @@
 <div class="modal" id="modal"><div class="modal-card">
   <div class="modal-top"><i class="g"></i><i class="b"></i></div>
   <div class="modal-body"><button class="modal-x" onclick="closeModal()" aria-label="Close">×</button>
-    <h3 id="mTitle"></h3><iframe id="mFrame" title="Email preview" hidden></iframe><img id="mImg" alt="" hidden><pre id="mBody"></pre>
+    <h3 id="mTitle"></h3><iframe id="mFrame" title="Email preview" hidden></iframe>
+    <div class="m-img-wrap" id="mImgWrap" hidden><img id="mImg" alt="">
+      <button class="car-btn prev" id="mPrev" type="button" aria-label="Previous image" hidden>&#8249;</button>
+      <button class="car-btn next" id="mNext" type="button" aria-label="Next image" hidden>&#8250;</button>
+      <span class="car-count" id="mCount" hidden></span></div>
+    <pre id="mBody"></pre>
     <div class="modal-acts" id="mActs" hidden><button class="btn btn-green" id="mDl" type="button">Download</button><button class="btn btn-ghost" id="mCopy" type="button" hidden>Copy HTML</button></div>
   </div>
 </div></div>
@@ -545,29 +552,16 @@ function renderSocialTiles(){
   });
 }
 function renderSeriesTile(g){
-  let i=0;
+  const first=g.slides[0];
   const el=document.createElement('div');el.className='asset';
-  el.innerHTML=`<div class="thumb banner"><img loading="lazy">
-      <button class="car-btn prev" type="button" aria-label="Previous graphic">&#8249;</button>
-      <button class="car-btn next" type="button" aria-label="Next graphic">&#8250;</button>
-      <span class="car-count"></span></div>
+  el.innerHTML=`<div class="thumb banner"><img src="${ph_esc(first.thumb||first.src)}" alt="${ph_esc(g.title)}" loading="lazy">
+      <span class="car-count" title="${g.slides.length} images &mdash; open View to flip through">&#10697; ${g.slides.length}</span></div>
     <div class="body"><h3>${ph_esc(g.title)}</h3>
-    <div class="meta"></div>
+    <div class="meta">Social set &middot; ${g.slides.length} images${first.dim?' &middot; '+ph_esc(first.dim):''}</div>
     <div class="acts"></div></div>`;
-  const img=el.querySelector('img'),count=el.querySelector('.car-count'),meta=el.querySelector('.meta');
-  function show(){
-    const s=g.slides[i];
-    img.src=s.thumb||s.src;img.alt=s.name||g.title;
-    count.textContent=(i+1)+' / '+g.slides.length;
-    meta.innerHTML='Social set &middot; '+g.slides.length+' graphics'+(s.dim?' &middot; '+ph_esc(s.dim):'');
-  }
-  el.querySelector('.prev').onclick=()=>{i=(i-1+g.slides.length)%g.slides.length;show();};
-  el.querySelector('.next').onclick=()=>{i=(i+1)%g.slides.length;show();};
   const acts=el.querySelector('.acts');
-  acts.appendChild(mkAct('View',()=>openPhoto(g.slides[i])));
-  acts.appendChild(mkAct('Download',()=>downloadPhoto(g.slides[i])));
+  acts.appendChild(mkAct('View',()=>openSeries(g)));
   acts.appendChild(mkAct('Download all',()=>g.slides.forEach(s=>downloadPhoto(s))));
-  show();
   grid.appendChild(el);
 }
 function ph_esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
@@ -620,14 +614,45 @@ function previewInner(a){
 
 /* ---------- modal ---------- */
 function getMail(id){const e=document.getElementById(id);return e?e.textContent:'';}
-function resetModal(){const fr=$('mFrame');fr.hidden=true;fr.srcdoc='';const img=$('mImg');img.hidden=true;img.removeAttribute('src');$('mBody').hidden=true;$('mActs').hidden=true;$('mDl').onclick=null;const c=$('mCopy');c.hidden=true;c.onclick=null;c.textContent='Copy HTML';}
+function resetModal(){const fr=$('mFrame');fr.hidden=true;fr.srcdoc='';$('mImgWrap').hidden=true;$('mPrev').hidden=true;$('mNext').hidden=true;$('mCount').hidden=true;seriesView=null;$('mImg').removeAttribute('src');$('mBody').hidden=true;$('mActs').hidden=true;$('mDl').onclick=null;const c=$('mCopy');c.hidden=true;c.onclick=null;c.textContent='Copy HTML';}
 function copyText(txt,btn,label){const done=()=>{const o=btn.textContent;btn.textContent=label||'Copied!';setTimeout(()=>{btn.textContent=o;},1400);};
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,()=>{legacyCopy(txt);done();});}
   else{legacyCopy(txt);done();}}
 function legacyCopy(txt){const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);}
 function openModal(t,b){resetModal();$('mTitle').textContent=t;const pre=$('mBody');pre.hidden=false;pre.textContent=b;$('modal').classList.add('open');}
 function openEmail(t,html){resetModal();$('mTitle').textContent=t;const fr=$('mFrame');fr.hidden=false;fr.srcdoc=html;$('mActs').hidden=false;$('mDl').textContent='Download HTML';$('mDl').onclick=()=>dl(new Blob([html],{type:'text/html'}),'wcdw-'+slug(t)+'.html');const c=$('mCopy');c.hidden=false;c.onclick=()=>copyText(html,c,'HTML copied!');$('modal').classList.add('open');}
-function openPhoto(im){resetModal();$('mTitle').textContent=im.name||'Event photo';const img=$('mImg');img.hidden=false;img.src=im.src;img.alt=im.name||'';$('mActs').hidden=false;$('mDl').textContent='Download image';$('mDl').onclick=()=>downloadPhoto(im);$('modal').classList.add('open');}
+function openPhoto(im){resetModal();$('mTitle').textContent=im.name||'Event photo';$('mImgWrap').hidden=false;const img=$('mImg');img.src=im.src;img.alt=im.name||'';$('mActs').hidden=false;$('mDl').textContent='Download image';$('mDl').onclick=()=>downloadPhoto(im);$('modal').classList.add('open');}
+
+/* Multi-image viewer: opens a social set in the modal with prev/next arrows,
+   an "n / total" counter, arrow-key navigation and touch swipe. */
+let seriesView=null;
+function openSeries(g,start){
+  resetModal();seriesView={g,i:start||0};
+  $('mImgWrap').hidden=false;$('mPrev').hidden=false;$('mNext').hidden=false;$('mCount').hidden=false;
+  $('mPrev').onclick=()=>seriesStep(-1);
+  $('mNext').onclick=()=>seriesStep(1);
+  $('mActs').hidden=false;$('mDl').textContent='Download image';
+  $('mDl').onclick=()=>downloadPhoto(seriesView.g.slides[seriesView.i]);
+  seriesShow();$('modal').classList.add('open');
+}
+function seriesShow(){
+  const {g,i}=seriesView,s=g.slides[i];
+  const img=$('mImg');img.src=s.src;img.alt=s.name||'';
+  $('mTitle').textContent=g.title+' — '+(i+1)+' of '+g.slides.length;
+  $('mCount').textContent=(i+1)+' / '+g.slides.length;
+}
+function seriesStep(d){if(!seriesView)return;const n=seriesView.g.slides.length;seriesView.i=(seriesView.i+d+n)%n;seriesShow();}
+document.addEventListener('keydown',e=>{
+  if(!seriesView||!$('modal').classList.contains('open'))return;
+  if(e.key==='ArrowRight')seriesStep(1);else if(e.key==='ArrowLeft')seriesStep(-1);
+});
+let swipeX=null;
+document.getElementById('mImgWrap').addEventListener('touchstart',e=>{swipeX=e.touches[0].clientX;},{passive:true});
+document.getElementById('mImgWrap').addEventListener('touchend',e=>{
+  if(swipeX===null||!seriesView)return;
+  const dx=e.changedTouches[0].clientX-swipeX;swipeX=null;
+  if(Math.abs(dx)>40)seriesStep(dx<0?1:-1);
+},{passive:true});
 function closeModal(){$('modal').classList.remove('open');resetModal();}
 document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal();};
 
