@@ -24,7 +24,8 @@ window.WCDW_MANIFEST = {
     "event-photos/candid-moments": "Candid, close-up, and human-interest shots.",
     "brand": "Brand/marketing imagery.",
     "email": "Thank-you email template and its referenced image assets.",
-    "email-banners": "Ready-made White Cane Day Walk email header banners (1200x300). Drop into an email and hyperlink the image to whitecanedaywalk.com."
+    "email-banners": "Ready-made White Cane Day Walk email header banners (1200x300). Drop into an email and hyperlink the image to whitecanedaywalk.com.",
+    "social": "Ready-to-post social media graphics: Facebook event cover and post, plus a 3-slide Instagram save-the-date carousel (1080x1350; post the slides in order)."
   },
   "assets": [
     {
@@ -682,6 +683,107 @@ window.WCDW_MANIFEST = {
         "walk with us for independence",
         "white cane",
         "participants",
+        "2026"
+      ]
+    },
+    {
+      "path": "social/facebook-event-cover.jpg",
+      "filename": "facebook-event-cover.jpg",
+      "category": "social",
+      "type": "image",
+      "dimensions": "851x315",
+      "thumbnail": "dashboard/thumbnails/social/facebook-event-cover.jpg",
+      "description": "Facebook event cover (851x315): the \u2018Walk for Independence \u2014 White Cane Day Walk\u2019 logo on a soft green background with navy zoo-animal silhouettes, the Saturday Oct. 17, 2026 Dallas Zoo 5\u20137 PM date and \u2018Presented by Fifth Third\u2019.",
+      "tags": [
+        "social",
+        "facebook",
+        "event cover",
+        "green",
+        "logo",
+        "Fifth Third",
+        "2026",
+        "date and time"
+      ]
+    },
+    {
+      "path": "social/save-the-date-facebook-post.jpg",
+      "filename": "save-the-date-facebook-post.jpg",
+      "category": "social",
+      "type": "image",
+      "dimensions": "940x788",
+      "thumbnail": "dashboard/thumbnails/social/save-the-date-facebook-post.jpg",
+      "description": "\u2018Independence is worth celebrating twice.\u2019 Facebook save-the-date post: bold headline over a navy-tinted photo of two smiling participants (one with a white cane), with the White Cane Day Walk logo and the Saturday Oct. 17, 2026 Dallas Zoo date.",
+      "tags": [
+        "social",
+        "facebook",
+        "save the date",
+        "navy",
+        "photo",
+        "white cane",
+        "participants",
+        "2026"
+      ]
+    },
+    {
+      "path": "social/save-the-date-instagram-1.jpg",
+      "filename": "save-the-date-instagram-1.jpg",
+      "category": "social",
+      "type": "image",
+      "dimensions": "1080x1350",
+      "thumbnail": "dashboard/thumbnails/social/save-the-date-instagram-1.jpg",
+      "description": "Instagram save-the-date carousel, slide 1 of 3 (1080x1350): \u2018Independence is worth celebrating twice.\u2019 headline over a photo of two smiling walkers (one with a white cane), with a green swipe arrow.",
+      "tags": [
+        "social",
+        "instagram",
+        "carousel",
+        "slide 1",
+        "save the date",
+        "white cane",
+        "participants",
+        "swipe arrow",
+        "2026"
+      ]
+    },
+    {
+      "path": "social/save-the-date-instagram-2.jpg",
+      "filename": "save-the-date-instagram-2.jpg",
+      "category": "social",
+      "type": "image",
+      "dimensions": "1080x1350",
+      "thumbnail": "dashboard/thumbnails/social/save-the-date-instagram-2.jpg",
+      "description": "Instagram save-the-date carousel, slide 2 of 3 (1080x1350): \u2018Today the country celebrates independence with fireworks. This fall, our community celebrates it with footsteps.\u2019 over the crowd raising white canes behind the Celebrating Independence banner; \u2018Save the date\u2019 with a green swipe arrow.",
+      "tags": [
+        "social",
+        "instagram",
+        "carousel",
+        "slide 2",
+        "save the date",
+        "fireworks",
+        "footsteps",
+        "crowd",
+        "white canes raised",
+        "banner",
+        "2026"
+      ]
+    },
+    {
+      "path": "social/save-the-date-instagram-3.jpg",
+      "filename": "save-the-date-instagram-3.jpg",
+      "category": "social",
+      "type": "image",
+      "dimensions": "1080x1350",
+      "thumbnail": "dashboard/thumbnails/social/save-the-date-instagram-3.jpg",
+      "description": "Instagram save-the-date carousel, slide 3 of 3 (1080x1350): \u2018Save the date\u2019 closing card with the Walk for Independence \u2014 White Cane Day Walk logo and the Saturday Oct. 17, 2026 Dallas Zoo date, over a photo of a mother and daughter walking with a cane.",
+      "tags": [
+        "social",
+        "instagram",
+        "carousel",
+        "slide 3",
+        "save the date",
+        "logo",
+        "date",
+        "Dallas Zoo",
+        "white cane",
         "2026"
       ]
     }
