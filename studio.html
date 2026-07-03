@@ -86,6 +86,15 @@
   .thumb.photo img{width:100%;height:100%;object-fit:cover;display:block}
   .thumb.banner{background:#f2f6fc;display:flex;align-items:center}
   .thumb.banner img{width:100%;height:100%;object-fit:contain;display:block}
+  .thumb .car-btn{position:absolute;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;
+    border:none;background:rgba(10,30,60,.72);color:#fff;font-size:1.05rem;font-weight:700;line-height:1;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;z-index:2;padding:0}
+  .thumb .car-btn:hover{background:var(--navy)}
+  .thumb .car-btn.prev{left:8px}
+  .thumb .car-btn.next{right:8px}
+  .thumb .car-count{position:absolute;top:8px;right:8px;background:rgba(10,30,60,.72);color:#fff;
+    font-size:0.7rem;font-weight:700;padding:.18rem .55rem;border-radius:999px;z-index:2}
+  .grid-count{font-size:0.75rem;font-weight:600;color:var(--muted);margin:-.6rem 0 1rem}
   .asset .note{font-size:0.75rem;line-height:1.42;color:var(--navy);background:rgba(120,190,33,.14);border-left:3px solid var(--green);padding:.42rem .55rem;border-radius:5px}
   .thumb .bar{height:4px;display:flex}
   .thumb .bar i{height:100%}.thumb .bar .g{width:24%;background:var(--green)}.thumb .bar .b{flex:1;background:var(--blue)}
@@ -238,6 +247,7 @@
     <h2 class="sec-title">Everything built for the Walk</h2>
     <p class="sec-sub">The approved pieces from the 2026 messaging guide and content bank. Open one to read the copy, or send an email or social piece straight into the generator, prefilled.</p>
     <div class="filter-row" id="filters"></div>
+    <div class="grid-count" id="assetCount" role="status" aria-live="polite"></div>
     <div class="grid" id="assetGrid"></div>
   </section>
 
@@ -480,6 +490,15 @@ function renderAssets(){grid.innerHTML='';
   if(activeCat==='all'||activeCat==='banner')renderBannerTiles();
   if(activeCat==='all'||activeCat==='social')renderSocialTiles();
   if(activeCat==='all'||activeCat==='photos')renderPhotoTiles();
+  updateAssetCount();
+}
+function updateAssetCount(){
+  let n=ASSETS.filter(a=>activeCat==='all'||a.cat===activeCat).length;
+  if(activeCat==='all'||activeCat==='banner')n+=BANNERS.length;
+  if(activeCat==='all'||activeCat==='social')n+=SOCIAL.length;
+  if(activeCat==='all'||activeCat==='photos')n+=LIBRARY.length;
+  const label=activeCat==='all'?'':' · '+(CATS.find(c=>c[0]===activeCat)||['',''])[1];
+  document.getElementById('assetCount').textContent='Showing '+n+' asset'+(n===1?'':'s')+label;
 }
 function renderBannerTiles(){
   BANNERS.forEach(bn=>{
@@ -495,8 +514,25 @@ function renderBannerTiles(){
     grid.appendChild(el);
   });
 }
+/* Social graphics whose filenames end in -1, -2, … (e.g. a carousel or a
+   multi-slide set) are grouped into a single tile with prev/next arrows and
+   a "n / total" counter. Everything else gets its own tile. */
+function socialGroups(){
+  const groups=new Map(),out=[];
+  SOCIAL.forEach(it=>{
+    const m=(it.src||'').match(/^(.*)-(\d+)\.[a-z0-9]+$/i);
+    if(m){
+      let g=groups.get(m[1]);
+      if(!g){g={title:titleFromPath(m[1]+'.x'),slides:[]};groups.set(m[1],g);out.push(g);}
+      g.slides.push(Object.assign({n:+m[2]},it));
+    }else out.push(it);
+  });
+  groups.forEach(g=>g.slides.sort((a,b)=>a.n-b.n));
+  return out;
+}
 function renderSocialTiles(){
-  SOCIAL.forEach(sn=>{
+  socialGroups().forEach(sn=>{
+    if(sn.slides){renderSeriesTile(sn);return;}
     const el=document.createElement('div');el.className='asset';
     el.innerHTML=`<div class="thumb banner"><img src="${ph_esc(sn.thumb||sn.src)}" alt="${ph_esc(sn.name)}" loading="lazy"></div>
       <div class="body"><h3>${ph_esc(sn.title)}</h3>
@@ -507,6 +543,32 @@ function renderSocialTiles(){
     acts.appendChild(mkAct('Download',()=>downloadPhoto(sn)));
     grid.appendChild(el);
   });
+}
+function renderSeriesTile(g){
+  let i=0;
+  const el=document.createElement('div');el.className='asset';
+  el.innerHTML=`<div class="thumb banner"><img loading="lazy">
+      <button class="car-btn prev" type="button" aria-label="Previous graphic">&#8249;</button>
+      <button class="car-btn next" type="button" aria-label="Next graphic">&#8250;</button>
+      <span class="car-count"></span></div>
+    <div class="body"><h3>${ph_esc(g.title)}</h3>
+    <div class="meta"></div>
+    <div class="acts"></div></div>`;
+  const img=el.querySelector('img'),count=el.querySelector('.car-count'),meta=el.querySelector('.meta');
+  function show(){
+    const s=g.slides[i];
+    img.src=s.thumb||s.src;img.alt=s.name||g.title;
+    count.textContent=(i+1)+' / '+g.slides.length;
+    meta.innerHTML='Social set &middot; '+g.slides.length+' graphics'+(s.dim?' &middot; '+ph_esc(s.dim):'');
+  }
+  el.querySelector('.prev').onclick=()=>{i=(i-1+g.slides.length)%g.slides.length;show();};
+  el.querySelector('.next').onclick=()=>{i=(i+1)%g.slides.length;show();};
+  const acts=el.querySelector('.acts');
+  acts.appendChild(mkAct('View',()=>openPhoto(g.slides[i])));
+  acts.appendChild(mkAct('Download',()=>downloadPhoto(g.slides[i])));
+  acts.appendChild(mkAct('Download all',()=>g.slides.forEach(s=>downloadPhoto(s))));
+  show();
+  grid.appendChild(el);
 }
 function ph_esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function renderPhotoTiles(){
