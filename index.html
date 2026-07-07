@@ -587,19 +587,20 @@
         <button type="button" id="ccVMonth" aria-pressed="true">Month</button>
         <button type="button" id="ccVList" aria-pressed="false">List</button>
       </div>
-      <button class="btn btn-ghost" type="button" id="ccExport" title="Download the schedule as a file">Export</button>
-      <button class="btn btn-ghost" type="button" id="ccImport" title="Load a schedule file">Import</button>
+      <button class="btn btn-ghost" type="button" id="ccReset" title="Throw away this browser's draft and reload the published schedule" hidden>Start over</button>
+      <button class="btn btn-ghost" type="button" id="ccExport" title="Download calendar.json to upload to GitHub" hidden>Download calendar.json</button>
+      <button class="btn btn-ghost" type="button" id="ccImport" title="Load a schedule file" hidden>Import</button>
       <input type="file" id="ccImportFile" accept=".json,application/json" hidden>
-      <button class="btn btn-green" type="button" id="ccAddBtn">＋ Add post / email</button>
+      <button class="btn btn-green" type="button" id="ccAddBtn" hidden>＋ Add post / email</button>
     </div>
+    <p class="cc-note" id="ccEditHint" style="margin:0 0 1rem" hidden>Edit mode — changes save as a draft in this browser. To publish for everyone: <b>Download calendar.json</b>, then upload it to the GitHub repo (Add file → Upload files, replacing the old one).</p>
     <div class="filter-row" id="ccChips" role="group" aria-label="Filter by channel"></div>
     <div class="cc-cal" id="ccMonthView" role="grid" aria-labelledby="ccMonthLabel">
       <div class="cc-headrow" id="ccHeadRow" role="row"></div>
       <div class="cc-grid" id="ccGrid"></div>
     </div>
     <div class="cc-list" id="ccListView" hidden></div>
-    <div class="cc-empty" id="ccEmpty" hidden><b>Nothing scheduled yet.</b><br>Click <b>＋ Add post / email</b>, or any day on the month view, to plan your first one.</div>
-    <p class="cc-note">The schedule is saved in this browser only, it does not sync between devices on its own. Use <b>Export</b> to download it as a file you can back up or share, and <b>Import</b> to load it on another device.</p>
+    <div class="cc-empty" id="ccEmpty" hidden><b>Nothing scheduled yet.</b><span id="ccEmptyEdit" hidden><br>Click <b>＋ Add post / email</b>, or any day on the month view, to plan your first one.</span></div>
   </section>
 </main>
 
@@ -1377,7 +1378,24 @@ const ch=c=>CH[c]||CH.other;
 const escC=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function ccLoad(){try{const a=JSON.parse(localStorage.getItem(STORE)||'[]');return Array.isArray(a)?a.filter(e=>e&&e.id&&e.date):[];}catch(e){return[];}}
 function ccPersist(){try{localStorage.setItem(STORE,JSON.stringify(entries));}catch(e){ccToast('Could not save, browser storage unavailable');}}
-let entries=ccLoad();
+/* Everyone sees the published schedule (calendar.json in the repo), read-only.
+   Opening index.html#calendar-edit unlocks editing: changes are drafted in this
+   browser, then "Download calendar.json" produces the file to upload to GitHub. */
+const EDIT=location.hash==='#calendar-edit';
+let entries=EDIT?ccLoad():[];
+let publishedEntries=[];
+fetch('calendar.json',{cache:'no-cache'})
+  .then(r=>r.ok?r.json():null)
+  .then(d=>{
+    if(d)publishedEntries=(Array.isArray(d)?d:(d.entries||[])).filter(e=>e&&e.id&&e.date);
+    if(!EDIT)entries=publishedEntries;
+    else if(!entries.length)entries=publishedEntries.slice();
+    ccRender();
+  })
+  .catch(()=>{});
+if(EDIT){
+  ['ccAddBtn','ccExport','ccImport','ccReset','ccEditHint','ccEmptyEdit'].forEach(id=>{$(id).hidden=false;});
+}
 
 const pad=n=>(n<10?'0':'')+n;
 const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
@@ -1422,18 +1440,28 @@ function renderMonth(){
       const th=e.asset&&e.asset.thumbnail?'<img src="'+escC(e.asset.thumbnail)+'" alt="">':'<span class="gl" style="--ch:'+c.color+'">'+c.short+'</span>';
       const sub=[c.label,niceTime(e.time)].filter(Boolean).join(' · ');
       return '<button type="button" class="cc-ev'+(e.status==='posted'?' done':'')+'" style="--ch:'+c.color+'" data-id="'+escC(e.id)+'" '+
-        'aria-label="Edit: '+escC(e.title||c.label)+' on '+escC(niceDate(e.date))+'">'+
+        'aria-label="'+(EDIT?'Edit':'View')+': '+escC(e.title||c.label)+' on '+escC(niceDate(e.date))+'">'+
         th+'<span class="t">'+escC(e.title||(c.label+' post'))+'<small>'+escC(sub)+'</small></span></button>';
     }).join('');
     cells.push('<div class="cc-day'+(out?' out':'')+(key===today?' today':'')+'" role="gridcell" aria-label="'+escC(niceDate(key))+'">'+
       '<span class="cc-n">'+d.getDate()+'</span><div class="cc-evs">'+evs+'</div>'+
-      '<button type="button" class="cc-addday" data-date="'+key+'" aria-label="Add a post on '+escC(niceDate(key))+'">＋ add</button></div>');
+      (EDIT?'<button type="button" class="cc-addday" data-date="'+key+'" aria-label="Add a post on '+escC(niceDate(key))+'">＋ add</button>':'')+'</div>');
   }
   $('ccGrid').innerHTML=cells.join('');
 }
+function entryDetails(e){
+  const c=ch(e.channel);
+  return c.label+' · '+niceDate(e.date)+(e.time?' · '+niceTime(e.time):'')+' · '+stLabel(e.status)+
+    (e.copy?'\n\n'+e.copy:'')+(e.notes?'\n\nNotes: '+e.notes:'');
+}
+function viewEntry(id){
+  const e=entries.find(x=>x.id===id);if(!e)return;
+  openModal(e.title||(ch(e.channel).label+' post'),entryDetails(e));
+}
 $('ccGrid').addEventListener('click',e=>{
-  const ev=e.target.closest('.cc-ev');if(ev){openEntry(ev.getAttribute('data-id'));return;}
-  const add=e.target.closest('.cc-addday');if(add)openEntry(null,add.getAttribute('data-date'));
+  const ev=e.target.closest('.cc-ev');
+  if(ev){const id=ev.getAttribute('data-id');if(EDIT)openEntry(id);else viewEntry(id);return;}
+  const add=e.target.closest('.cc-addday');if(add&&EDIT)openEntry(null,add.getAttribute('data-date'));
 });
 
 /* list view */
@@ -1459,7 +1487,7 @@ function renderList(){
         '<h4>'+escC(e.title||(c.label+' post'))+'</h4>'+
         (e.copy?'<p class="cp">'+escC(e.copy)+'</p>':'')+
         (e.notes?'<p class="cp">📝 '+escC(e.notes)+'</p>':'')+'</div>'+
-        '<div class="acts"><button type="button" data-edit="'+escC(e.id)+'">Edit</button>'+
+        '<div class="acts">'+(EDIT?'<button type="button" data-edit="'+escC(e.id)+'">Edit</button>':'')+
         (e.copy?'<button type="button" data-copy="'+escC(e.id)+'">Copy text</button>':'')+'</div></div>';
     }).join('');
     return '<section class="cc-dg'+(dt<today?' past':'')+'"><h3>'+(dt===today?'Today — ':'')+escC(niceDate(dt))+'</h3>'+rows+'</section>';
@@ -1593,10 +1621,16 @@ pdlg.addEventListener('click',e=>{if(e.target===pdlg)pdlg.close();});
 /* export / import */
 $('ccExport').onclick=()=>{
   const blob=new Blob([JSON.stringify({wcdwCalendar:1,exported:new Date().toISOString(),entries},null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='wcdw-content-calendar.json';
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='calendar.json';
   document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);
-  ccToast('Schedule exported');
+  ccToast('Downloaded — upload calendar.json to the GitHub repo to publish');
+};
+$('ccReset').onclick=()=>{
+  if(!confirm('Throw away this browser\'s draft and reload the published schedule?'))return;
+  try{localStorage.removeItem(STORE);}catch(e){}
+  entries=publishedEntries.slice();
+  ccRender();ccToast('Draft cleared — showing the published schedule');
 };
 $('ccImport').onclick=()=>$('ccImportFile').click();
 $('ccImportFile').addEventListener('change',function(){
@@ -1628,8 +1662,12 @@ function ccCopy(txt,msg){
 }
 
 ccRender();
-/* deep link: /calendar redirects here with #calendar */
-if(location.hash==='#calendar')showTab('cal');
+/* deep link: /calendar redirects here with #calendar; #calendar-edit unlocks editing */
+if(location.hash==='#calendar'||EDIT)showTab('cal');
+window.addEventListener('hashchange',()=>{
+  if((location.hash==='#calendar-edit')!==EDIT)location.reload();   /* entering/leaving edit mode needs a fresh boot */
+  else if(location.hash==='#calendar')showTab('cal');
+});
 })();
 </script>
 <script type="text/html" id="mail01"><!DOCTYPE html>
