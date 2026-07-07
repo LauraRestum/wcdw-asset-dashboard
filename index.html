@@ -1,18 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="auto">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>White Cane Day Walk 2026 · Campaign Studio</title>
+<meta name="description" content="Build on-brand, accessible emails, graphics, and social posts for the Envision Dallas Celebrating Independence: White Cane Day Walk (Dallas Zoo, 2026) from preapproved copy, with a live brand check.">
+<meta name="theme-color" content="#002855">
+<script>/* apply saved theme before paint to avoid a flash */try{var t=localStorage.getItem('wcdw-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23002855'/%3E%3Cpath d='M9 22 L20 8' stroke='%2378BE21' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='21' cy='7' r='2.6' fill='%23FFCF00'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{
+    color-scheme:light;
     --navy:#002855; --navy-deep:#001852; --blue:#003087; --blue-mid:#004bb5;
     --green:#78BE21; --green-soft:rgba(120,190,33,.14); --gold:#FFCF00; --terra:#DC4405;
+    /* accessible green for text on light surfaces (brand green fails WCAG as text) */
+    --green-text:#3d7513;
     --charcoal:#53565A; --ink:#0e1830; --bg:#eaf0f8; --card:#ffffff;
-    --line:#d9e2f0; --muted:#69768a;
+    --panel:#fbfcff; --panel-2:#f2f6fc; --frame-bg:#eef2f8;
+    --line:#d9e2f0; --muted:#556275;
     --shadow:0 18px 44px -18px rgba(0,40,120,.4);
+  }
+  html[data-theme="dark"]{
+    color-scheme:dark;
+    --green-text:#93d94a;
+    --charcoal:#c6cfdc; --ink:#e9eff8; --bg:#0f1626; --card:#182238;
+    --panel:#131c30; --panel-2:#1e2942; --frame-bg:#0b1120;
+    --line:#2c3c59; --muted:#a4b4cc; --green-soft:rgba(120,190,33,.16);
+    --shadow:0 18px 44px -18px rgba(0,0,0,.7);
+  }
+  @media (prefers-color-scheme: dark){
+    html[data-theme="auto"]{
+      color-scheme:dark;
+      --green-text:#93d94a;
+      --charcoal:#c6cfdc; --ink:#e9eff8; --bg:#0f1626; --card:#182238;
+      --panel:#131c30; --panel-2:#1e2942; --frame-bg:#0b1120;
+      --line:#2c3c59; --muted:#a4b4cc; --green-soft:rgba(120,190,33,.16);
+      --shadow:0 18px 44px -18px rgba(0,0,0,.7);
+    }
   }
   html{scroll-behavior:smooth}
   body{font-family:'Montserrat',sans-serif;color:var(--ink);background:var(--bg);
@@ -21,8 +49,28 @@
   a{color:var(--blue)}
   :focus-visible{outline:3px solid var(--green);outline-offset:2px;border-radius:3px}
   .eyebrow{font-size:0.75rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--green);display:inline-flex;align-items:center;gap:.6rem}
+    color:var(--green-text);display:inline-flex;align-items:center;gap:.6rem}
   .eyebrow::before{content:'';width:22px;height:2px;background:var(--green)}
+  header.hero .eyebrow{color:var(--green)}  /* bright green is fine on the navy hero */
+  .skip{position:absolute;left:12px;top:-60px;background:var(--card);color:var(--ink);
+    padding:10px 16px;border-radius:10px;z-index:100;box-shadow:var(--shadow);transition:top .15s}
+  .skip:focus{top:10px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* top utility nav (links the two tools + theme toggle) — always dark navy */
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    background:var(--navy-deep);color:#fff;padding:.5rem 2rem;font-size:.8rem}
+  .topbar a{color:#fff;text-decoration:none;font-weight:600}
+  .tb-brand{opacity:.9;letter-spacing:.02em}
+  .tb-actions{display:flex;align-items:center;gap:.6rem}
+  .tb-link{display:inline-flex;align-items:center;gap:.4rem;padding:.32rem .7rem;border-radius:999px;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+  .tb-link:hover{background:rgba(255,255,255,.16)}
+  .tb-btn{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:999px;padding:.32rem .8rem;
+    font-family:inherit;font-weight:600;font-size:.78rem}
+  .tb-btn:hover{background:rgba(255,255,255,.16)}
+  @media(max-width:560px){.topbar{padding:.5rem 1rem;font-size:.72rem}.tb-brand{display:none}}
 
   /* signature green + blue split bar */
   .splitbar{height:6px;display:flex}
@@ -63,28 +111,28 @@
   .tabs{max-width:1200px;margin:0 auto;display:flex;gap:.3rem;padding:.7rem 2rem 0}
   .tab{background:none;border:none;padding:.7rem 1.1rem .9rem;font-size:.82rem;font-weight:700;
     color:var(--muted);border-bottom:3px solid transparent;letter-spacing:.01em}
-  .tab[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--green)}
+  .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--green)}
   main{max-width:1200px;margin:0 auto;padding:2rem}
   .panel[hidden]{display:none}
   .panel{animation:up .4s ease}
 
-  .sec-title{font-size:1.55rem;font-weight:800;color:var(--navy);letter-spacing:-.02em;margin:.5rem 0 .3rem}
+  .sec-title{font-size:1.55rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;margin:.5rem 0 .3rem}
   .sec-sub{color:var(--muted);font-size:.9rem;max-width:660px;margin-bottom:1.4rem}
 
   /* assets */
   .filter-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
-  .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:.42rem 1rem;
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.42rem 1rem;
     font-size:0.75rem;font-weight:600;color:var(--muted);transition:.15s}
-  .chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--ink)}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(244px,1fr));gap:1.15rem}
   .asset{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;
     display:flex;flex-direction:column;position:relative;transition:transform .2s,box-shadow .2s}
   .asset:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-  .thumb{height:140px;position:relative;overflow:hidden;background:#fff;border-bottom:1px solid var(--line)}
+  .thumb{height:140px;position:relative;overflow:hidden;background:var(--card);border-bottom:1px solid var(--line)}
   .thumb.dark{background:linear-gradient(135deg,var(--navy),var(--blue))}
-  .thumb.photo{background:#f2f6fc}
+  .thumb.photo{background:var(--panel-2)}
   .thumb.photo img{width:100%;height:100%;object-fit:cover;display:block}
-  .thumb.banner{background:#f2f6fc;display:flex;align-items:center}
+  .thumb.banner{background:var(--panel-2);display:flex;align-items:center}
   .thumb.banner img{width:100%;height:100%;object-fit:contain;display:block}
   .car-btn{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;
     border:none;background:rgba(10,30,60,.72);color:#fff;font-size:1.2rem;font-weight:700;line-height:1;
@@ -97,12 +145,12 @@
     font-size:0.7rem;font-weight:700;padding:.18rem .55rem;border-radius:999px;z-index:2}
   .m-img-wrap{position:relative}
   .grid-count{font-size:0.75rem;font-weight:600;color:var(--muted);margin:-.6rem 0 1rem}
-  .asset .note{font-size:0.75rem;line-height:1.42;color:var(--navy);background:rgba(120,190,33,.14);border-left:3px solid var(--green);padding:.42rem .55rem;border-radius:5px}
+  .asset .note{font-size:0.75rem;line-height:1.42;color:var(--ink);background:rgba(120,190,33,.14);border-left:3px solid var(--green);padding:.42rem .55rem;border-radius:5px}
   .thumb .bar{height:4px;display:flex}
   .thumb .bar i{height:100%}.thumb .bar .g{width:24%;background:var(--green)}.thumb .bar .b{flex:1;background:var(--blue)}
   .thumb .pv{padding:.75rem .85rem}
-  .thumb .pv-t{font-size:0.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:.32rem}
-  .thumb .pv-h{font-size:.82rem;font-weight:800;color:var(--navy);line-height:1.18;letter-spacing:-.01em;
+  .thumb .pv-t{font-size:0.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green-text);margin-bottom:.32rem}
+  .thumb .pv-h{font-size:.82rem;font-weight:800;color:var(--ink);line-height:1.18;letter-spacing:-.01em;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .thumb .pv-b{font-size:0.75rem;color:var(--muted);line-height:1.4;margin-top:.35rem;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -110,7 +158,7 @@
   .thumb.dark .pv-t{color:var(--green)}
   .thumb.dark .pv-h{color:#fff;font-size:1rem;-webkit-line-clamp:3}
   .asset .body{padding:.9rem 1rem 1.05rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
-  .asset h3{font-size:.9rem;font-weight:700;color:var(--navy);line-height:1.28}
+  .asset h3{font-size:.9rem;font-weight:700;color:var(--ink);line-height:1.28}
   .asset .meta{font-size:0.75rem;color:var(--muted);display:flex;align-items:center;gap:.45rem;margin-top:auto}
   .asset .acts{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
   .asset .act{background:none;border:none;color:var(--blue);font-weight:700;font-size:0.75rem;padding:0}
@@ -119,97 +167,97 @@
   /* generator */
   .gen{display:grid;grid-template-columns:380px 1fr;gap:1.6rem;align-items:start}
   @media(max-width:920px){.gen{grid-template-columns:1fr}}
-  .controls{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.4rem;box-shadow:var(--shadow)}
+  .controls{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.4rem;box-shadow:var(--shadow)}
   .modes{display:flex;background:var(--bg);border-radius:10px;padding:.25rem;margin-bottom:1.3rem}
   .modes button{flex:1;border:none;background:none;padding:.55rem;font-size:.78rem;font-weight:700;
     color:var(--muted);border-radius:8px;transition:.15s}
-  .modes button[aria-selected="true"]{background:var(--navy);color:#fff}
-  label{display:block;font-size:0.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin:0 0 .35rem}
+  .modes button[aria-pressed="true"]{background:var(--navy);color:#fff}
+  label{display:block;font-size:0.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 .35rem}
   .field{margin-bottom:1rem}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
   input[type=text],textarea,select{width:100%;border:1px solid var(--line);border-radius:8px;
-    padding:.6rem .7rem;font-family:inherit;font-size:.85rem;color:var(--ink);background:#fff}
+    padding:.6rem .7rem;font-family:inherit;font-size:.85rem;color:var(--ink);background:var(--card)}
   textarea{resize:vertical;min-height:66px}
   select{cursor:pointer}
   .quick{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.45rem}
-  .q{border:1px solid var(--line);background:#fff;border-radius:999px;padding:.28rem .6rem;
+  .q{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:.28rem .6rem;
     font-size:0.75rem;font-weight:600;color:var(--charcoal)}
-  .q:hover{border-color:var(--green);color:var(--navy)}
+  .q:hover{border-color:var(--green);color:var(--ink)}
   .swatches{display:flex;gap:.5rem;flex-wrap:wrap}
-  .block{border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;margin-bottom:.9rem;background:#fbfcff}
-  .block-h{display:flex;align-items:center;justify-content:space-between;gap:.5rem;font-size:0.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);margin-bottom:.65rem}
+  .block{border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;margin-bottom:.9rem;background:var(--panel)}
+  .block-h{display:flex;align-items:center;justify-content:space-between;gap:.5rem;font-size:0.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:.65rem}
   .edit-t{font-size:0.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);background:none;border:none;cursor:pointer;padding:0;white-space:nowrap}
   .edit-t:hover{text-decoration:underline}
   .mini-l{font-size:0.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
   .opts{display:grid;gap:.5rem}
   .opts.row{grid-template-columns:repeat(auto-fill,minmax(122px,1fr))}
-  .opt{text-align:left;border:1px solid var(--line);background:#fff;border-radius:8px;padding:.55rem .65rem;font-size:.77rem;font-weight:600;color:var(--navy);cursor:pointer;line-height:1.3;transition:border-color .15s,box-shadow .15s,background .15s}
+  .opt{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:.55rem .65rem;font-size:.77rem;font-weight:600;color:var(--ink);cursor:pointer;line-height:1.3;transition:border-color .15s,box-shadow .15s,background .15s}
   .opt:hover{border-color:var(--green)}
-  .opt[aria-pressed="true"]{border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy);background:#f2f6ff}
-  .opt .o-l{display:block;font-size:0.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:.18rem}
+  .opt[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--navy);background:var(--panel-2)}
+  .opt .o-l{display:block;font-size:0.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-text);margin-bottom:.18rem}
   .opt .o-t{display:block;font-weight:500;color:var(--muted);font-size:0.75rem;line-height:1.32;margin-top:.12rem}
   .hidey{margin-top:.6rem}
   .libtile{height:58px;border-radius:8px;border:1px solid var(--line);background-color:#002855;background-size:cover;background-position:center;cursor:pointer}
   .libtile[aria-pressed="true"]{box-shadow:0 0 0 2px var(--navy)}
-  .uploadbtn{display:inline-block;margin-top:.6rem;border:1px dashed var(--line);border-radius:8px;padding:.55rem .9rem;font-size:0.75rem;font-weight:700;color:var(--navy);cursor:pointer;transition:border-color .15s}
+  .uploadbtn{display:inline-block;margin-top:.6rem;border:1px dashed var(--line);border-radius:8px;padding:.55rem .9rem;font-size:0.75rem;font-weight:700;color:var(--ink);cursor:pointer;transition:border-color .15s}
   .uploadbtn:hover{border-color:var(--green)}
-  .swatch{width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+  .swatch{width:30px;height:30px;border-radius:50%;border:2px solid var(--card);box-shadow:0 0 0 1px var(--line)}
   .swatch[aria-pressed="true"]{box-shadow:0 0 0 3px var(--navy)}
   .presets{display:flex;gap:.4rem;flex-wrap:wrap}
-  .preset{border:1px solid var(--line);background:#fff;border-radius:8px;padding:.4rem .65rem;font-size:0.75rem;font-weight:600;color:var(--muted)}
-  .preset[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .preset{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:.4rem .65rem;font-size:0.75rem;font-weight:600;color:var(--muted)}
+  .preset[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--ink)}
   .actions{display:flex;gap:.6rem;margin-top:.5rem;flex-wrap:wrap}
   .btn{border:none;border-radius:8px;padding:.72rem 1.15rem;font-size:.78rem;font-weight:700}
-  .btn-green{background:var(--green);color:var(--navy)}
+  .btn-green{background:var(--green);color:#002855}
   .btn-green:hover{box-shadow:0 8px 22px rgba(120,190,33,.42)}
-  .btn-ghost{background:#fff;border:1px solid var(--line);color:var(--navy)}
+  .btn-ghost{background:var(--card);border:1px solid var(--line);color:var(--ink)}
 
   /* brand-compliance meter */
   .guard{border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;margin-bottom:1.2rem;
-    background:#fff;transition:.2s}
+    background:var(--card);transition:.2s}
   .guard.clean{border-color:var(--green);background:var(--green-soft)}
-  .guard-head{display:flex;align-items:center;gap:.6rem;font-size:0.75rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.08em}
+  .guard-head{display:flex;align-items:center;gap:.6rem;font-size:0.75rem;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.08em}
   .badge{margin-left:auto;font-size:0.75rem;font-weight:800;letter-spacing:.04em;padding:.25rem .6rem;border-radius:999px}
-  .badge.ok{background:var(--green);color:var(--navy)}
+  .badge.ok{background:var(--green);color:#002855}
   .badge.warn{background:var(--gold);color:#5a4600}
   .badge.fail{background:var(--terra);color:#fff}
   .guard ul{list-style:none;margin-top:.6rem;display:flex;flex-direction:column;gap:.4rem}
   .guard li{font-size:.75rem;line-height:1.4;padding-left:1.1rem;position:relative;color:var(--charcoal)}
   .guard li::before{content:'';position:absolute;left:0;top:.42em;width:7px;height:7px;border-radius:2px}
   .guard li.f::before{background:var(--terra)} .guard li.w::before{background:var(--gold)}
-  .guard li b{color:var(--navy)}
+  .guard li b{color:var(--ink)}
 
   /* preview */
   .preview{position:sticky;top:4.5rem}
   .preview-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem}
   .preview-head .lbl{font-size:0.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-  .stage{background:linear-gradient(180deg,#fff,#f2f6fc);border:1px solid var(--line);border-radius:14px;
+  .stage{background:linear-gradient(180deg,var(--card),var(--panel-2));border:1px solid var(--line);border-radius:14px;
     padding:1.5rem;display:flex;justify-content:center;overflow:auto;box-shadow:inset 0 2px 16px rgba(0,40,120,.05)}
-  #emailFrame{width:600px;max-width:100%;border:none;height:720px;background:#eef2f8;border-radius:8px}
+  #emailFrame{width:600px;max-width:100%;border:none;height:720px;background:var(--frame-bg);border-radius:8px}
   #bannerCanvas{max-width:100%;height:auto;border-radius:8px;box-shadow:var(--shadow)}
-  .social-caption{max-width:520px;width:100%;margin-top:1rem;background:#fff;border:1px solid var(--line);
+  .social-caption{max-width:520px;width:100%;margin-top:1rem;background:var(--card);border:1px solid var(--line);
     border-radius:10px;padding:1rem;font-size:.86rem;line-height:1.55;color:var(--ink);white-space:pre-wrap}
 
   /* guidelines */
-  details.ref{margin-top:1.8rem;background:#fff;border:1px solid var(--line);border-radius:12px;padding:.2rem 1.3rem}
-  details.ref summary{cursor:pointer;font-weight:700;color:var(--navy);padding:1rem 0;font-size:.92rem}
+  details.ref{margin-top:1.8rem;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.2rem 1.3rem}
+  details.ref summary{cursor:pointer;font-weight:700;color:var(--ink);padding:1rem 0;font-size:.92rem}
   .ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.4rem;padding:.3rem 0 1.4rem}
-  .ref-grid h4{font-size:0.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:.55rem}
+  .ref-grid h4{font-size:0.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green-text);margin-bottom:.55rem}
   .ref-grid ul{list-style:none;font-size:.77rem;color:var(--charcoal)}
   .ref-grid li{padding:.16rem 0}
   .pal{display:flex;gap:.35rem;flex-wrap:wrap}.pal span{width:26px;height:26px;border-radius:5px;border:1px solid var(--line)}
-  .yes{color:var(--green);font-weight:800}.no{color:var(--terra);font-weight:800}
+  .yes{color:var(--green-text);font-weight:800}.no{color:var(--terra);font-weight:800}
 
-  /* modal */
-  .modal{position:fixed;inset:0;background:rgba(0,16,46,.55);display:none;align-items:center;justify-content:center;z-index:60;padding:1.5rem}
-  .modal.open{display:flex}
-  .modal-card{background:#fff;border-radius:14px;max-width:760px;width:100%;max-height:82vh;overflow:auto;box-shadow:var(--shadow)}
+  /* modal (native <dialog>: Escape, focus trap + restore come for free) */
+  dialog.modal{border:none;padding:0;background:transparent;max-width:min(760px,calc(100vw - 2rem));width:100%;max-height:none;margin:auto}
+  dialog.modal::backdrop{background:rgba(0,16,46,.6);backdrop-filter:blur(2px)}
+  .modal-card{background:var(--card);border-radius:14px;max-width:760px;width:100%;max-height:86vh;overflow:auto;box-shadow:var(--shadow)}
   .modal-top{height:6px;display:flex}.modal-top i{height:100%}.modal-top .g{width:22%;background:var(--green)}.modal-top .b{flex:1;background:var(--blue)}
   .modal-body{padding:1.6rem 1.8rem}
-  .modal-body h3{color:var(--navy);font-weight:800;font-size:1.2rem;margin-bottom:.9rem}
+  .modal-body h3{color:var(--ink);font-weight:800;font-size:1.2rem;margin-bottom:.9rem}
   .modal-body pre{white-space:pre-wrap;font-family:inherit;font-size:.86rem;line-height:1.6;color:var(--ink)}
-  #mFrame{width:100%;height:70vh;border:1px solid var(--line);border-radius:8px;background:#eef2f8}
-  #mImg{width:100%;max-height:70vh;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#eef2f8;display:block}
+  #mFrame{width:100%;height:70vh;border:1px solid var(--line);border-radius:8px;background:var(--frame-bg)}
+  #mImg{width:100%;max-height:70vh;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:var(--frame-bg);display:block}
   .modal-acts{margin-top:1.1rem;display:flex;gap:.7rem;flex-wrap:wrap}
   .modal-x{float:right;background:none;border:none;font-size:1.4rem;color:var(--muted);line-height:1}
 
@@ -220,31 +268,40 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="topbar" aria-label="Site">
+  <a class="tb-brand" href="index.html">White Cane Day Walk</a>
+  <div class="tb-actions">
+    <button class="tb-btn" id="themeBtn" type="button" aria-pressed="false">
+      <span id="themeIcon" aria-hidden="true">☾</span><span id="themeLabel">Dark</span>
+    </button>
+  </div>
+</nav>
 <div class="splitbar"><i class="g"></i><i class="b"></i></div>
 
 <header class="hero">
   <div class="hero-grain"></div>
   <div class="hero-inner">
     <div>
-      <span class="eyebrow fade d1">Envision · Campaign Studio</span>
+      <span class="eyebrow fade d1">Campaign Studio</span>
       <h1 class="fade d2">White Cane Day Walk <span>2026</span></h1>
       <p class="sub fade d3">Browse every approved asset and build new emails, banners and social, on brand and on message by default.</p>
     </div>
     <div class="hero-meta fade d3">
       <div class="pill"><b>Sat, Oct 17</b> <span class="lo">· Dallas Zoo</span></div>
-      <div class="pill count"><b id="days">108</b> <span class="lo">days out</span></div>
+      <div class="pill count" id="countdownPill"><b>108</b> <span class="lo">days out</span></div>
     </div>
   </div>
 </header>
 <div class="onerule">Envision is the organization. <span>North Texas is the impact.</span> The Walk is the invitation.</div>
 
-<div class="tabwrap"><div class="tabs" role="tablist">
-  <button class="tab" role="tab" aria-selected="true" id="t-assets" onclick="showTab('assets')">Premade assets</button>
-  <button class="tab" role="tab" aria-selected="false" id="t-gen" onclick="showTab('gen')">Generator</button>
+<div class="tabwrap"><div class="tabs" role="tablist" aria-label="Studio sections">
+  <button class="tab" role="tab" aria-selected="true" aria-controls="p-assets" id="t-assets" tabindex="0" onclick="showTab('assets')">Premade assets</button>
+  <button class="tab" role="tab" aria-selected="false" aria-controls="p-gen" id="t-gen" tabindex="-1" onclick="showTab('gen')">Generator</button>
 </div></div>
 
-<main>
-  <section class="panel" id="p-assets" role="tabpanel">
+<main id="main">
+  <section class="panel" id="p-assets" role="tabpanel" aria-labelledby="t-assets" tabindex="0">
     <span class="eyebrow">Asset library</span>
     <h2 class="sec-title">Everything built for the Walk</h2>
     <p class="sec-sub">The approved pieces from the 2026 messaging guide and content bank. Open one to read the copy, or send an email or social piece straight into the generator, prefilled.</p>
@@ -253,17 +310,17 @@
     <div class="grid" id="assetGrid"></div>
   </section>
 
-  <section class="panel" id="p-gen" role="tabpanel" hidden>
+  <section class="panel" id="p-gen" role="tabpanel" aria-labelledby="t-gen" tabindex="0" hidden>
     <span class="eyebrow">Build something new</span>
     <h2 class="sec-title">Email, banner &amp; social generator</h2>
     <p class="sec-sub">Pick an audience and the approved lead line and CTA drop in. The brand check reads every keystroke against the AI directive and the Walk guardrails.</p>
 
     <div class="gen">
       <div class="controls">
-        <div class="modes" role="tablist">
-          <button role="tab" aria-selected="true" id="mo-email" onclick="setMode('email')">Email</button>
-          <button role="tab" aria-selected="false" id="mo-graphic" onclick="setMode('graphic')">Graphic</button>
-          <button role="tab" aria-selected="false" id="mo-social" onclick="setMode('social')">Social</button>
+        <div class="modes" role="group" aria-label="Output type">
+          <button type="button" aria-pressed="true" id="mo-email" onclick="setMode('email')">Email</button>
+          <button type="button" aria-pressed="false" id="mo-graphic" onclick="setMode('graphic')">Graphic</button>
+          <button type="button" aria-pressed="false" id="mo-social" onclick="setMode('social')">Social</button>
         </div>
 
         <div class="two">
@@ -280,6 +337,8 @@
           <div class="block-h" id="lbl-image">Image</div>
           <div class="opts row" id="libOpts"></div>
           <label class="uploadbtn">Upload an image<input type="file" id="f-upload" accept="image/*" hidden></label>
+          <div class="field hidey" id="w-imgurl"><label for="f-imgurl">Or paste a hosted image URL</label>
+            <input type="text" id="f-imgurl" placeholder="https://…  (recommended for emails)"></div>
           <input type="hidden" id="f-img">
         </div>
 
@@ -299,14 +358,29 @@
           <div style="display:grid;gap:.7rem">
             <div><div class="mini-l">Align</div><div class="opts row" id="alignOpts"></div></div>
             <div><div class="mini-l">Text position</div><div class="opts row" id="posOpts"></div></div>
+            <div><div class="mini-l">Photo overlay <span style="text-transform:none;letter-spacing:0;font-weight:600;color:var(--muted)">(darken for busy photos)</span></div><div class="opts row" id="overlayOpts"></div></div>
           </div>
         </div>
 
-        <div class="block" id="b-textstyle" hidden>
-          <div class="block-h"><span>Text style</span></div>
+        <div class="block" id="b-element" hidden>
+          <div class="block-h"><span>Style each element</span></div>
           <div style="display:grid;gap:.7rem">
-            <div><div class="mini-l">Headline size</div><div class="opts row" id="sizeOpts"></div></div>
-            <div><div class="mini-l">Headline weight</div><div class="opts row" id="weightOpts"></div></div>
+            <div><div class="mini-l">Choose element</div><div class="opts row" id="elOpts"></div></div>
+            <div><div class="mini-l">Size <span id="elSizeVal" style="text-transform:none;letter-spacing:0;font-weight:600;color:var(--muted)"></span></div><div class="opts row" id="elSizeOpts"></div></div>
+            <div><div class="mini-l">Weight</div><div class="opts row" id="elWeightOpts"></div></div>
+            <div id="el-color-wrap"><div class="mini-l">Color</div><div class="opts row" id="elColorOpts"></div></div>
+            <div><div class="mini-l" id="elMoveLbl">Move</div><div class="opts row" id="elMoveOpts"></div></div>
+            <div><div class="opts row" id="elRemoveOpts"></div></div>
+          </div>
+        </div>
+
+        <div class="block" id="b-labels" hidden>
+          <div class="block-h"><span>Labels</span><button class="edit-t" type="button" id="labels-reset">Reset</button></div>
+          <div style="display:grid;gap:.7rem">
+            <div><div class="mini-l">Top label <span style="text-transform:none;letter-spacing:0;font-weight:600;color:var(--muted)">(blank hides it)</span></div>
+              <input type="text" id="f-eyebrow" value="White Cane Day Walk 2026"></div>
+            <div><div class="mini-l">Footer line <span style="text-transform:none;letter-spacing:0;font-weight:600;color:var(--muted)">(blank hides it)</span></div>
+              <input type="text" id="f-footer" value="whitecanedaywalk.com"></div>
           </div>
         </div>
 
@@ -356,20 +430,21 @@
         </div>
 
         <div class="actions">
-          <button class="btn btn-green" id="exportBtn">Export HTML</button>
-          <button class="btn btn-ghost" id="copyBtn">Copy</button>
+          <button class="btn btn-green" id="exportBtn" type="button">Export HTML</button>
+          <button class="btn btn-ghost" id="copyBtn" type="button">Copy</button>
+          <button class="btn btn-ghost" id="resetBtn" type="button" title="Reload the approved headline, body and CTA for the selected audience">Reset copy</button>
         </div>
       </div>
 
       <div class="preview">
         <div class="guard" id="guard">
-          <div class="guard-head">Brand check <span class="badge ok" id="badge">On-brand</span></div>
-          <ul id="guardList"></ul>
+          <div class="guard-head">Brand check <span class="badge ok" id="badge" role="status" aria-live="polite">On-brand</span></div>
+          <ul id="guardList" aria-label="Brand check details"></ul>
         </div>
         <div class="preview-head"><span class="lbl">Live preview</span></div>
         <div class="stage">
           <iframe id="emailFrame" title="Email preview"></iframe>
-          <canvas id="bannerCanvas" width="600" height="200" hidden></canvas>
+          <canvas id="bannerCanvas" width="600" height="200" role="img" aria-label="Graphic preview" hidden></canvas>
         </div>
         <div class="social-caption" id="socialCap" hidden></div>
       </div>
@@ -399,11 +474,11 @@
   </section>
 </main>
 
-<footer class="app">White Cane Day Walk 2026 · Campaign Studio · Built on the 2026 Messaging Guide + Envision AI Directive v2.0</footer>
+<footer class="app">White Cane Day Walk 2026 · Campaign Studio · Built on the 2026 Messaging Guide + AI Directive v2.0</footer>
 
-<div class="modal" id="modal"><div class="modal-card">
+<dialog class="modal" id="modal" aria-labelledby="mTitle"><div class="modal-card">
   <div class="modal-top"><i class="g"></i><i class="b"></i></div>
-  <div class="modal-body"><button class="modal-x" onclick="closeModal()" aria-label="Close">×</button>
+  <div class="modal-body"><button class="modal-x" onclick="closeModal()" type="button" aria-label="Close">×</button>
     <h3 id="mTitle"></h3><iframe id="mFrame" title="Email preview" hidden></iframe>
     <div class="m-img-wrap" id="mImgWrap" hidden><img id="mImg" alt="">
       <button class="car-btn prev" id="mPrev" type="button" aria-label="Previous image" hidden>&#8249;</button>
@@ -412,12 +487,26 @@
     <pre id="mBody"></pre>
     <div class="modal-acts" id="mActs" hidden><button class="btn btn-green" id="mDl" type="button">Download</button><button class="btn btn-ghost" id="mCopy" type="button" hidden>Copy HTML</button></div>
   </div>
-</div></div>
+</div></dialog>
 
 <script>
-/* countdown */
-(function(){const w=new Date('2026-10-17T00:00:00');
-  document.getElementById('days').textContent=Math.max(0,Math.ceil((w-new Date())/864e5));})();
+/* countdown (with walk-day + post-event states) */
+(function(){const w=new Date('2026-10-17T00:00:00');const days=Math.ceil((w-new Date())/864e5);
+  const pill=document.getElementById('countdownPill');if(!pill)return;
+  if(days>1)pill.innerHTML='<b>'+days+'</b> <span class="lo">days out</span>';
+  else if(days===1)pill.innerHTML='<b>1</b> <span class="lo">day out</span>';
+  else if(days===0)pill.innerHTML='<b>Today</b> <span class="lo">&middot; walk day!</span>';
+  else pill.innerHTML='<b>Thank you</b> <span class="lo">&middot; see you next year</span>';})();
+
+/* theme toggle (shared 'wcdw-theme' with the asset dashboard) */
+(function(){var root=document.documentElement,btn=document.getElementById('themeBtn');
+  if(!btn)return;var icon=document.getElementById('themeIcon'),label=document.getElementById('themeLabel');
+  var mq=matchMedia('(prefers-color-scheme: dark)');
+  function isDark(){var t=root.getAttribute('data-theme');return t==='dark'||(t==='auto'&&mq.matches);}
+  function sync(){var d=isDark();icon.textContent=d?'☀':'☾';label.textContent=d?'Light':'Dark';btn.setAttribute('aria-pressed',d?'true':'false');}
+  sync();
+  btn.addEventListener('click',function(){var next=isDark()?'light':'dark';root.setAttribute('data-theme',next);try{localStorage.setItem('wcdw-theme',next);}catch(e){}sync();});
+  mq.addEventListener('change',sync);})();
 
 /* ---------- approved data from the 2026 guide ---------- */
 const AUDIENCES=[
@@ -619,9 +708,9 @@ function copyText(txt,btn,label){const done=()=>{const o=btn.textContent;btn.tex
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,()=>{legacyCopy(txt);done();});}
   else{legacyCopy(txt);done();}}
 function legacyCopy(txt){const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);}
-function openModal(t,b){resetModal();$('mTitle').textContent=t;const pre=$('mBody');pre.hidden=false;pre.textContent=b;$('modal').classList.add('open');}
-function openEmail(t,html){resetModal();$('mTitle').textContent=t;const fr=$('mFrame');fr.hidden=false;fr.srcdoc=html;$('mActs').hidden=false;$('mDl').textContent='Download HTML';$('mDl').onclick=()=>dl(new Blob([html],{type:'text/html'}),'wcdw-'+slug(t)+'.html');const c=$('mCopy');c.hidden=false;c.onclick=()=>copyText(html,c,'HTML copied!');$('modal').classList.add('open');}
-function openPhoto(im){resetModal();$('mTitle').textContent=im.name||'Event photo';$('mImgWrap').hidden=false;const img=$('mImg');img.src=im.src;img.alt=im.name||'';$('mActs').hidden=false;$('mDl').textContent='Download image';$('mDl').onclick=()=>downloadPhoto(im);$('modal').classList.add('open');}
+function openModal(t,b){resetModal();$('mTitle').textContent=t;const pre=$('mBody');pre.hidden=false;pre.textContent=b;openModalEl();}
+function openEmail(t,html){resetModal();$('mTitle').textContent=t;const fr=$('mFrame');fr.hidden=false;fr.srcdoc=html;$('mActs').hidden=false;$('mDl').textContent='Download HTML';$('mDl').onclick=()=>dl(new Blob([html],{type:'text/html'}),'wcdw-'+slug(t)+'.html');const c=$('mCopy');c.hidden=false;c.onclick=()=>copyText(html,c,'HTML copied!');openModalEl();}
+function openPhoto(im){resetModal();$('mTitle').textContent=im.name||'Event photo';$('mImgWrap').hidden=false;const img=$('mImg');img.src=im.src;img.alt=im.name||'';$('mActs').hidden=false;$('mDl').textContent='Download image';$('mDl').onclick=()=>downloadPhoto(im);openModalEl();}
 
 /* Multi-image viewer: opens a social set in the modal with prev/next arrows,
    an "n / total" counter, arrow-key navigation and touch swipe. */
@@ -633,7 +722,7 @@ function openSeries(g,start){
   $('mNext').onclick=()=>seriesStep(1);
   $('mActs').hidden=false;$('mDl').textContent='Download image';
   $('mDl').onclick=()=>downloadPhoto(seriesView.g.slides[seriesView.i]);
-  seriesShow();$('modal').classList.add('open');
+  seriesShow();openModalEl();
 }
 function seriesShow(){
   const {g,i}=seriesView,s=g.slides[i];
@@ -643,7 +732,7 @@ function seriesShow(){
 }
 function seriesStep(d){if(!seriesView)return;const n=seriesView.g.slides.length;seriesView.i=(seriesView.i+d+n)%n;seriesShow();}
 document.addEventListener('keydown',e=>{
-  if(!seriesView||!$('modal').classList.contains('open'))return;
+  if(!seriesView||!$('modal').open)return;
   if(e.key==='ArrowRight')seriesStep(1);else if(e.key==='ArrowLeft')seriesStep(-1);
 });
 let swipeX=null;
@@ -653,12 +742,40 @@ document.getElementById('mImgWrap').addEventListener('touchend',e=>{
   const dx=e.changedTouches[0].clientX-swipeX;swipeX=null;
   if(Math.abs(dx)>40)seriesStep(dx<0?1:-1);
 },{passive:true});
-function closeModal(){$('modal').classList.remove('open');resetModal();}
-document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal();};
+function openModalEl(){const m=$('modal');if(!m.open)m.showModal();}
+function closeModal(){const m=$('modal');if(m.open)m.close();}
+/* Native dialog restores focus + closes on Escape; clean up content on close.
+   Use getElementById here (not $) — this runs before $ is defined further below. */
+document.getElementById('modal').addEventListener('close',resetModal);
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===document.getElementById('modal'))closeModal();});
 
 /* ---------- generator ---------- */
 const $=id=>document.getElementById(id);
-let mode='email',accent='#78BE21',bw=600,bh=200,gAlign='left',gPos='top',gFontScale=1,gWeight=800;
+let mode='email',accent='#78BE21',bw=600,bh=200,gAlign='left',gPos='top',gFontScale=1,gWeight=800,gOverlay=1;
+/* Per-element styling. Each element can be sized, re-weighted, recolored, nudged
+   and removed independently — but only from on-brand choices (Montserrat, legible
+   colors), so a piece can't drift off-brand. */
+let selEl='head';
+const EL_LABEL={eyebrow:'Top label',head:'Headline',sub:'Sub-headline',cta:'Button',meta:'Date line',footer:'Footer'};
+const EL_DEF_W={eyebrow:700,head:800,sub:600,cta:700,meta:700,footer:800};
+let elColor={eyebrow:'auto',head:'auto',sub:'auto',cta:'auto',meta:'auto',footer:'auto'};
+let elScale={eyebrow:1,head:1,sub:1,cta:1,meta:1,footer:1};
+let elWeight=Object.assign({},EL_DEF_W);
+let elDX={eyebrow:0,head:0,sub:0,cta:0,meta:0,footer:0};
+let elDY={eyebrow:0,head:0,sub:0,cta:0,meta:0,footer:0};
+let elHidden={eyebrow:false,head:false,sub:false,cta:false,meta:false,footer:false};
+function elCol(k,def){return elColor[k]==='auto'?def:elColor[k];}
+function clampN(v,a,b){return Math.max(a,Math.min(b,v));}
+/* Email per-element styling (separate from the canvas: light background, vertical
+   stack, so the palette is dark legible colors and "location" is alignment). */
+const EM_LABEL={eyebrow:'Eyebrow',head:'Headline',body:'Body copy',sub:'Sub-line',cta:'Button',meta:'Date line',footer:'Footer'};
+let emScale={eyebrow:1,head:1,body:1,sub:1,cta:1,meta:1,footer:1};
+let emWeight={eyebrow:700,head:800,body:400,sub:400,cta:700,meta:700,footer:400};
+let emColor={eyebrow:'auto',head:'auto',body:'auto',sub:'auto',cta:'auto',meta:'auto',footer:'auto'};
+let emAlign={eyebrow:'left',head:'left',body:'left',sub:'left',cta:'left',meta:'left',footer:'left'};
+let emHidden={eyebrow:false,head:false,body:false,sub:false,cta:false,meta:false,footer:false};
+function emFS(el,base){return Math.round(base*emScale[el]);}
+function emCol(el,def){return emColor[el]==='auto'?def:emColor[el];}
 const aud=$('f-aud'),phase=$('f-phase');
 AUDIENCES.forEach(a=>aud.add(new Option(a.name,a.id)));
 PHASES.forEach(p=>phase.add(new Option(p.name,p.id)));
@@ -703,7 +820,8 @@ function buildLib(){const c=$('libOpts');c.innerHTML='';
   if(!LIBRARY.length){const s=document.createElement('span');s.className='o-t';s.style.padding='6px 4px';
     s.textContent=libState==='loading'?'Loading photo library from manifest.json…':'Photo library unavailable — manifest.json could not be read (serve over http, not file://).';
     c.appendChild(s);return;}
-  LIBRARY.forEach(im=>{const b=document.createElement('button');b.className='libtile';b.style.backgroundImage='url("'+(im.thumb||im.src)+'")';b.title=im.name;
+  LIBRARY.forEach(im=>{const b=document.createElement('button');b.type='button';b.className='libtile';b.style.backgroundImage='url("'+(im.thumb||im.src)+'")';b.title=im.name;
+    b.setAttribute('aria-label','Use photo: '+im.name);
     b.setAttribute('aria-pressed',$('f-img').value===im.src);b.onclick=()=>{$('f-img').value=im.src;buildLib();render();};c.appendChild(b);});}
 function buildHead(){const c=$('headOpts');c.innerHTML='';
   HEADERS.forEach(h=>c.appendChild(opt(h,$('f-head').value===h,()=>{$('f-head').value=h;buildHead();render();})));}
@@ -715,10 +833,47 @@ function buildCta(){const c=$('ctaOpts');c.innerHTML='';
 function buildSub(){const c=$('subOpts');c.innerHTML='';
   SUBBODIES.forEach(o=>c.appendChild(opt(o.text?'<span class="o-l">'+o.label+'</span><span class="o-t">'+trunc(o.text,80)+'</span>':'<span class="o-l">None</span>No sub-body',$('f-sub').value===o.text,()=>{$('f-sub').value=o.text;buildSub();render();})));}
 function buildAdjust(){const A=$('alignOpts');A.innerHTML='';[['left','Left'],['center','Center']].forEach(([v,l])=>A.appendChild(opt(l,gAlign===v,()=>{gAlign=v;buildAdjust();render();})));
-  const P=$('posOpts');P.innerHTML='';[['top','Top'],['middle','Middle'],['bottom','Bottom']].forEach(([v,l])=>P.appendChild(opt(l,gPos===v,()=>{gPos=v;buildAdjust();render();})));}
-function buildTextStyle(){
-  const S=$('sizeOpts');S.innerHTML='';[['0.85','Small'],['1','Medium'],['1.2','Large']].forEach(([v,l])=>S.appendChild(opt(l,gFontScale===+v,()=>{gFontScale=+v;buildTextStyle();render();})));
-  const W=$('weightOpts');W.innerHTML='';[['600','Regular'],['700','Bold'],['800','Extra bold']].forEach(([v,l])=>W.appendChild(opt(l,gWeight===+v,()=>{gWeight=+v;buildTextStyle();render();})));}
+  const P=$('posOpts');P.innerHTML='';[['top','Top'],['middle','Middle'],['bottom','Bottom']].forEach(([v,l])=>P.appendChild(opt(l,gPos===v,()=>{gPos=v;buildAdjust();render();})));
+  const O=$('overlayOpts');O.innerHTML='';[['0.72','Light'],['1','Medium'],['1.35','Strong']].forEach(([v,l])=>O.appendChild(opt(l,gOverlay===+v,()=>{gOverlay=+v;buildAdjust();render();})));}
+function elStep(label,title,fn){const b=document.createElement('button');b.type='button';b.className='opt';b.style.minWidth='0';b.style.textAlign='center';b.textContent=label;if(title)b.title=title;b.onclick=fn;return b;}
+function buildElement(){
+  // Email edits the em* maps (light bg, alignment); graphic/social edit el* (photo bg, nudge).
+  const email=(mode==='email');
+  const LAB=email?EM_LABEL:EL_LABEL;
+  if(!LAB[selEl])selEl='head';
+  const k=selEl, SC=email?emScale:elScale, WT=email?emWeight:elWeight, CL=email?emColor:elColor, HD=email?emHidden:elHidden;
+  const E=$('elOpts');E.innerHTML='';
+  Object.keys(LAB).forEach(x=>E.appendChild(opt(LAB[x]+(HD[x]?' ·hidden':''),selEl===x,()=>{selEl=x;buildElement();})));
+  // Size — nudge up / down (10% steps, clamped so it can't blow out the layout).
+  const S=$('elSizeOpts');S.innerHTML='';
+  S.appendChild(elStep('A −','Smaller',()=>{SC[k]=clampN(Math.round((SC[k]-0.1)*100)/100,0.5,2);buildElement();render();}));
+  S.appendChild(elStep('A +','Larger',()=>{SC[k]=clampN(Math.round((SC[k]+0.1)*100)/100,0.5,2);buildElement();render();}));
+  $('elSizeVal').textContent=Math.round(SC[k]*100)+'%';
+  // Weight — the full Montserrat range.
+  const W=$('elWeightOpts');W.innerHTML='';
+  [['400','Thin'],['500','Book'],['600','Semi'],['700','Bold'],['800','Extra']].forEach(([v,l])=>W.appendChild(opt(l,WT[k]===+v,()=>{WT[k]=+v;buildElement();render();})));
+  // Color — button uses the accent swatch; text picks legible on-brand colors for its background.
+  $('el-color-wrap').hidden=(k==='cta');
+  if(k!=='cta'){const C=$('elColorOpts');C.innerHTML='';
+    const palette=email?(k==='footer'
+        ? [['auto','Auto'],['#ffffff','White'],['#78BE21','Green'],['#FFCF00','Gold']]
+        : [['auto','Auto'],['#002855','Navy'],['#3d7513','Green'],['#a37a00','Gold'],['#003087','Blue']])
+      : [['auto','Auto'],['#ffffff','White'],['#78BE21','Green'],['#FFCF00','Gold']];
+    palette.forEach(([v,l])=>C.appendChild(opt(l,CL[k]===v,()=>{CL[k]=v;buildElement();render();})));}
+  // Position — email: Align L/C/R; graphic: nudge arrows + recenter.
+  const M=$('elMoveOpts');M.innerHTML='';$('elMoveLbl').textContent=email?'Align':'Move';
+  if(email){
+    [['left','Left'],['center','Center'],['right','Right']].forEach(([v,l])=>M.appendChild(opt(l,emAlign[k]===v,()=>{emAlign[k]=v;buildElement();render();})));
+  }else{
+    [['←','Left',-1,0],['→','Right',1,0],['↑','Up',0,-1],['↓','Down',0,1]].forEach(([g,t,dx,dy])=>M.appendChild(elStep(g,'Move '+t,()=>{
+      elDX[k]=clampN(Math.round((elDX[k]+dx*0.02)*1000)/1000,-0.45,0.45);
+      elDY[k]=clampN(Math.round((elDY[k]+dy*0.02)*1000)/1000,-0.45,0.45);render();})));
+    M.appendChild(elStep('Recenter','Reset position',()=>{elDX[k]=0;elDY[k]=0;render();}));
+  }
+  // Remove / restore this element.
+  const R=$('elRemoveOpts');R.innerHTML='';
+  const rb=elStep(HD[k]?'Show '+LAB[k].toLowerCase():'Remove '+LAB[k].toLowerCase(),'Toggle',()=>{HD[k]=!HD[k];buildElement();render();});
+  rb.style.color=HD[k]?'var(--blue)':'var(--terra)';rb.style.fontWeight='700';R.appendChild(rb);}
 function tEdit(k){const w=$('w-'+k);w.hidden=!w.hidden;if(!w.hidden)$('f-'+k).focus();}
 function setField(k,v){const inp=$('f-'+k);if(inp)inp.value=v;
   if(k==='head')buildHead();else if(k==='body')buildBody();else if(k==='cta')buildCta();}
@@ -727,28 +882,32 @@ function applyAudience(){const a=AUDIENCES.find(x=>x.id===aud.value);if(!a)retur
   setField('head',a.head);setField('body',a.body);setField('cta',a.cta);render();}
 function applyPhase(){const p=PHASES.find(x=>x.id===phase.value);if(p&&p.msg)setField('head',p.msg);render();}
 aud.onchange=applyAudience;phase.onchange=applyPhase;
-$('f-upload').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('f-img').value=r.result;buildLib();render();};r.readAsDataURL(f);});
+$('f-upload').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('f-img').value=r.result;$('f-imgurl').value='';buildLib();render();};r.readAsDataURL(f);});
+$('f-imgurl').addEventListener('input',e=>{$('f-img').value=e.target.value.trim();buildLib();render();});
 $('f-head').addEventListener('input',()=>{buildHead();render();});
 $('f-body').addEventListener('input',()=>{buildBody();render();});
 $('f-cta').addEventListener('input',()=>{buildCta();render();});
 $('f-sub').addEventListener('input',()=>{buildSub();render();});
-['f-link','f-meta'].forEach(id=>$(id).addEventListener('input',render));
+['f-link','f-meta','f-eyebrow','f-footer'].forEach(id=>$(id).addEventListener('input',render));
+$('labels-reset').onclick=()=>{$('f-eyebrow').value='White Cane Day Walk 2026';$('f-footer').value='whitecanedaywalk.com';render();};
 
-function setMode(m){mode=m;['email','graphic','social'].forEach(x=>$('mo-'+x).setAttribute('aria-selected',x===m));
+function setMode(m){const changed=mode!==m;mode=m;['email','graphic','social'].forEach(x=>$('mo-'+x).setAttribute('aria-pressed',x===m));
   $('emailFrame').hidden=m!=='email';$('bannerCanvas').hidden=m==='email';$('socialCap').hidden=m!=='social';
   $('b-banner').hidden=m!=='email';
   $('b-image').hidden=!((m==='email'&&bannerStyle==='photo')||m==='graphic'||m==='social');
   $('lbl-image').textContent=m==='email'?'Hero image':'Background image (optional)';
   $('b-size').hidden=m==='email';
   $('b-adjust').hidden=m==='email';
-  $('b-textstyle').hidden=m==='email';
+  $('b-element').hidden=false;   // per-element editor works in every mode (email + graphic + social)
+  $('b-labels').hidden=m==='email';
   $('b-body').hidden=m==='graphic';
   $('lbl-body').textContent=m==='social'?'Caption':'Body copy';
   $('b-cta').hidden=false;
   $('w-link').hidden=m!=='email';
   $('exportBtn').textContent=m==='email'?'Export HTML':'Download PNG';
   $('copyBtn').textContent=m==='social'?'Copy caption':'Copy';
-  if(m==='graphic'||m==='social'){bw=1080;bh=1080;[...$('presets').children].forEach(p=>p.setAttribute('aria-pressed',p.dataset.w==='1080'&&p.dataset.h==='1080'));}
+  if((m==='graphic'||m==='social')&&changed){bw=1080;bh=1080;[...$('presets').children].forEach(p=>p.setAttribute('aria-pressed',p.dataset.w==='1080'&&p.dataset.h==='1080'));}
+  buildElement();  // repopulate the per-element editor for this mode (email vs graphic)
   render();}
 document.querySelectorAll('#swatches .swatch').forEach(s=>s.onclick=()=>{accent=s.dataset.c;
   document.querySelectorAll('#swatches .swatch').forEach(x=>x.setAttribute('aria-pressed','false'));s.setAttribute('aria-pressed','true');render();});
@@ -758,7 +917,9 @@ document.querySelectorAll('#presets .opt').forEach(p=>p.onclick=()=>{bw=+p.datas
 /* ---------- brand check (AI directive + Walk guardrails) ---------- */
 function clean(s){return (s||'').replace(/\s*[\u2014\u2013]\s*/g,', ');}
 function brandCheck(){
-  const head=$('f-head').value, body=$('f-body').value, all=head+' '+body, list=$('guardList'), g=$('guard'), badge=$('badge');
+  /* Read every free-text field, not just headline + body, so the badge is trustworthy. */
+  const head=$('f-head').value, body=$('f-body').value, cta=$('f-cta').value, sub=$('f-sub').value, meta=$('f-meta').value;
+  const all=[head,body,cta,sub,meta].join(' '), list=$('guardList'), g=$('guard'), badge=$('badge');
   const fails=[],warns=[];
   if(/[\u2014\u2013]/.test(all))fails.push('Em dash found. It will be swapped for a comma on export.');
   if(/impair/i.test(all))fails.push('Use <b>people who are blind or have low vision</b>, never "impaired".');
@@ -776,6 +937,12 @@ function brandCheck(){
   if(/utilize/i.test(all))warns.push('Use <b>use</b>, not "utilize".');
   if(/optimize/i.test(all))warns.push('Use <b>improve</b>, not "optimize".');
   if(body&&!/north texas|dallas|envision/i.test(body))warns.push('Tie it to Envision and North Texas impact.');
+  /* Email hero that won't survive a real send */
+  if(mode==='email'&&bannerStyle==='photo'){
+    const src=$('f-img').value;
+    if(isEmbeddedImg(src))fails.push('Uploaded hero images are stripped by Gmail and Outlook. Pick a library photo or paste a <b>hosted image URL</b> instead.');
+    else if(src&&location.protocol==='file:')warns.push('Open this page over http (not a local file) so the hero exports with a working URL.');
+  }
 
   list.innerHTML='';
   [...fails.map(f=>['f',f]),...warns.map(w=>['w',w])].forEach(([c,t])=>{const li=document.createElement('li');li.className=c;li.innerHTML=t;list.appendChild(li);});
@@ -787,46 +954,99 @@ function brandCheck(){
 /* ---------- render ---------- */
 function render(){brandCheck();if(mode==='email')renderEmail();else renderGraphic();}
 
+/* Accessible text color on white: the brand green (and gold) fail WCAG as small
+   text, so darken any accent used as text until it clears 4.5:1, keeping its hue. */
+function relLum(r,g,b){const f=u=>{u/=255;return u<=0.03928?u/12.92:Math.pow((u+0.055)/1.055,2.4);};return 0.2126*f(r)+0.7152*f(g)+0.0722*f(b);}
+function readableOnWhite(hex){let c=(hex||'').replace('#','');if(c.length===3)c=c.split('').map(x=>x+x).join('');if(c.length<6)return '#002855';
+  let r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16),guard=0;
+  while(1.05/(relLum(r,g,b)+0.05)<4.5&&guard++<40){r=Math.round(r*0.9);g=Math.round(g*0.9);b=Math.round(b*0.9);}
+  return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');}
+/* Relative photo paths break once an email leaves the site; make them absolute
+   (origin) URLs on export/copy/download so the hero survives in Gmail/Outlook. */
+function hostedUrl(src){src=(src||'').trim();if(!src)return '';if(/^(https?:|data:|cid:)/i.test(src))return src;
+  try{return new URL(src,location.href).href;}catch(e){return src;}}
+function isEmbeddedImg(src){return /^data:/i.test((src||'').trim());}
+
+/* Only allow http(s) links (blocks javascript: etc.); fall back to the event site. */
+function safeUrl(u){u=(u||'').trim();try{const p=new URL(u);return (p.protocol==='http:'||p.protocol==='https:')?u:'https://whitecanedaywalk.com';}catch(e){return 'https://whitecanedaywalk.com';}}
 function emailHTML(o){
-  const h=clean(o.head||''),b=clean(o.body||''),cta=clean(o.cta||''),link=o.link||'https://whitecanedaywalk.com',
-    meta=clean(o.meta||'Saturday, October 17 · Dallas Zoo'),img=(o.img||'').trim(),accent=o.accent||'#78BE21',banner=o.banner||'none',sub=clean(o.sub||'');
+  /* Escape every interpolated value (XSS in preview + exported HTML); preserve paragraph breaks. */
+  const esc=ph_esc;
+  const h=esc(clean(o.head||'')),cta=esc(clean(o.cta||'')),sub=esc(clean(o.sub||'')),
+    meta=esc(clean(o.meta||'Saturday, October 17 · Dallas Zoo')),accent=o.accent||'#78BE21',banner=o.banner||'none';
+  const b=esc(clean(o.body||'')).replace(/\n/g,'<br>');
+  const link=esc(safeUrl(o.link));
+  const accW=readableOnWhite(accent);
+  const img=esc(o.absolute?hostedUrl(o.img):(o.img||'').trim());
   let top='';
   if(banner==='photo'){
     top=img?`<tr><td><img src="${img}" width="600" alt="Walkers at the White Cane Day Walk" style="display:block;width:100%;height:auto"></td></tr>`
-      :`<tr><td style="background:#dbe4f1;text-align:center;padding:56px 20px;color:#7d8ba0;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Image slot, paste a photo URL</td></tr>`;
+      :`<tr><td style="background:#dbe4f1;text-align:center;padding:56px 20px;color:#556275;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Image slot, paste a photo URL</td></tr>`;
   } else if(banner==='graphic'){
     top=`<tr><td style="background:#002855;padding:36px 40px 30px">
       <div style="font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:${accent}">White Cane Day Walk 2026</div>
       <div style="margin:12px 0 0;font-size:30px;line-height:1.12;font-weight:800;color:#fff;letter-spacing:-.02em">${h}</div>
     </td></tr>`;
   }
-  const headline=banner==='graphic'?'':`<tr><td style="padding:34px 40px 6px">
-      <div style="font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:${accent}">Walk with us for independence</div>
-      <h1 style="margin:12px 0 0;font-size:29px;line-height:1.14;font-weight:800;color:#002855;letter-spacing:-.02em">${h}</h1>
-    </td></tr>`;
   const bpad=banner==='graphic'?'26px':'14px';
-  return `<!DOCTYPE html><html><body style="margin:0;background:#eef2f8;font-family:Montserrat,Arial,sans-serif">
+  // Per-element email styling: size/weight/color/align/hide, from on-brand choices only.
+  const ebDiv=emHidden.eyebrow?'':`<div style="font-size:${emFS('eyebrow',12)}px;font-weight:${emWeight.eyebrow};letter-spacing:.2em;text-transform:uppercase;color:${emCol('eyebrow',accW)};text-align:${emAlign.eyebrow}">Walk with us for independence</div>`;
+  const hDiv=emHidden.head?'':`<h1 style="margin:12px 0 0;font-size:${emFS('head',29)}px;line-height:1.14;font-weight:${emWeight.head};color:${emCol('head','#002855')};letter-spacing:-.02em;text-align:${emAlign.head}">${h}</h1>`;
+  const headline=banner==='graphic'?'':((ebDiv||hDiv)?`<tr><td style="padding:34px 40px 6px">${ebDiv}${hDiv}</td></tr>`:'');
+  const bodyRow=(!b||emHidden.body)?'':`<tr><td style="padding:${bpad} 40px 4px;font-size:${emFS('body',15)}px;line-height:1.7;font-weight:${emWeight.body};color:${emCol('body','#53565A')};text-align:${emAlign.body}">${b}</td></tr>`;
+  const subRow=(sub&&!emHidden.sub)?`<tr><td style="padding:2px 40px 6px;font-size:${emFS('sub',13)}px;line-height:1.6;font-weight:${emWeight.sub};color:${emCol('sub','#6a7789')};text-align:${emAlign.sub}">${sub}</td></tr>`:'';
+  const ctaRow=(cta&&!emHidden.cta)?`<tr><td style="padding:22px 40px 8px;text-align:${emAlign.cta}"><a href="${link}" style="display:inline-block;background:#003087;color:#fff;font-weight:${emWeight.cta};font-size:${emFS('cta',14)}px;text-decoration:none;padding:14px 30px;border-radius:6px">${cta}</a></td></tr>`:'';
+  const metaRow=emHidden.meta?'':`<tr><td style="padding:12px 40px 28px;font-size:${emFS('meta',13)}px;font-weight:${emWeight.meta};color:${emCol('meta',accW)};text-align:${emAlign.meta}">${meta} · whitecanedaywalk.com</td></tr>`;
+  const fundsDiv=emHidden.footer?'':`<div style="font-size:${emFS('footer',12)}px;color:${emCol('footer','rgba(255,255,255,.72)')};text-align:${emAlign.footer}">Funds raised support Envision’s work for people who are blind or have low vision across North Texas.</div>`;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>White Cane Day Walk 2026</title></head><body style="margin:0;background:#eef2f8;font-family:Montserrat,Arial,sans-serif">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:22px 0"><tr><td align="center">
   <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:12px;overflow:hidden;max-width:600px">
     <tr><td style="padding:0;font-size:0;line-height:0"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="22%" height="6" style="background:#78BE21">&nbsp;</td><td height="6" style="background:#003087">&nbsp;</td></tr></table></td></tr>
     ${top}
     ${headline}
-    <tr><td style="padding:${bpad} 40px 4px;font-size:15px;line-height:1.7;color:#53565A">${b}</td></tr>
-    ${sub?`<tr><td style="padding:2px 40px 6px;font-size:13px;line-height:1.6;color:#6a7789">${sub}</td></tr>`:''}
-    ${cta?`<tr><td style="padding:22px 40px 8px"><a href="${link}" style="display:inline-block;background:#003087;color:#fff;font-weight:700;font-size:14px;text-decoration:none;padding:14px 30px;border-radius:6px">${cta}</a></td></tr>`:''}
-    <tr><td style="padding:12px 40px 28px;font-size:13px;font-weight:700;color:${accent}">${meta} · whitecanedaywalk.com</td></tr>
+    ${bodyRow}
+    ${subRow}
+    ${ctaRow}
+    ${metaRow}
     <tr><td style="background:#002855;padding:22px 40px;color:#fff;font-size:12px;line-height:1.65">
-      <div style="font-weight:800;letter-spacing:.16em;text-transform:uppercase">Envision</div>
-      <div style="color:rgba(255,255,255,.62);margin-top:6px">Funds raised support Envision\u2019s work for people who are blind or have low vision across North Texas.</div>
+      ${fundsDiv}
+      <div style="color:rgba(255,255,255,.5);margin-top:12px">Envision, Dallas Campus &middot; *|LIST:ADDRESS|*</div>
+      <div style="margin-top:6px"><a href="*|UNSUB|*" style="color:#9ec0ef;text-decoration:underline">Unsubscribe</a> &nbsp;&middot;&nbsp; <a href="*|UPDATE_PROFILE|*" style="color:#9ec0ef;text-decoration:underline">Update preferences</a></div>
     </td></tr>
   </table></td></tr></table></body></html>`;
 }
-function renderEmail(){const html=emailHTML({head:$('f-head').value,body:$('f-body').value,cta:$('f-cta').value,link:$('f-link').value,meta:$('f-meta').value,img:$('f-img').value,accent:accent,banner:bannerStyle,sub:$('f-sub').value});
-  const f=$('emailFrame');f.srcdoc=html;f._html=html;}
+function currentEmailHTML(absolute){return emailHTML({head:$('f-head').value,body:$('f-body').value,cta:$('f-cta').value,link:$('f-link').value,meta:$('f-meta').value,img:$('f-img').value,accent:accent,banner:bannerStyle,sub:$('f-sub').value,absolute:!!absolute});}
+/* Preview keeps relative paths (they resolve inside the srcdoc iframe); export/copy use absolute hosted URLs. */
+function renderEmail(){$('emailFrame').srcdoc=currentEmailHTML(false);}
 
 function wrap(ctx,t,x,y,mw,lh){const ws=t.split(' ');let ln='',yy=y;for(const w of ws){const test=ln+w+' ';
   if(ctx.measureText(test).width>mw&&ln){ctx.fillText(ln.trim(),x,yy);ln=w+' ';yy+=lh;}else ln=test;}ctx.fillText(ln.trim(),x,yy);return yy;}
 function measure(ctx,text,mw){const ws=(text||'').split(' ');let ln='',out=[];for(const w of ws){const t=ln+w+' ';if(ctx.measureText(t).width>mw&&ln){out.push(ln.trim());ln=w+' ';}else ln=t;}if(ln.trim())out.push(ln.trim());return out;}
+/* Headline wrapping: keep the same (minimum) number of lines as greedy, but among
+   all arrangements pick the most balanced one — and heavily penalize a line that
+   starts with (or is) a tiny word like "us"/"to"/"of", so short words never dangle
+   onto a line of their own. */
+function measureHead(ctx,text,mw){
+  const words=(text||'').trim().split(/\s+/).filter(Boolean);
+  if(words.length<=1)return words.length?[words[0]]:[];
+  const greedy=measure(ctx,text,mw), N=greedy.length;
+  if(N<=1)return greedy;
+  const wOf=s=>ctx.measureText(s).width;
+  let best=null,bestScore=Infinity;
+  (function rec(start,left,acc){
+    if(left===1){const line=words.slice(start).join(' ');if(wOf(line)>mw)return;score(acc.concat(line));return;}
+    for(let end=start+1;end<=words.length-(left-1);end++){const line=words.slice(start,end).join(' ');if(wOf(line)>mw)break;rec(end,left-1,acc.concat(line));}
+  })(0,N,[]);
+  function score(lines){
+    let maxW=0,pen=0;
+    for(let i=0;i<lines.length;i++){maxW=Math.max(maxW,wOf(lines[i]));
+      if(lines[i].length<=2)pen+=1e6;                          // a whole line is a tiny word
+      if(i>0&&lines[i].split(' ')[0].length<=2)pen+=6e5;       // a line STARTS with a tiny word (e.g. "us")
+    }
+    const s=maxW+pen;if(s<bestScore){bestScore=s;best=lines;}
+  }
+  return best||greedy;
+}
 function roundRect(ctx,x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
 function textOn(hex){const c=(hex||'').replace('#','');if(c.length<6)return '#fff';const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16);return (0.299*r+0.587*g+0.114*b)>150?'#002855':'#ffffff';}
 function drawArt(ctx,w,ht,head,sub,meta,acc,imgEl,cta){
@@ -836,7 +1056,14 @@ function drawArt(ctx,w,ht,head,sub,meta,acc,imgEl,cta){
     const ir=imgEl.width/imgEl.height,cr=w/ht;let dw,dh,dx,dy;
     if(ir>cr){dh=ht;dw=ht*ir;dx=(w-dw)/2;dy=0;}else{dw=w;dh=w/ir;dx=0;dy=(ht-dh)/2;}
     ctx.drawImage(imgEl,dx,dy,dw,dh);
-    const sc=ctx.createLinearGradient(0,0,0,ht);sc.addColorStop(0,'rgba(0,16,46,.35)');sc.addColorStop(.55,'rgba(0,16,46,.55)');sc.addColorStop(1,'rgba(0,16,46,.92)');ctx.fillStyle=sc;ctx.fillRect(0,0,w,ht);
+    // Scrim: strong through the top text zone (eyebrow + headline), a lighter band mid
+    // so the photo still reads, then strong again at the bottom (meta / CTA / URL).
+    // gOverlay (Light/Medium/Strong) scales it, but it's clamped so text stays legible.
+    const ov=a=>Math.min(.99,Math.max(.25,a*gOverlay));
+    const sc=ctx.createLinearGradient(0,0,0,ht);
+    sc.addColorStop(0,'rgba(0,16,46,'+ov(.74)+')');sc.addColorStop(.44,'rgba(0,16,46,'+ov(.56)+')');
+    sc.addColorStop(.7,'rgba(0,16,46,'+ov(.46)+')');sc.addColorStop(1,'rgba(0,16,46,'+ov(.96)+')');
+    ctx.fillStyle=sc;ctx.fillRect(0,0,w,ht);
   }else{
     ctx.fillStyle='#002855';ctx.fillRect(0,0,w,ht);
     const gr=ctx.createRadialGradient(w*.85,0,0,w*.85,0,w*.7);gr.addColorStop(0,'rgba(65,182,230,.28)');gr.addColorStop(1,'rgba(65,182,230,0)');ctx.fillStyle=gr;ctx.fillRect(0,0,w,ht);
@@ -845,64 +1072,100 @@ function drawArt(ctx,w,ht,head,sub,meta,acc,imgEl,cta){
   const pad=ht>=500?76:46,mw=w-pad*2;
   const cx=gAlign==='center'?w/2:pad;
   const limit=ht-Math.round(ht*(ht>=500?.17:.32));
-  const maxBig=Math.max(14,Math.round((ht>=500?ht*.1:ht*.2)*gFontScale));
+  const maxBig=Math.max(14,Math.round((ht>=500?ht*.1:ht*.2)*elScale.head));
   const minBig=Math.max(12,Math.round(maxBig*.45));
+  // Editable top label + footer; per-element hide via elHidden.
+  const ebText=($('f-eyebrow')?$('f-eyebrow').value:'White Cane Day Walk 2026').trim().toUpperCase();
+  const showEb=!!ebText&&!elHidden.eyebrow, showHead=!elHidden.head;
+  const ftText=($('f-footer')?$('f-footer').value:'whitecanedaywalk.com').trim();
   /* shrink the whole block (eyebrow + headline + sub + CTA) until it clears the meta line, so nothing crowds the bottom */
   let big=maxBig,L=null;
   for(let sz=maxBig;;sz-=2){
-    const ebF=Math.round(sz*.34),hlLH=sz*1.06,subF=Math.round(sz*.42),subLH=sz*.56;
-    ctx.font=gWeight+' '+sz+'px Montserrat';const hl=measure(ctx,head,mw);
-    ctx.font='600 '+subF+'px Montserrat';const sl=sub?measure(ctx,sub,mw):[];
-    ctx.font='700 '+Math.round(sz*.34)+'px Montserrat';
-    const ctaF=Math.round(sz*.34),ctaPy=ctaF*.62,ctaH=cta?ctaF+ctaPy*2:0,ctaGap=cta?sz*.34:0;
-    const blockH=ebF+sz*.3+hl.length*hlLH+(sl.length?sz*.22+sl.length*subLH:0)+ctaGap+ctaH;
-    if(blockH<=limit-pad||sz<=minBig){big=sz;L={ebF,hlLH,subF,subLH,hl,sl,ctaF,ctaH,ctaGap,blockH};break;}
+    const ebF=Math.round(sz*.34*elScale.eyebrow),hlLH=sz*1.06,subF=Math.round(sz*.42*elScale.sub),subLH=sz*.56*elScale.sub;
+    ctx.font=elWeight.head+' '+sz+'px Montserrat';const hl=showHead?measureHead(ctx,head,mw):[];
+    ctx.font=elWeight.sub+' '+subF+'px Montserrat';const sl=(sub&&!elHidden.sub)?measure(ctx,sub,mw):[];
+    const ctaF=Math.round(sz*.34*elScale.cta),ctaPy=ctaF*.62,showCta=!!cta&&!elHidden.cta,ctaH=showCta?ctaF+ctaPy*2:0,ctaGap=showCta?sz*.34:0;
+    const blockH=(showEb?ebF+sz*.3:0)+hl.length*hlLH+(sl.length?sz*.22+sl.length*subLH:0)+ctaGap+ctaH;
+    if(blockH<=limit-pad||sz<=minBig){big=sz;L={ebF,hlLH,subF,subLH,hl,sl,ctaF,ctaH,ctaGap,showCta,blockH};break;}
   }
   ctx.textAlign=gAlign==='center'?'center':'left';ctx.textBaseline='top';
-  const metaF=Math.round(big*.3),wmF=Math.round(big*.28);
+  const metaF=Math.round(big*.3*elScale.meta),wmF=Math.round(big*.28*elScale.footer);
   const bottomPad=ht>=500?42:24,wmY=ht-wmF-bottomPad,metaY=wmY-metaF-(ht>=500?14:8);
   let y=gPos==='top'?pad:gPos==='bottom'?Math.max(pad,limit-L.blockH):Math.max(pad,(limit-L.blockH)/2);
-  ctx.fillStyle=acc;ctx.font='700 '+L.ebF+'px Montserrat';ctx.fillText('WHITE CANE DAY WALK 2026',cx,y);
-  let yy=y+L.ebF+big*.3;
-  ctx.fillStyle='#fff';ctx.font=gWeight+' '+big+'px Montserrat';L.hl.forEach(l=>{ctx.fillText(l,cx,yy);yy+=L.hlLH;});
-  if(L.sl.length){yy+=big*.22;ctx.fillStyle='rgba(255,255,255,.92)';ctx.font='600 '+L.subF+'px Montserrat';L.sl.forEach(l=>{ctx.fillText(l,cx,yy);yy+=L.subLH;});}
-  if(cta){
+  // Per-element position nudge (left/right/up/down): fraction of the artboard.
+  const px=k=>cx+elDX[k]*w, py=(k,yv)=>yv+elDY[k]*ht;
+  // Soft shadow so text stays legible over any photo (skip on the solid-navy background).
+  if(imgEl){ctx.shadowColor='rgba(0,8,24,.62)';ctx.shadowBlur=Math.round(big*.16);ctx.shadowOffsetY=Math.max(1,Math.round(big*.03));}
+  let yy=y;
+  if(showEb){ctx.fillStyle=elCol('eyebrow',acc);ctx.font=elWeight.eyebrow+' '+L.ebF+'px Montserrat';ctx.fillText(ebText,px('eyebrow'),py('eyebrow',y));yy=y+L.ebF+big*.3;}
+  if(showHead){ctx.fillStyle=elCol('head','#fff');ctx.font=elWeight.head+' '+big+'px Montserrat';L.hl.forEach(l=>{ctx.fillText(l,px('head'),py('head',yy));yy+=L.hlLH;});}
+  if(L.sl.length){yy+=big*.22;ctx.fillStyle=elCol('sub','rgba(255,255,255,.92)');ctx.font=elWeight.sub+' '+L.subF+'px Montserrat';L.sl.forEach(l=>{ctx.fillText(l,px('sub'),py('sub',yy));yy+=L.subLH;});}
+  ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0;  // crisp button + bottom text
+  if(L.showCta){
     yy+=L.ctaGap;
-    ctx.font='700 '+L.ctaF+'px Montserrat';
+    ctx.font=elWeight.cta+' '+L.ctaF+'px Montserrat';
     const ctaPx=L.ctaF*.9,tw=ctx.measureText(cta).width,pw=tw+ctaPx*2;
-    const bx=gAlign==='center'?cx-pw/2:cx;
-    ctx.fillStyle=acc;roundRect(ctx,bx,yy,pw,L.ctaH,L.ctaH/2);ctx.fill();
+    const cbase=px('cta'),cytop=py('cta',yy);
+    const bx=gAlign==='center'?cbase-pw/2:cbase;
+    ctx.fillStyle=acc;roundRect(ctx,bx,cytop,pw,L.ctaH,L.ctaH/2);ctx.fill();
     ctx.fillStyle=textOn(acc);ctx.textBaseline='middle';
-    ctx.fillText(cta,gAlign==='center'?cx:bx+ctaPx,yy+L.ctaH/2+1);
+    ctx.fillText(cta,gAlign==='center'?cbase:bx+ctaPx,cytop+L.ctaH/2+1);
     ctx.textBaseline='top';
   }
-  ctx.fillStyle='#FFCF00';ctx.font='700 '+metaF+'px Montserrat';ctx.fillText(meta,cx,metaY);
-  ctx.fillStyle='rgba(255,255,255,.82)';ctx.font='800 '+wmF+'px Montserrat';ctx.fillText('ENVISION  ·  whitecanedaywalk.com',cx,wmY);
+  if(!elHidden.meta){ctx.fillStyle=elCol('meta','#FFCF00');ctx.font=elWeight.meta+' '+metaF+'px Montserrat';ctx.fillText(meta,px('meta'),py('meta',metaY));}
+  if(ftText&&!elHidden.footer){ctx.fillStyle=elCol('footer','rgba(255,255,255,.82)');ctx.font=elWeight.footer+' '+wmF+'px Montserrat';ctx.fillText(ftText,px('footer'),py('footer',wmY));}
   ctx.textAlign='left';ctx.textBaseline='alphabetic';
 }
 function loadArtFonts(){return Promise.all([document.fonts.load('600 40px Montserrat'),document.fonts.load('700 40px Montserrat'),document.fonts.load('800 40px Montserrat')]);}
-function withArt(cb){loadArtFonts().then(()=>{
-  const src=$('f-img').value;if(src){const im=new Image();im.crossOrigin='anonymous';im.onload=()=>cb(im);im.onerror=()=>cb(null);im.src=src;}else cb(null);}).catch(()=>cb(null));}
+const _imgCache={};
+function loadImg(src){return new Promise(res=>{src=(src||'').trim();
+  if(!src){res(null);return;}
+  if(_imgCache[src]){res(_imgCache[src]);return;}
+  const im=new Image();im.crossOrigin='anonymous';im.onload=()=>{_imgCache[src]=im;res(im);};im.onerror=()=>res(null);im.src=src;});}
+/* Draw the current graphic into a context once fonts + image are ready (used by preview and export). */
+function paintArt(ctx,w,ht){return Promise.all([loadArtFonts(),loadImg($('f-img').value)]).then(a=>{
+  drawArt(ctx,w,ht,clean($('f-head').value),clean($('f-sub').value),clean($('f-meta').value),accent,a[1],clean($('f-cta').value));}).catch(()=>{});}
+let renderSeq=0;
 function renderGraphic(){const c=$('bannerCanvas');c.width=bw;c.height=bh;
-  withArt(im=>drawArt(c.getContext('2d'),bw,bh,clean($('f-head').value),clean($('f-sub').value),clean($('f-meta').value),accent,im,clean($('f-cta').value)));
+  const head=clean($('f-head').value);
+  c.setAttribute('aria-label',`Preview: ${bw}×${bh} ${mode} graphic, headline “${head||'(none)'}”`);
+  const seq=++renderSeq;  // ignore stale async paints so a fast typist never sees a blank/old frame
+  Promise.all([loadArtFonts(),loadImg($('f-img').value)]).then(a=>{if(seq!==renderSeq)return;
+    drawArt(c.getContext('2d'),bw,bh,head,clean($('f-sub').value),clean($('f-meta').value),accent,a[1],clean($('f-cta').value));}).catch(()=>{});
   if(mode==='social')$('socialCap').textContent=clean($('f-body').value);}
 function artBlob(head,w,ht,cb){const c=document.createElement('canvas');c.width=w;c.height=ht;
   const go=()=>{drawArt(c.getContext('2d'),w,ht,clean(head),'','Saturday, October 17 · Dallas Zoo',accent,null,'');c.toBlob(cb);};
   loadArtFonts().then(go).catch(go);}
 
 /* ---------- export ---------- */
-function dl(blob,name){const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u);}
-$('exportBtn').onclick=()=>{if(mode==='email')dl(new Blob([$('emailFrame')._html||''],{type:'text/html'}),'wcdw-email.html');
-  else $('bannerCanvas').toBlob(b=>dl(b,`wcdw-${mode}-${bw}x${bh}.png`));};
-$('copyBtn').onclick=async()=>{const txt=mode==='social'?clean($('f-body').value):(mode==='email'?($('emailFrame')._html||''):clean($('f-head').value));
-  try{await navigator.clipboard.writeText(txt);$('copyBtn').textContent='Copied!';setTimeout(()=>setMode(mode),1200);}catch(e){alert('Copy failed, use Export.');}};
+function dl(blob,name){if(!blob)return;const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);}
+$('exportBtn').onclick=()=>{
+  if(mode==='email'){dl(new Blob([currentEmailHTML(true)],{type:'text/html'}),'wcdw-email.html');return;}
+  // Draw a fresh frame to its own canvas, then blob — export can never capture a blank/stale preview.
+  const c=document.createElement('canvas');c.width=bw;c.height=bh;
+  paintArt(c.getContext('2d'),bw,bh).then(()=>c.toBlob(b=>{
+    if(!b){alert('Could not render the PNG. If you pasted an external image URL, the browser may block its download — use an uploaded or library photo instead.');return;}
+    dl(b,`wcdw-${mode}-${bw}x${bh}.png`);}));};
+/* Restore the label directly (never via setMode) so copying can't reset the canvas size; fall back to legacyCopy, not alert(). */
+$('copyBtn').onclick=()=>{const txt=mode==='social'?clean($('f-body').value):(mode==='email'?currentEmailHTML(true):clean($('f-head').value));
+  copyText(txt,$('copyBtn'),'Copied!');};
 
-/* tabs */
-function showTab(id){['assets','gen'].forEach(t=>{$('p-'+t).hidden=t!==id;$('t-'+t).setAttribute('aria-selected',t===id);});
+/* Reset the copy fields to the selected audience's approved headline/body/CTA. */
+$('resetBtn').onclick=()=>{$('f-sub').value='';$('f-meta').value='Saturday, October 17 · Dallas Zoo';buildSub();applyAudience();};
+
+/* tabs (roving tabindex + arrow-key navigation) */
+function showTab(id){['assets','gen'].forEach(t=>{const sel=t===id;$('p-'+t).hidden=!sel;const tab=$('t-'+t);tab.setAttribute('aria-selected',sel);tab.tabIndex=sel?0:-1;});
   if(id==='gen')render();}
+(function(){const tabs=[$('t-assets'),$('t-gen')];
+  document.querySelector('.tabs').addEventListener('keydown',e=>{
+    const i=tabs.indexOf(document.activeElement);if(i<0)return;let j=null;
+    if(e.key==='ArrowRight'||e.key==='ArrowDown')j=(i+1)%tabs.length;
+    else if(e.key==='ArrowLeft'||e.key==='ArrowUp')j=(i+tabs.length-1)%tabs.length;
+    else if(e.key==='Home')j=0;else if(e.key==='End')j=tabs.length-1;
+    if(j===null)return;e.preventDefault();tabs[j].focus();tabs[j].click();});})();
 
 /* init */
-buildBanner();buildLib();buildSub();buildAdjust();buildTextStyle();applyAudience();setMode('email');
+buildBanner();buildLib();buildSub();buildAdjust();buildElement();applyAudience();setMode('email');
 loadLibrary().then(()=>{buildLib();render();renderAssets();});
 </script>
 <script type="text/html" id="mail01"><!DOCTYPE html>
@@ -954,7 +1217,7 @@ loadLibrary().then(()=>{buildLib();render();renderAssets();});
       <p style="margin:0 0 8px 0; font-size:12px; font-weight:700; letter-spacing:2.5px; color:#78BE21; text-transform:uppercase;">Mark Your Calendar</p>
       <p class="hero-date" style="margin:0 0 6px 0; font-size:32px; line-height:1.2; font-weight:800; color:#ffffff;">Saturday, October 17, 2026</p>
       <p style="margin:0 0 26px 0; font-size:14px; font-weight:600; letter-spacing:1.5px; color:#FFCF00; text-transform:uppercase;">5:00 to 7:00 PM &middot; Dallas Zoo</p>
-      <table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr><td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.org" style="display:inline-block; padding:15px 38px; font-size:15px; font-weight:700; color:#002855; text-decoration:none;">Save Your Spot</a></td></tr></table>
+      <table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr><td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.com" style="display:inline-block; padding:15px 38px; font-size:15px; font-weight:700; color:#002855; text-decoration:none;">Save Your Spot</a></td></tr></table>
       <p style="margin:16px 0 0 0; font-size:12px; color:#8FA3C2;">Registration opens your personal fundraising page and supports independence for people who are blind or have low vision.</p>
     </td></tr>
 
@@ -1018,7 +1281,7 @@ loadLibrary().then(()=>{buildLib();render();renderAssets();});
       <p style="margin:0 0 8px 0; font-size:12px; font-weight:700; letter-spacing:2.5px; color:#78BE21; text-transform:uppercase;">Registration Is Open</p>
       <p class="h1" style="margin:0 0 14px 0; font-size:32px; line-height:1.25; font-weight:800; color:#ffffff;">Your spot is <span style="color:#78BE21;">ready.</span></p>
       <p style="margin:0 auto 26px auto; max-width:450px; font-size:15px; line-height:1.7; color:#C7D3E6;">Registration for the White Cane Day Walk is officially open. Reserve your place for Saturday, October 17 at the Dallas Zoo. Register on your own, or start a team and bring your people with you.</p>
-      <table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr><td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.org" style="display:inline-block; padding:15px 38px; font-size:15px; font-weight:700; color:#002855; text-decoration:none;">Register Now</a></td></tr></table>
+      <table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr><td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.com" style="display:inline-block; padding:15px 38px; font-size:15px; font-weight:700; color:#002855; text-decoration:none;">Register Now</a></td></tr></table>
       <p style="margin:16px 0 0 0; font-size:12px; color:#8FA3C2;">Saturday, October 17 &middot; 5:00 to 7:00 PM &middot; Dallas Zoo</p>
     </td></tr>
     <tr><td class="px" align="center" style="background-color:#1B5E20; padding:26px 48px;">
@@ -1114,7 +1377,7 @@ loadLibrary().then(()=>{buildLib();render();renderAssets();});
           </td>
       </tr></table>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding-top:26px;">
-      <table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr><td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.org" style="display:inline-block; padding:15px 38px; font-size:15px; font-weight:700; color:#002855; text-decoration:none;">Start Your Team</a></td></tr></table>
+      <table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr><td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.com" style="display:inline-block; padding:15px 38px; font-size:15px; font-weight:700; color:#002855; text-decoration:none;">Start Your Team</a></td></tr></table>
       <p style="margin:16px 0 0 0; font-size:13px; line-height:1.7; color:#C7D3E6;">Saturday, October 17 &middot; 5:00 to 7:00 PM &middot; Dallas Zoo</p>
       </td></tr></table>
     </td></tr>
@@ -1188,9 +1451,9 @@ loadLibrary().then(()=>{buildLib();render();renderAssets();});
     <tr><td class="px" align="center" style="background-color:#002855; padding:34px 48px;">
       <p style="margin:0 0 18px 0; font-size:16px; font-weight:700; color:#ffffff;">Walk for independence this year.</p>
       <table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr>
-        <td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.org" style="display:inline-block; padding:14px 32px; font-size:14px; font-weight:700; color:#002855; text-decoration:none;">Join the Walk</a></td>
+        <td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.com" style="display:inline-block; padding:14px 32px; font-size:14px; font-weight:700; color:#002855; text-decoration:none;">Join the Walk</a></td>
         <td style="width:12px; font-size:0;">&nbsp;</td>
-        <td style="border:2px solid #78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.org" style="display:inline-block; padding:12px 32px; font-size:14px; font-weight:700; color:#78BE21; text-decoration:none;">Donate Instead</a></td>
+        <td style="border:2px solid #78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.com" style="display:inline-block; padding:12px 32px; font-size:14px; font-weight:700; color:#78BE21; text-decoration:none;">Donate Instead</a></td>
       </tr></table>
       <p style="margin:16px 0 0 0; font-size:12px; color:#8FA3C2;">Saturday, October 17 &middot; 5:00 to 7:00 PM &middot; Dallas Zoo</p>
     </td></tr>
@@ -1265,9 +1528,9 @@ loadLibrary().then(()=>{buildLib();render();renderAssets();});
     <tr><td class="px" align="center" style="background-color:#002855; padding:34px 48px;">
       <p style="margin:0 0 18px 0; font-size:16px; font-weight:700; color:#ffffff;">Walk for independence this year.</p>
       <table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr>
-        <td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.org" style="display:inline-block; padding:14px 32px; font-size:14px; font-weight:700; color:#002855; text-decoration:none;">Join the Walk</a></td>
+        <td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.com" style="display:inline-block; padding:14px 32px; font-size:14px; font-weight:700; color:#002855; text-decoration:none;">Join the Walk</a></td>
         <td style="width:12px; font-size:0;">&nbsp;</td>
-        <td style="border:2px solid #78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.org" style="display:inline-block; padding:12px 32px; font-size:14px; font-weight:700; color:#78BE21; text-decoration:none;">Donate Instead</a></td>
+        <td style="border:2px solid #78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.com" style="display:inline-block; padding:12px 32px; font-size:14px; font-weight:700; color:#78BE21; text-decoration:none;">Donate Instead</a></td>
       </tr></table>
       <p style="margin:16px 0 0 0; font-size:12px; color:#8FA3C2;">Saturday, October 17 &middot; 5:00 to 7:00 PM &middot; Dallas Zoo</p>
     </td></tr>
@@ -1341,9 +1604,9 @@ loadLibrary().then(()=>{buildLib();render();renderAssets();});
     <tr><td class="px" align="center" style="background-color:#002855; padding:34px 48px;">
       <p style="margin:0 0 18px 0; font-size:16px; font-weight:700; color:#ffffff;">Walk for independence this year.</p>
       <table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr>
-        <td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.org" style="display:inline-block; padding:14px 32px; font-size:14px; font-weight:700; color:#002855; text-decoration:none;">Join the Walk</a></td>
+        <td style="background-color:#78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.com" style="display:inline-block; padding:14px 32px; font-size:14px; font-weight:700; color:#002855; text-decoration:none;">Join the Walk</a></td>
         <td style="width:12px; font-size:0;">&nbsp;</td>
-        <td style="border:2px solid #78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.org" style="display:inline-block; padding:12px 32px; font-size:14px; font-weight:700; color:#78BE21; text-decoration:none;">Donate Instead</a></td>
+        <td style="border:2px solid #78BE21; border-radius:50px;"><a href="https://whitecanedaywalk.com" style="display:inline-block; padding:12px 32px; font-size:14px; font-weight:700; color:#78BE21; text-decoration:none;">Donate Instead</a></td>
       </tr></table>
       <p style="margin:16px 0 0 0; font-size:12px; color:#8FA3C2;">Saturday, October 17 &middot; 5:00 to 7:00 PM &middot; Dallas Zoo</p>
     </td></tr>
