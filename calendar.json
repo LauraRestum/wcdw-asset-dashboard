@@ -1,5 +1,84 @@
 {
   "wcdwCalendar": 1,
   "note": "Published posting & send schedule shown on the Campaign Studio's Calendar tab. To update it: open index.html#calendar-edit, make your changes, click 'Download calendar.json', then upload the downloaded file here (replacing this one).",
-  "entries": []
+  "entries": [
+    {
+      "id": "e-savethedate-email",
+      "date": "2026-07-04",
+      "time": "",
+      "channel": "email",
+      "status": "posted",
+      "title": "Save the Date email",
+      "copy": "Subject: Happy Independence Day. Now save the date for ours.\nPreview: October 17 at the Dallas Zoo. The White Cane Day Walk is back.",
+      "notes": "July 4 tie-in announcement (Template 1)",
+      "asset": {
+        "path": "email-banners/every-step-counts.jpg",
+        "thumbnail": "dashboard/thumbnails/email-banners/every-step-counts.jpg",
+        "filename": "every-step-counts.jpg"
+      }
+    },
+    {
+      "id": "e-pride-email",
+      "date": "2026-07-10",
+      "time": "",
+      "channel": "email",
+      "status": "planned",
+      "title": "Disability Pride Month email",
+      "copy": "Subject: It's Disability Pride Month. Walk with us.\nPreview: Celebrate community and independence with Envision at the White Cane Day Walk.",
+      "notes": "Disability Pride Month (July)",
+      "asset": null
+    },
+    {
+      "id": "e-pride-fb",
+      "date": "2026-07-10",
+      "time": "",
+      "channel": "facebook",
+      "status": "planned",
+      "title": "Disability Pride Month post",
+      "copy": "This Disability Pride Month, we celebrate the community and independence at the heart of the White Cane Day Walk. Join Envision at the Dallas Zoo on Oct. 17 and walk with us for independence across North Texas. whitecanedaywalk.com",
+      "notes": "Make the graphic in the Generator (Social mode)",
+      "asset": null
+    },
+    {
+      "id": "e-pride-ig",
+      "date": "2026-07-10",
+      "time": "",
+      "channel": "instagram",
+      "status": "planned",
+      "title": "Disability Pride Month post",
+      "copy": "This Disability Pride Month, we celebrate the community and independence at the heart of the White Cane Day Walk. Join Envision at the Dallas Zoo on Oct. 17 and walk with us for independence across North Texas. Link in bio.",
+      "notes": "Make the square graphic in the Generator (Social mode)",
+      "asset": null
+    },
+    {
+      "id": "e-registration-email",
+      "date": "2026-07-17",
+      "time": "",
+      "channel": "email",
+      "status": "planned",
+      "title": "Registration Open email",
+      "copy": "Subject: Registration is open for the White Cane Day Walk\nPreview: Reserve your place for Saturday, October 17 at the Dallas Zoo.",
+      "notes": "Registration announcement (Template 2)",
+      "asset": {
+        "path": "email-banners/registration-now-open-navy.jpg",
+        "thumbnail": "dashboard/thumbnails/email-banners/registration-now-open-navy.jpg",
+        "filename": "registration-now-open-navy.jpg"
+      }
+    },
+    {
+      "id": "e-registration-fb",
+      "date": "2026-07-17",
+      "time": "",
+      "channel": "facebook",
+      "status": "planned",
+      "title": "Registration now open post",
+      "copy": "Registration is open. Join Envision at the Dallas Zoo on Saturday, Oct. 17 and walk with us for independence. Register, start a team or make a gift to support Envision's work for people who are blind or have low vision across North Texas. whitecanedaywalk.com",
+      "notes": "Pair with the Registration Now Open banner or make a graphic in the Generator",
+      "asset": {
+        "path": "email-banners/registration-now-open-navy.jpg",
+        "thumbnail": "dashboard/thumbnails/email-banners/registration-now-open-navy.jpg",
+        "filename": "registration-now-open-navy.jpg"
+      }
+    }
+  ]
 }
