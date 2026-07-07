@@ -472,10 +472,9 @@
         <div class="field">
           <label for="fStatus">Status</label>
           <select id="fStatus">
-            <option value="idea">Idea</option>
-            <option value="drafted">Drafted</option>
-            <option value="scheduled" selected>Scheduled</option>
-            <option value="posted">Posted / sent ✓</option>
+            <option value="planned" selected>Planned</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="posted">Posted ✓</option>
           </select>
         </div>
       </div>
@@ -712,7 +711,7 @@
     }).join("");
   }
   function statusLabel(s) {
-    return { idea: "Idea", drafted: "Drafted", scheduled: "Scheduled", posted: "Posted / sent ✓" }[s] || s;
+    return { planned: "Planned", scheduled: "Scheduled", posted: "Posted ✓" }[s] || "Planned";
   }
   $("#listView").addEventListener("click", function (e) {
     var ed = e.target.closest("[data-edit]");
@@ -807,7 +806,9 @@
     $("#fDate").value = e ? e.date : (presetDate || todayYmd());
     $("#fTime").value = e && e.time ? e.time : "";
     $("#fTitle").value = e ? (e.title || "") : "";
-    $("#fStatus").value = e ? (e.status || "scheduled") : "scheduled";
+    // older saved entries may carry retired statuses (idea/drafted) — fold them into "planned"
+    var st = e ? e.status : "planned";
+    $("#fStatus").value = (st === "scheduled" || st === "posted") ? st : "planned";
     $("#fCopy").value = e ? (e.copy || "") : "";
     $("#fNotes").value = e ? (e.notes || "") : "";
     setAsset(e ? e.asset : null);
