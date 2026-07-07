@@ -211,6 +211,8 @@
   .btn-green{background:var(--green);color:#002855}
   .btn-green:hover{box-shadow:0 8px 22px rgba(120,190,33,.42)}
   .btn-ghost{background:var(--card);border:1px solid var(--line);color:var(--ink)}
+  .fmt{font-family:inherit;font-weight:700;font-size:.78rem;padding:.62rem .6rem;border-radius:8px;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
 
   /* brand-compliance meter */
   .guard{border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;margin-bottom:1.2rem;
@@ -528,7 +530,13 @@
         </div>
 
         <div class="actions">
-          <button class="btn btn-green" id="exportBtn" type="button">Export HTML</button>
+          <label class="sr-only" for="fmtSel">Download format</label>
+          <select id="fmtSel" class="fmt" hidden>
+            <option value="png" selected>PNG</option>
+            <option value="jpg">JPG</option>
+            <option value="pdf">PDF</option>
+          </select>
+          <button class="btn btn-green" id="exportBtn" type="button">Get email HTML</button>
           <button class="btn btn-ghost" id="copyBtn" type="button">Copy</button>
           <button class="btn btn-ghost" id="resetBtn" type="button" title="Reload the approved headline, body and CTA for the selected audience">Reset copy</button>
         </div>
@@ -679,6 +687,20 @@
       <input class="cc-search" type="search" id="ccPq" placeholder="Search “save the date”, “giraffe”, “banner”…" autocomplete="off" aria-label="Search images">
       <button class="cc-x" type="button" id="ccPClose" aria-label="Close">×</button></div>
     <div class="cc-pgrid" id="ccPgrid"></div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="emDlg" aria-labelledby="emDlgTitle">
+  <div class="modal-card">
+    <div class="modal-top"><i class="g"></i><i class="b"></i></div>
+    <div class="cc-dlghead"><h3 id="emDlgTitle">Get the email HTML</h3>
+      <button class="cc-x" type="button" id="emClose" aria-label="Close">×</button></div>
+    <div class="cc-fields" id="emSteps"></div>
+    <div class="cc-foot">
+      <span class="sp"></span>
+      <button class="btn btn-ghost" type="button" id="emCopyHtml">Copy clean HTML</button>
+      <button class="btn btn-green" type="button" id="emDlHtml">Download .html</button>
+    </div>
   </div>
 </dialog>
 <div class="cc-toast" id="ccToast" role="status" aria-live="polite"></div>
@@ -1100,7 +1122,8 @@ function setMode(m){const changed=mode!==m;mode=m;['email','graphic','social'].f
   $('lbl-body').textContent=m==='social'?'Caption':'Body copy';
   $('b-cta').hidden=false;
   $('w-link').hidden=m!=='email';
-  $('exportBtn').textContent=m==='email'?'Export HTML':'Download PNG';
+  $('fmtSel').hidden=m==='email';
+  $('exportBtn').textContent=m==='email'?'Get email HTML':'Download '+$('fmtSel').value.toUpperCase();
   $('copyBtn').textContent=m==='social'?'Copy caption':'Copy';
   if((m==='graphic'||m==='social')&&changed){bw=1080;bh=1080;[...$('presets').children].forEach(p=>p.setAttribute('aria-pressed',p.dataset.w==='1080'&&p.dataset.h==='1080'));}
   buildElement();  // repopulate the per-element editor for this mode (email vs graphic)
@@ -1335,13 +1358,108 @@ function artBlob(head,w,ht,cb){const c=document.createElement('canvas');c.width=
 
 /* ---------- export ---------- */
 function dl(blob,name){if(!blob)return;const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);}
+/* Minimal one-page PDF wrapping the canvas as an embedded JPEG (no libraries). */
+function jpegPdfBlob(dataUrl,w,h){
+  const bin=atob(dataUrl.split(',')[1]);
+  const img=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)img[i]=bin.charCodeAt(i);
+  const enc=s=>new TextEncoder().encode(s);
+  const chunks=[];let len=0;const push=u=>{chunks.push(u);len+=u.length;};
+  const off=[];
+  push(enc('%PDF-1.4\n'));
+  const addObj=(n,body)=>{off[n]=len;push(enc(n+' 0 obj\n'+body+'\nendobj\n'));};
+  addObj(1,'<< /Type /Catalog /Pages 2 0 R >>');
+  addObj(2,'<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+  addObj(3,`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${w} ${h}] /Resources << /XObject << /Im1 5 0 R >> >> /Contents 4 0 R >>`);
+  const content=`q ${w} 0 0 ${h} 0 0 cm /Im1 Do Q`;
+  addObj(4,`<< /Length ${content.length} >>\nstream\n${content}\nendstream`);
+  off[5]=len;
+  push(enc(`5 0 obj\n<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${img.length} >>\nstream\n`));
+  push(img);
+  push(enc('\nendstream\nendobj\n'));
+  const xref=len;
+  let x='xref\n0 6\n0000000000 65535 f \n';
+  for(let i=1;i<=5;i++)x+=String(off[i]).padStart(10,'0')+' 00000 n \n';
+  x+=`trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+  push(enc(x));
+  return new Blob(chunks,{type:'application/pdf'});
+}
+const TAINT_MSG='Could not render the download. If you pasted an external image URL, the browser may block exporting it — use an uploaded or library photo instead.';
+$('fmtSel').addEventListener('change',()=>{if(mode!=='email')$('exportBtn').textContent='Download '+$('fmtSel').value.toUpperCase();});
 $('exportBtn').onclick=()=>{
-  if(mode==='email'){dl(new Blob([currentEmailHTML(true)],{type:'text/html'}),'wcdw-email.html');return;}
-  // Draw a fresh frame to its own canvas, then blob — export can never capture a blank/stale preview.
+  if(mode==='email'){openEmailExport();return;}
+  // Draw a fresh frame to its own canvas, then export — can never capture a blank/stale preview.
+  const fmt=$('fmtSel').value;
   const c=document.createElement('canvas');c.width=bw;c.height=bh;
-  paintArt(c.getContext('2d'),bw,bh).then(()=>c.toBlob(b=>{
-    if(!b){alert('Could not render the PNG. If you pasted an external image URL, the browser may block its download — use an uploaded or library photo instead.');return;}
-    dl(b,`wcdw-${mode}-${bw}x${bh}.png`);}));};
+  paintArt(c.getContext('2d'),bw,bh).then(()=>{
+    if(fmt==='pdf'){
+      let data;try{data=c.toDataURL('image/jpeg',0.92);}catch(e){alert(TAINT_MSG);return;}
+      dl(jpegPdfBlob(data,bw,bh),`wcdw-${mode}-${bw}x${bh}.pdf`);
+      return;
+    }
+    const type=fmt==='jpg'?'image/jpeg':'image/png';
+    c.toBlob(b=>{
+      if(!b){alert(TAINT_MSG);return;}
+      dl(b,`wcdw-${mode}-${bw}x${bh}.${fmt}`);
+    },type,0.92);
+  });};
+
+/* Email export: guide the user to host the banner image on their email
+   platform (e.g. Mailchimp Content Studio), paste the live link, and take
+   away clean HTML that references it — so the image shows for every
+   recipient instead of pointing at this site or an embedded data: blob. */
+function cleanEmailHTML(imgUrl){
+  return emailHTML({head:$('f-head').value,body:$('f-body').value,cta:$('f-cta').value,link:$('f-link').value,
+    meta:$('f-meta').value,img:imgUrl!==undefined?imgUrl:$('f-img').value,accent:accent,banner:bannerStyle,
+    sub:$('f-sub').value,absolute:true});
+}
+let emNeedsHosting=false;
+function openEmailExport(){
+  const img=($('f-img').value||'').trim();
+  const hasPhoto=bannerStyle==='photo'&&img;
+  const alreadyHosted=hasPhoto&&/^https?:\/\//i.test(img);
+  emNeedsHosting=hasPhoto&&!alreadyHosted;
+  let h='';
+  if(!hasPhoto){
+    h='<p class="cc-note" style="margin:0">'+(bannerStyle==='photo'
+      ?'No photo is selected for the banner yet — pick one in the builder first, or switch the banner style. The HTML below will show an empty image slot.'
+      :'This email doesn’t use a photo banner, so the HTML is ready to go. Copy it below and paste it into your email platform’s code/HTML block.')+'</p>';
+  }else if(alreadyHosted){
+    h='<p class="cc-note" style="margin:0">Your banner image already points at a hosted link, so the HTML is ready to go.</p>'+
+      '<div class="cc-f"><label for="emUrl">Hosted image link (change it here if needed)</label>'+
+      '<input type="url" id="emUrl" value="'+ph_esc(img)+'"></div>';
+  }else{
+    h='<div class="cc-f"><label>1 — Download the banner image</label>'+
+        '<button class="btn btn-ghost" type="button" id="emDlImg">Download image</button></div>'+
+      '<div class="cc-f"><label>2 — Upload it to your email platform</label>'+
+        '<p class="cc-note" style="margin:0">In Mailchimp: <b>Content → Content Studio → Upload</b>, open the uploaded file and copy its image address (the live https link). Any email platform’s content library works the same way.</p></div>'+
+      '<div class="cc-f"><label for="emUrl">3 — Paste the live image link</label>'+
+        '<input type="url" id="emUrl" placeholder="https://mcusercontent.com/…/banner.jpg"></div>'+
+      '<p class="cc-note" style="margin:0">The HTML below will use that link, so the banner shows for every recipient.</p>';
+  }
+  $('emSteps').innerHTML=h;
+  const dlImg=document.getElementById('emDlImg');
+  if(dlImg)dlImg.onclick=()=>{
+    fetch(img).then(r=>r.blob()).then(b=>{
+      const ext=(b.type.split('/')[1]||'jpg').replace('jpeg','jpg');
+      const base=/^data:/i.test(img)?('wcdw-email-banner.'+ext):img.split('/').pop().split('?')[0];
+      dl(b,base||('wcdw-email-banner.'+ext));
+    }).catch(()=>alert('Could not read the image — try right-clicking the preview and saving it instead.'));
+  };
+  $('emDlg').showModal();
+}
+function emFinalHTML(){
+  const inp=document.getElementById('emUrl');
+  const url=inp?inp.value.trim():'';
+  if(emNeedsHosting&&!/^https?:\/\//i.test(url)){
+    alert('Paste the live image link first (step 3) — that’s what makes the banner show for your recipients.');
+    return null;
+  }
+  return cleanEmailHTML(inp?(url||''):undefined);
+}
+$('emCopyHtml').onclick=()=>{const html=emFinalHTML();if(html!==null)copyText(html,$('emCopyHtml'),'Copied!');};
+$('emDlHtml').onclick=()=>{const html=emFinalHTML();if(html!==null)dl(new Blob([html],{type:'text/html'}),'wcdw-email.html');};
+$('emClose').onclick=()=>$('emDlg').close();
+$('emDlg').addEventListener('click',e=>{if(e.target===$('emDlg'))$('emDlg').close();});
 /* Restore the label directly (never via setMode) so copying can't reset the canvas size; fall back to legacyCopy, not alert(). */
 $('copyBtn').onclick=()=>{const txt=mode==='social'?clean($('f-body').value):(mode==='email'?currentEmailHTML(true):clean($('f-head').value));
   copyText(txt,$('copyBtn'),'Copied!');};
