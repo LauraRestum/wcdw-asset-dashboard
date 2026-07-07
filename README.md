@@ -1,47 +1,44 @@
-# WCDW Asset Dashboard
+# White Cane Day Walk 2026 — Campaign Studio & Asset Dashboard
 
-A browsable **asset dashboard** for **Envision Dallas — "Celebrating Independence: White Cane Day Walk"** held at the **Dallas Zoo (2026)**: every photo, brand asset, and email image in one searchable gallery, plus the post-visit thank-you email (`email/VisitUs-EMAIL.html`).
+Two tools for **Envision — "Celebrating Independence: White Cane Day Walk"** at the **Dallas Zoo (2026)**:
 
-## The dashboard
+| URL | Tool | What it is |
+| --- | --- | --- |
+| **`/`** ([`index.html`](index.html)) | **Campaign Studio** | Build on-brand emails, graphics, and social posts from preapproved copy, with a live brand check and per-element styling. **This is the home page.** |
+| **`/dashboard`** ([`dashboard.html`](dashboard.html)) | **Asset Dashboard** | Browse, search, filter, and download every photo, brand asset, banner, and email image. Keyboard-first, light/dark, screen-reader friendly. |
 
-Open **[`index.html`](index.html)** — a self-contained, accessible dashboard that lets you:
+`studio.html` now just **redirects to `/`** (the Studio moved to the home page) — old links keep working. On Vercel, `/dashboard` and `/studio` are clean-URL rewrites; the two tools also link to each other.
 
-- **Search** by description, keyword tag, collection, or file name (e.g. `giraffe`, `braille`, `banner`, `tunnel`).
-- **Filter** by collection and **sort** by collection, name, or resolution.
-- **Preview** any asset full size in a lightbox (photos, the logo video, and the email HTML), then **copy its path** or **download the original**.
-- Toggle **light / dark** mode. Built keyboard-first with alt text, focus management, and live region announcements — appropriate for a blindness-services organization.
+Both tools read **[`manifest.json`](manifest.json)** as the single source of truth (the dashboard also embeds it in `dashboard/data.js` so it works from disk). Thumbnails in `dashboard/thumbnails/` (~2 MB total) keep the gallery fast; the ~345 MB of originals are only fetched when you open or download an asset.
 
-**Three ways to view it:**
+## Running it locally
 
-| How | Steps |
-| --- | --- |
-| **GitHub Pages** | Enable Pages for this branch (Settings → Pages) — the dashboard is the site's home page. |
-| **Local server** | `python3 -m http.server` in the repo root, then open `http://localhost:8000/`. |
-| **Straight from disk** | Double-click `index.html`. It reads the pre-generated `dashboard/data.js`, so it works with no server. |
+The Studio fetches `manifest.json`, so it must be **served over http** (not opened from `file://`):
 
-The gallery uses small thumbnails in `dashboard/thumbnails/` (≈1.5 MB total) instead of the full 350 MB of originals, so it stays fast; the originals are only fetched when you open or download an asset.
+```bash
+python3 -m http.server 8000    # in the repo root
+# then open:
+#   http://localhost:8000/            → Campaign Studio (home)
+#   http://localhost:8000/dashboard.html  → Asset Dashboard
+```
+
+The dashboard alone also works straight from disk (double-click `dashboard.html`) because it reads the pre-generated `dashboard/data.js`.
+
+## Sending emails built in the Studio
+
+The generator produces clean, escaped, CAN-SPAM-aware HTML, but a few things depend on **your** setup — see **[`SENDING.md`](SENDING.md)** for the pre-send checklist (hosted image URLs, ESP merge tags, address, contrast, seed test).
 
 ## Finding assets without the dashboard
 
-1. **Browse the folders** below (or the per-collection tables further down).
-2. **Read [`manifest.json`](manifest.json)** — a machine-readable index of every asset with a description and keyword tags, built for search tools and AI assistants. Each entry lists the file's path, type, dimensions, description, and tags.
-
-## Campaign Studio (`studio.html`)
-
-`studio.html` at the repo root is a self-contained studio for building on-brand White Cane Day Walk assets (emails, graphics, social posts) from preapproved copy. No build step — just open it from any static server. (The site home page, `index.html`, is the asset dashboard described above.)
-
-Its Graphic and Email image pickers **populate the photo library from [`manifest.json`](manifest.json)** at runtime — the same source of truth the dashboard uses — so the two never drift. It picks up every `type: "image"` asset whose path starts with `event-photos/`, shows the web-sized `thumbnail` (`dashboard/thumbnails/…`) on each tile for speed, and uses the full-resolution original (`path`) as the graphic background / email hero when a tile is selected. Both are same-origin, so PNG export never taints the canvas.
-
-To add, remove, or swap photos in the picker, edit `manifest.json` and run `python3 dashboard/build.py` (see [Adding or changing assets](#adding-or-changing-assets)) — the new photo appears in both the dashboard and the studio automatically.
-
-Because the library is fetched, `studio.html` must be **served over http**, not opened from `file://`. Run any static server, e.g. `python3 -m http.server 5173` then open <http://localhost:5173/studio.html>.
+Read **[`manifest.json`](manifest.json)** — a machine-readable index of every asset with path, type, dimensions, bytes, description, and keyword tags, built for search tools and AI assistants.
 
 ## Folder map
 
 ```
 .
-├── index.html                    The asset dashboard (open this)
-├── studio.html                   Campaign Studio: build emails/graphics/social from preapproved copy
+├── index.html                    Campaign Studio (the home page)
+├── dashboard.html                Asset Dashboard (served at /dashboard)
+├── studio.html                   Redirect → index.html (old /studio links)
 ├── manifest.json                 Machine-readable index of every asset (source of truth)
 ├── dashboard/                    Dashboard build output
 │   ├── build.py                  Regenerates thumbnails + data.js from the assets & manifest
@@ -151,7 +148,7 @@ The post-visit thank-you email template and the 7 image files it references.
 | `soc-instagram.png` | Instagram app-style icon. |
 | `soc-linkedin.png` | LinkedIn app-style icon. |
 
-> **Do not rename the 7 image files in `email/`.** The email's `<img>` tags reference them by these exact filenames. If you rename or move an `event-photos/` file, also update its path in the `PHOTO_FILES` list near the top of `studio.html`, or that tile will drop out of the studio's image picker.
+> **Do not rename the 7 image files in `email/`.** The email's `<img>` tags reference them by these exact filenames. Event photos, banners, and social graphics can be renamed or moved freely — both tools read them from `manifest.json` at runtime, so just update the manifest and re-run `python3 dashboard/build.py`.
 
 ---
 
