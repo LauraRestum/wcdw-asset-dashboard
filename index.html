@@ -264,6 +264,103 @@
   footer.app{max-width:1200px;margin:0 auto;padding:1.6rem 2rem 3rem;color:var(--muted);
     font-size:0.75rem;letter-spacing:.16em;text-transform:uppercase;border-top:1px solid var(--line)}
 
+  /* ---------- content calendar (tab 3) ---------- */
+  :root{--cc-ig:#c0567f;--cc-fb:#2a78d6;--cc-li:#5a49c0;--cc-em:#DC4405;--cc-ot:#b9791a}
+  html[data-theme="dark"]{--cc-ig:#d55181;--cc-fb:#5598e7;--cc-li:#9085e9;--cc-em:#ff7a45;--cc-ot:#d99a2b}
+  @media (prefers-color-scheme: dark){html[data-theme="auto"]{--cc-ig:#d55181;--cc-fb:#5598e7;--cc-li:#9085e9;--cc-em:#ff7a45;--cc-ot:#d99a2b}}
+  .cc-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;margin-bottom:1rem}
+  .cc-toolbar .sp{flex:1}
+  .cc-nav{display:flex;align-items:center;gap:.35rem}
+  .cc-nav button{width:36px;height:36px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:1rem}
+  .cc-nav button:hover:not(:disabled){border-color:var(--navy)}
+  .cc-nav button:disabled{opacity:.4;cursor:default}
+  .cc-nav .cc-today{width:auto;padding:0 .8rem;font-size:.75rem;font-weight:700}
+  #ccMonthLabel{font-size:1.05rem;font-weight:800;letter-spacing:-.01em;min-width:150px;text-align:center}
+  .cc-seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+  .cc-seg button{border:0;background:transparent;color:var(--muted);font-size:.75rem;font-weight:700;padding:.5rem 1rem}
+  .cc-seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
+  .cc-cal{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .cc-headrow{display:grid;grid-template-columns:repeat(7,1fr);background:var(--navy);color:#fff}
+  .cc-headrow div{padding:.45rem .6rem;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+  .cc-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+  .cc-day{min-height:112px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:.4rem .4rem 1.7rem;position:relative}
+  .cc-day:nth-child(7n){border-right:0}
+  .cc-day.out{background:var(--panel)}
+  .cc-day.out .cc-n{opacity:.45}
+  .cc-n{font-size:.72rem;font-weight:700;color:var(--muted);width:22px;height:22px;display:inline-grid;place-items:center;border-radius:50%}
+  .cc-day.today .cc-n{background:var(--green);color:var(--navy)}
+  .cc-addday{position:absolute;left:.4rem;right:.4rem;bottom:.3rem;border:1px dashed var(--line);background:none;color:var(--muted);border-radius:7px;font-size:.68rem;font-weight:600;padding:.15rem 0;opacity:0;transition:opacity .12s}
+  .cc-day:hover .cc-addday,.cc-addday:focus-visible{opacity:1}
+  .cc-addday:hover{border-color:var(--green);color:var(--green-text)}
+  .cc-evs{display:flex;flex-direction:column;gap:.25rem;margin-top:.25rem}
+  .cc-ev{display:flex;align-items:center;gap:.35rem;width:100%;border:none;border-left:3px solid var(--ch,var(--muted));background:var(--panel-2);color:var(--ink);border-radius:6px;padding:.22rem .4rem;font-size:.7rem;font-weight:600;text-align:left;min-width:0}
+  .cc-ev:hover{background:var(--green-soft)}
+  .cc-ev img{width:20px;height:20px;border-radius:4px;object-fit:cover;flex:none}
+  .cc-ev .gl{flex:none;width:20px;height:20px;border-radius:4px;display:grid;place-items:center;background:var(--ch,var(--muted));color:#fff;font-size:.6rem;font-weight:800}
+  .cc-ev .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+  .cc-ev .t small{display:block;color:var(--muted);font-size:.62rem;font-weight:600}
+  .cc-ev.done{opacity:.55}.cc-ev.done .t{text-decoration:line-through}
+  .cc-list{display:flex;flex-direction:column;gap:.9rem}
+  .cc-dg{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .cc-dg.past{opacity:.6}
+  .cc-dg>h3{padding:.5rem 1rem;font-size:.75rem;font-weight:800;background:var(--panel-2);border-bottom:1px solid var(--line);color:var(--ink)}
+  .cc-row{display:flex;gap:.9rem;padding:.85rem 1rem;border-bottom:1px solid var(--line);align-items:flex-start}
+  .cc-row:last-child{border-bottom:0}
+  .cc-row img.th{flex:none;width:58px;height:58px;border-radius:9px;object-fit:cover;border:1px solid var(--line)}
+  .cc-row .gl{flex:none;width:58px;height:58px;border-radius:9px;display:grid;place-items:center;background:var(--ch,var(--muted));color:#fff;font-size:1.1rem;font-weight:800}
+  .cc-row .mid{flex:1;min-width:0}
+  .cc-row .meta{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin-bottom:.15rem}
+  .cc-pill{display:inline-flex;align-items:center;border-radius:999px;padding:.1rem .6rem;font-size:.62rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--ch,var(--muted))}
+  .cc-pill.st{background:var(--panel-2);color:var(--muted);border:1px solid var(--line)}
+  .cc-pill.st.done{color:var(--green-text);border-color:var(--green)}
+  .cc-row h4{font-size:.85rem;font-weight:700;margin:0}
+  .cc-row .cp{margin-top:.15rem;font-size:.76rem;color:var(--muted);white-space:pre-wrap;word-break:break-word}
+  .cc-row .tm{font-size:.68rem;color:var(--muted)}
+  .cc-row .acts{flex:none;display:flex;flex-direction:column;gap:.35rem}
+  .cc-row .acts button{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:7px;font-size:.68rem;font-weight:700;padding:.3rem .7rem}
+  .cc-row .acts button:hover{border-color:var(--navy);color:var(--ink)}
+  .cc-empty{text-align:center;padding:2.6rem 1rem;color:var(--muted);font-size:.85rem}
+  .cc-note{font-size:.72rem;color:var(--muted);margin-top:1rem}
+  .cc-dlghead{display:flex;align-items:center;gap:.6rem;padding:.9rem 1.3rem;border-bottom:1px solid var(--line)}
+  .cc-dlghead h3{font-size:1rem;font-weight:800;flex:1;margin:0}
+  .cc-x{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:1rem;flex:none}
+  .cc-fields{padding:1.1rem 1.3rem;display:grid;gap:.85rem}
+  .cc-frow{display:grid;gap:.85rem;grid-template-columns:1fr 1fr}
+  @media(max-width:560px){.cc-frow{grid-template-columns:1fr}}
+  .cc-f>label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+  .cc-f input,.cc-f select,.cc-f textarea{width:100%;font-family:inherit;font-size:.85rem;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:.55rem .7rem}
+  .cc-f textarea{min-height:104px;resize:vertical}
+  .cc-f input:focus,.cc-f select:focus,.cc-f textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
+  .cc-count{font-size:.66rem;color:var(--muted);text-align:right;margin-top:.2rem}
+  .cc-count.over{color:var(--terra);font-weight:800}
+  .cc-chan{display:flex;flex-wrap:wrap;gap:.4rem}
+  .cc-chan label{display:inline-flex;align-items:center;gap:.4rem;cursor:pointer;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:.4rem .85rem;font-size:.74rem;font-weight:700;color:var(--muted)}
+  .cc-chan input{position:absolute;opacity:0;pointer-events:none}
+  .cc-chan .dot{width:9px;height:9px;border-radius:50%}
+  .cc-chan label.on{background:var(--ch);border-color:var(--ch);color:#fff}
+  .cc-chan label.on .dot{background:#fff!important}
+  .cc-chan label:has(input:focus-visible){outline:3px solid var(--green);outline-offset:2px}
+  .cc-asset{display:flex;align-items:center;gap:.7rem;border:1px dashed var(--line);border-radius:10px;padding:.6rem .7rem;background:var(--panel)}
+  .cc-asset img{width:52px;height:52px;border-radius:8px;object-fit:cover;border:1px solid var(--line)}
+  .cc-asset .noimg{width:52px;height:52px;border-radius:8px;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:1.2rem}
+  .cc-asset .inf{flex:1;min-width:0;font-size:.74rem}
+  .cc-asset .inf b{display:block;word-break:break-all}
+  .cc-asset .inf span{color:var(--muted);font-size:.68rem}
+  .cc-asset .pk{display:flex;flex-direction:column;gap:.35rem}
+  .cc-foot{display:flex;gap:.5rem;padding:.9rem 1.3rem;border-top:1px solid var(--line)}
+  .cc-foot .sp{flex:1}
+  .btn-danger{background:transparent;border:1px solid var(--terra);color:var(--terra)}
+  .btn-danger:hover{background:var(--terra);color:#fff}
+  .cc-pgrid{overflow-y:auto;padding:1rem 1.3rem;display:grid;gap:.7rem;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));max-height:56vh;align-content:start}
+  .cc-pgrid button{border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:0 0 .3rem;overflow:hidden;font-family:inherit;color:var(--muted);text-align:left}
+  .cc-pgrid button:hover{border-color:var(--green)}
+  .cc-pgrid img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+  .cc-pgrid .fn{font-size:.6rem;padding:.25rem .45rem 0;word-break:break-all;display:block;line-height:1.3}
+  .cc-search{flex:1;font-family:inherit;font-size:.82rem;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:.5rem 1rem;min-width:0}
+  .cc-toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(16px);background:var(--navy);color:#fff;padding:.6rem 1.1rem;border-radius:999px;font-size:.78rem;font-weight:600;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.2s;z-index:90}
+  .cc-toast.show{opacity:1;transform:translateX(-50%)}
+  @media(max-width:720px){.cc-day{min-height:80px;padding-bottom:.4rem}.cc-addday{display:none}.cc-ev .t small{display:none}#ccMonthLabel{min-width:0}}
+
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.splitbar .g{width:22%}}
 </style>
 </head>
@@ -298,6 +395,7 @@
 <div class="tabwrap"><div class="tabs" role="tablist" aria-label="Studio sections">
   <button class="tab" role="tab" aria-selected="true" aria-controls="p-assets" id="t-assets" tabindex="0" onclick="showTab('assets')">Premade assets</button>
   <button class="tab" role="tab" aria-selected="false" aria-controls="p-gen" id="t-gen" tabindex="-1" onclick="showTab('gen')">Generator</button>
+  <button class="tab" role="tab" aria-selected="false" aria-controls="p-cal" id="t-cal" tabindex="-1" onclick="showTab('cal')">Calendar</button>
 </div></div>
 
 <main id="main">
@@ -472,6 +570,37 @@
       </div>
     </details>
   </section>
+
+  <section class="panel" id="p-cal" role="tabpanel" aria-labelledby="t-cal" tabindex="0" hidden>
+    <span class="eyebrow">Content calendar</span>
+    <h2 class="sec-title">Posting &amp; send schedule</h2>
+    <p class="sec-sub">Plan which day each social post and email goes out: the platform, the image, the copy and where it stands. Planned, scheduled, posted. Click any day to add one.</p>
+    <div class="cc-toolbar">
+      <div class="cc-nav">
+        <button type="button" id="ccPrev" aria-label="Previous month">‹</button>
+        <button type="button" class="cc-today" id="ccToday">Today</button>
+        <button type="button" id="ccNext" aria-label="Next month">›</button>
+      </div>
+      <span id="ccMonthLabel" aria-live="polite"></span>
+      <span class="sp"></span>
+      <div class="cc-seg" role="group" aria-label="Calendar view">
+        <button type="button" id="ccVMonth" aria-pressed="true">Month</button>
+        <button type="button" id="ccVList" aria-pressed="false">List</button>
+      </div>
+      <button class="btn btn-ghost" type="button" id="ccExport" title="Download the schedule as a file">Export</button>
+      <button class="btn btn-ghost" type="button" id="ccImport" title="Load a schedule file">Import</button>
+      <input type="file" id="ccImportFile" accept=".json,application/json" hidden>
+      <button class="btn btn-green" type="button" id="ccAddBtn">＋ Add post / email</button>
+    </div>
+    <div class="filter-row" id="ccChips" role="group" aria-label="Filter by channel"></div>
+    <div class="cc-cal" id="ccMonthView" role="grid" aria-labelledby="ccMonthLabel">
+      <div class="cc-headrow" id="ccHeadRow" role="row"></div>
+      <div class="cc-grid" id="ccGrid"></div>
+    </div>
+    <div class="cc-list" id="ccListView" hidden></div>
+    <div class="cc-empty" id="ccEmpty" hidden><b>Nothing scheduled yet.</b><br>Click <b>＋ Add post / email</b>, or any day on the month view, to plan your first one.</div>
+    <p class="cc-note">The schedule is saved in this browser only, it does not sync between devices on its own. Use <b>Export</b> to download it as a file you can back up or share, and <b>Import</b> to load it on another device.</p>
+  </section>
 </main>
 
 <footer class="app">White Cane Day Walk 2026 · Campaign Studio · Built on the 2026 Messaging Guide + AI Directive v2.0</footer>
@@ -488,6 +617,70 @@
     <div class="modal-acts" id="mActs" hidden><button class="btn btn-green" id="mDl" type="button">Download</button><button class="btn btn-ghost" id="mCopy" type="button" hidden>Copy HTML</button></div>
   </div>
 </div></dialog>
+
+<dialog class="modal" id="ccDlg" aria-labelledby="ccDlgTitle">
+  <form class="modal-card" id="ccForm">
+    <div class="modal-top"><i class="g"></i><i class="b"></i></div>
+    <div class="cc-dlghead"><h3 id="ccDlgTitle">Add to schedule</h3>
+      <button class="cc-x" type="button" id="ccDlgClose" aria-label="Close">×</button></div>
+    <div class="cc-fields">
+      <div class="cc-f">
+        <label id="ccChanLabel">Where is it going?</label>
+        <div class="cc-chan" id="ccChanRow" role="radiogroup" aria-labelledby="ccChanLabel"></div>
+      </div>
+      <div class="cc-frow">
+        <div class="cc-f"><label for="ccDate">Day</label><input type="date" id="ccDate" required></div>
+        <div class="cc-f"><label for="ccTime">Time (optional)</label><input type="time" id="ccTime"></div>
+      </div>
+      <div class="cc-frow">
+        <div class="cc-f"><label for="ccTitle">Title</label>
+          <input type="text" id="ccTitle" placeholder="e.g. Save-the-date announcement" maxlength="120"></div>
+        <div class="cc-f"><label for="ccStatus">Status</label>
+          <select id="ccStatus">
+            <option value="planned" selected>Planned</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="posted">Posted ✓</option>
+          </select></div>
+      </div>
+      <div class="cc-f">
+        <label for="ccCopy" id="ccCopyLabel">Copy / caption</label>
+        <textarea id="ccCopy" placeholder="Paste the exact caption, or the email subject + preview text…"></textarea>
+        <div class="cc-count" id="ccCount" aria-live="polite"></div>
+      </div>
+      <div class="cc-f">
+        <label>Image</label>
+        <div class="cc-asset">
+          <span class="noimg" id="ccNoImg" aria-hidden="true">🖼</span>
+          <img id="ccAssetImg" alt="" hidden>
+          <div class="inf"><b id="ccAssetName">No image attached</b><span id="ccAssetPath">Pick one from the asset library.</span></div>
+          <div class="pk">
+            <button class="btn btn-ghost" type="button" id="ccPickAsset">Choose image…</button>
+            <button class="btn btn-ghost" type="button" id="ccClearAsset" hidden>Remove</button>
+          </div>
+        </div>
+      </div>
+      <div class="cc-f"><label for="ccNotes">Notes (optional)</label>
+        <input type="text" id="ccNotes" placeholder="e.g. tag @DallasZoo, link in bio, audience segment…"></div>
+    </div>
+    <div class="cc-foot">
+      <button class="btn btn-danger" type="button" id="ccDelete" hidden>Delete</button>
+      <span class="sp"></span>
+      <button class="btn btn-ghost" type="button" id="ccCancel">Cancel</button>
+      <button class="btn btn-green" type="submit" id="ccSave">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="modal" id="ccPicker" aria-label="Choose an image from the asset library">
+  <div class="modal-card">
+    <div class="modal-top"><i class="g"></i><i class="b"></i></div>
+    <div class="cc-dlghead"><h3>Choose an image</h3>
+      <input class="cc-search" type="search" id="ccPq" placeholder="Search “save the date”, “giraffe”, “banner”…" autocomplete="off" aria-label="Search images">
+      <button class="cc-x" type="button" id="ccPClose" aria-label="Close">×</button></div>
+    <div class="cc-pgrid" id="ccPgrid"></div>
+  </div>
+</dialog>
+<div class="cc-toast" id="ccToast" role="status" aria-live="polite"></div>
 
 <script>
 /* countdown (with walk-day + post-event states) */
@@ -565,6 +758,7 @@ let activeCat='all';
 let LIBRARY=[];           /* [{name, src(full-res path), thumb(thumbnail), cat}] populated from manifest.json */
 let BANNERS=[];           /* [{name, title, src, thumb, dim}] premade email banners from manifest.json */
 let SOCIAL=[];            /* [{name, title, src, thumb, dim}] premade social graphics from manifest.json */
+let CCIMGS=[];            /* [{path, thumbnail, filename, description, tags}] every image, for the calendar's picker */
 let libState='loading';   /* 'loading' | 'ready' | 'error' */
 const grid=document.getElementById('assetGrid'),filters=document.getElementById('filters');
 CATS.forEach(([id,l])=>{const b=document.createElement('button');b.className='chip';b.textContent=l;b.setAttribute('aria-pressed',id==='all');
@@ -807,6 +1001,7 @@ function loadLibrary(){
         .map(a=>({name:a.description||titleFromPath(a.path),title:titleFromPath(a.path),src:a.path,thumb:a.thumbnail,dim:a.dimensions||''}));
       SOCIAL=imgs.filter(a=>/^social\//.test(a.path||''))
         .map(a=>({name:a.description||titleFromPath(a.path),title:titleFromPath(a.path),src:a.path,thumb:a.thumbnail,dim:a.dimensions||''}));
+      CCIMGS=imgs.map(a=>({path:a.path,thumbnail:a.thumbnail||'',filename:(a.path||'').split('/').pop(),description:a.description||'',tags:a.tags||[]}));
       libState=LIBRARY.length?'ready':'error';
     })
     .catch(e=>{console.warn('Could not load photo library from '+MANIFEST_URL+':',e);LIBRARY=[];libState='error';});
@@ -1154,9 +1349,9 @@ $('copyBtn').onclick=()=>{const txt=mode==='social'?clean($('f-body').value):(mo
 $('resetBtn').onclick=()=>{$('f-sub').value='';$('f-meta').value='Saturday, October 17 · Dallas Zoo';buildSub();applyAudience();};
 
 /* tabs (roving tabindex + arrow-key navigation) */
-function showTab(id){['assets','gen'].forEach(t=>{const sel=t===id;$('p-'+t).hidden=!sel;const tab=$('t-'+t);tab.setAttribute('aria-selected',sel);tab.tabIndex=sel?0:-1;});
+function showTab(id){['assets','gen','cal'].forEach(t=>{const sel=t===id;$('p-'+t).hidden=!sel;const tab=$('t-'+t);tab.setAttribute('aria-selected',sel);tab.tabIndex=sel?0:-1;});
   if(id==='gen')render();}
-(function(){const tabs=[$('t-assets'),$('t-gen')];
+(function(){const tabs=[$('t-assets'),$('t-gen'),$('t-cal')];
   document.querySelector('.tabs').addEventListener('keydown',e=>{
     const i=tabs.indexOf(document.activeElement);if(i<0)return;let j=null;
     if(e.key==='ArrowRight'||e.key==='ArrowDown')j=(i+1)%tabs.length;
@@ -1167,6 +1362,275 @@ function showTab(id){['assets','gen'].forEach(t=>{const sel=t===id;$('p-'+t).hid
 /* init */
 buildBanner();buildLib();buildSub();buildAdjust();buildElement();applyAudience();setMode('email');
 loadLibrary().then(()=>{buildLib();render();renderAssets();});
+
+/* ---------- content calendar (tab 3) ---------- */
+(function(){
+const STORE='wcdw-content-calendar-v1';
+const CH={
+  instagram:{label:'Instagram',short:'IG',color:'var(--cc-ig)',limit:2200,copyLabel:'Caption'},
+  facebook:{label:'Facebook',short:'FB',color:'var(--cc-fb)',limit:63206,copyLabel:'Post copy'},
+  linkedin:{label:'LinkedIn',short:'LI',color:'var(--cc-li)',limit:3000,copyLabel:'Post copy'},
+  email:{label:'Email',short:'✉',color:'var(--cc-em)',limit:0,copyLabel:'Subject line + preview text'},
+  other:{label:'Other',short:'•',color:'var(--cc-ot)',limit:0,copyLabel:'Copy'}
+};
+const ch=c=>CH[c]||CH.other;
+const escC=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function ccLoad(){try{const a=JSON.parse(localStorage.getItem(STORE)||'[]');return Array.isArray(a)?a.filter(e=>e&&e.id&&e.date):[];}catch(e){return[];}}
+function ccPersist(){try{localStorage.setItem(STORE,JSON.stringify(entries));}catch(e){ccToast('Could not save, browser storage unavailable');}}
+let entries=ccLoad();
+
+const pad=n=>(n<10?'0':'')+n;
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const fromYmd=s=>{const p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2]);};
+const todayYmd=()=>ymd(new Date());
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYSN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const niceDate=s=>fromYmd(s).toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+const niceTime=t=>{if(!t)return'';const p=t.split(':');let h=+p[0];const ap=h>=12?'PM':'AM';h=h%12||12;return h+':'+p[1]+' '+ap;};
+const stLabel=s=>({planned:'Planned',scheduled:'Scheduled',posted:'Posted ✓'}[s]||'Planned');
+
+const nowD=new Date();
+const view={y:nowD.getFullYear(),m:nowD.getMonth(),mode:'month',chan:'all'};
+
+/* channel filter chips (reuses the studio .chip style) */
+function renderChips(){
+  const counts=entries.reduce((m,e)=>(m[e.channel]=(m[e.channel]||0)+1,m),{});
+  let h='<button class="chip" data-chan="all" aria-pressed="'+(view.chan==='all')+'">All channels ('+entries.length+')</button>';
+  Object.keys(CH).forEach(c=>{h+='<button class="chip" data-chan="'+c+'" aria-pressed="'+(view.chan===c)+'">'+
+    '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+ch(c).color+';margin-right:.35rem"></span>'+
+    ch(c).label+' ('+(counts[c]||0)+')</button>';});
+  $('ccChips').innerHTML=h;
+}
+$('ccChips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;view.chan=b.getAttribute('data-chan');ccRender();});
+const ccVisible=()=>entries.filter(e=>view.chan==='all'||e.channel===view.chan);
+
+/* month view */
+$('ccHeadRow').innerHTML=DAYSN.map(d=>'<div role="columnheader">'+d+'</div>').join('');
+function renderMonth(){
+  $('ccMonthLabel').textContent=MONTHS[view.m]+' '+view.y;
+  const first=new Date(view.y,view.m,1);
+  const start=new Date(view.y,view.m,1-first.getDay());
+  const byDate={};
+  ccVisible().forEach(e=>{(byDate[e.date]=byDate[e.date]||[]).push(e);});
+  Object.keys(byDate).forEach(k=>byDate[k].sort((a,b)=>(a.time||'99')<(b.time||'99')?-1:1));
+  const today=todayYmd();const cells=[];
+  for(let i=0;i<42;i++){
+    const d=new Date(start.getFullYear(),start.getMonth(),start.getDate()+i);
+    const key=ymd(d);const out=d.getMonth()!==view.m;
+    const evs=(byDate[key]||[]).map(e=>{
+      const c=ch(e.channel);
+      const th=e.asset&&e.asset.thumbnail?'<img src="'+escC(e.asset.thumbnail)+'" alt="">':'<span class="gl" style="--ch:'+c.color+'">'+c.short+'</span>';
+      const sub=[c.label,niceTime(e.time)].filter(Boolean).join(' · ');
+      return '<button type="button" class="cc-ev'+(e.status==='posted'?' done':'')+'" style="--ch:'+c.color+'" data-id="'+escC(e.id)+'" '+
+        'aria-label="Edit: '+escC(e.title||c.label)+' on '+escC(niceDate(e.date))+'">'+
+        th+'<span class="t">'+escC(e.title||(c.label+' post'))+'<small>'+escC(sub)+'</small></span></button>';
+    }).join('');
+    cells.push('<div class="cc-day'+(out?' out':'')+(key===today?' today':'')+'" role="gridcell" aria-label="'+escC(niceDate(key))+'">'+
+      '<span class="cc-n">'+d.getDate()+'</span><div class="cc-evs">'+evs+'</div>'+
+      '<button type="button" class="cc-addday" data-date="'+key+'" aria-label="Add a post on '+escC(niceDate(key))+'">＋ add</button></div>');
+  }
+  $('ccGrid').innerHTML=cells.join('');
+}
+$('ccGrid').addEventListener('click',e=>{
+  const ev=e.target.closest('.cc-ev');if(ev){openEntry(ev.getAttribute('data-id'));return;}
+  const add=e.target.closest('.cc-addday');if(add)openEntry(null,add.getAttribute('data-date'));
+});
+
+/* list view */
+function renderList(){
+  const list=ccVisible().slice().sort((a,b)=>{
+    const d=a.date===b.date?0:(a.date<b.date?-1:1);
+    return d!==0?d:((a.time||'99')<(b.time||'99')?-1:1);
+  });
+  const today=todayYmd();
+  $('ccEmpty').hidden=list.length!==0;
+  if(!list.length){$('ccListView').innerHTML='';return;}
+  const byDate={};const order=[];
+  list.forEach(e=>{if(!byDate[e.date]){byDate[e.date]=[];order.push(e.date);}byDate[e.date].push(e);});
+  $('ccListView').innerHTML=order.map(dt=>{
+    const rows=byDate[dt].map(e=>{
+      const c=ch(e.channel);
+      const img=e.asset&&e.asset.thumbnail?'<img class="th" src="'+escC(e.asset.thumbnail)+'" alt="'+escC(e.asset.filename||'attached image')+'">':
+        '<span class="gl" style="--ch:'+c.color+'" aria-hidden="true">'+c.short+'</span>';
+      return '<div class="cc-row">'+img+'<div class="mid"><div class="meta">'+
+        '<span class="cc-pill" style="--ch:'+c.color+'">'+c.label+'</span>'+
+        '<span class="cc-pill st'+(e.status==='posted'?' done':'')+'">'+stLabel(e.status)+'</span>'+
+        (e.time?'<span class="tm">'+escC(niceTime(e.time))+'</span>':'')+'</div>'+
+        '<h4>'+escC(e.title||(c.label+' post'))+'</h4>'+
+        (e.copy?'<p class="cp">'+escC(e.copy)+'</p>':'')+
+        (e.notes?'<p class="cp">📝 '+escC(e.notes)+'</p>':'')+'</div>'+
+        '<div class="acts"><button type="button" data-edit="'+escC(e.id)+'">Edit</button>'+
+        (e.copy?'<button type="button" data-copy="'+escC(e.id)+'">Copy text</button>':'')+'</div></div>';
+    }).join('');
+    return '<section class="cc-dg'+(dt<today?' past':'')+'"><h3>'+(dt===today?'Today — ':'')+escC(niceDate(dt))+'</h3>'+rows+'</section>';
+  }).join('');
+}
+$('ccListView').addEventListener('click',e=>{
+  const ed=e.target.closest('[data-edit]');if(ed){openEntry(ed.getAttribute('data-edit'));return;}
+  const cp=e.target.closest('[data-copy]');
+  if(cp){const en=entries.find(x=>x.id===cp.getAttribute('data-copy'));
+    if(en)ccCopy(en.copy,'Copied — paste it into '+ch(en.channel).label);}
+});
+
+/* view switching / month nav */
+function ccRender(){
+  renderChips();
+  const month=view.mode==='month';
+  $('ccMonthView').hidden=!month;$('ccListView').hidden=month;$('ccEmpty').hidden=true;
+  $('ccVMonth').setAttribute('aria-pressed',month?'true':'false');
+  $('ccVList').setAttribute('aria-pressed',month?'false':'true');
+  $('ccPrev').disabled=$('ccNext').disabled=$('ccToday').disabled=!month;
+  if(month)renderMonth();else renderList();
+}
+$('ccVMonth').onclick=()=>{view.mode='month';ccRender();};
+$('ccVList').onclick=()=>{view.mode='list';ccRender();};
+$('ccPrev').onclick=()=>{view.m--;if(view.m<0){view.m=11;view.y--;}ccRender();};
+$('ccNext').onclick=()=>{view.m++;if(view.m>11){view.m=0;view.y++;}ccRender();};
+$('ccToday').onclick=()=>{const n=new Date();view.y=n.getFullYear();view.m=n.getMonth();ccRender();};
+
+/* entry dialog */
+const dlg=$('ccDlg'),form=$('ccForm');
+let editingId=null,pickedAsset=null;
+$('ccChanRow').innerHTML=Object.keys(CH).map((c,i)=>
+  '<label style="--ch:'+ch(c).color+'"><input type="radio" name="ccChan" value="'+c+'"'+(i===0?' checked':'')+'>'+
+  '<span class="dot" style="background:'+ch(c).color+'"></span>'+ch(c).label+'</label>').join('');
+function syncChan(){
+  const sel=form.ccChan.value;
+  [...$('ccChanRow').children].forEach(l=>l.classList.toggle('on',l.querySelector('input').value===sel));
+  $('ccCopyLabel').textContent=ch(sel).copyLabel;
+  syncCount();
+}
+$('ccChanRow').addEventListener('change',syncChan);
+function syncCount(){
+  const lim=ch(form.ccChan.value).limit,len=$('ccCopy').value.length,el=$('ccCount');
+  if(!len&&!lim){el.textContent='';return;}
+  el.textContent=len+(lim?' / '+lim.toLocaleString()+' characters':' characters');
+  el.classList.toggle('over',!!lim&&len>lim);
+}
+$('ccCopy').addEventListener('input',syncCount);
+function setAsset(a){
+  pickedAsset=a||null;
+  const img=$('ccAssetImg');
+  if(a){img.src=a.thumbnail||a.path;img.hidden=false;$('ccNoImg').hidden=true;
+    $('ccAssetName').textContent=a.filename||a.path;$('ccAssetPath').textContent=a.path;$('ccClearAsset').hidden=false;}
+  else{img.hidden=true;img.removeAttribute('src');$('ccNoImg').hidden=false;
+    $('ccAssetName').textContent='No image attached';
+    $('ccAssetPath').textContent='Pick one from the asset library.';$('ccClearAsset').hidden=true;}
+}
+$('ccClearAsset').onclick=()=>setAsset(null);
+function openEntry(id,presetDate){
+  editingId=id||null;
+  const e=id?entries.find(x=>x.id===id):null;
+  if(id&&!e)return;
+  $('ccDlgTitle').textContent=e?'Edit scheduled item':'Add to schedule';
+  $('ccDelete').hidden=!e;
+  form.ccChan.value=e?(CH[e.channel]?e.channel:'other'):'instagram';
+  $('ccDate').value=e?e.date:(presetDate||todayYmd());
+  $('ccTime').value=e&&e.time?e.time:'';
+  $('ccTitle').value=e?(e.title||''):'';
+  const st=e?e.status:'planned';   /* older saved statuses (idea/drafted) fold into planned */
+  $('ccStatus').value=(st==='scheduled'||st==='posted')?st:'planned';
+  $('ccCopy').value=e?(e.copy||''):'';
+  $('ccNotes').value=e?(e.notes||''):'';
+  setAsset(e?e.asset:null);
+  syncChan();
+  dlg.showModal();
+  $('ccDate').focus();
+}
+$('ccAddBtn').onclick=()=>openEntry(null);
+$('ccDlgClose').onclick=()=>dlg.close();
+$('ccCancel').onclick=()=>dlg.close();
+dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close();});
+form.addEventListener('submit',ev=>{
+  ev.preventDefault();
+  if(!$('ccDate').value){$('ccDate').focus();return;}
+  const data={
+    id:editingId||('e'+String(Math.random()).slice(2)+String(entries.length)),
+    date:$('ccDate').value,time:$('ccTime').value||'',
+    channel:form.ccChan.value,status:$('ccStatus').value,
+    title:$('ccTitle').value.trim(),copy:$('ccCopy').value,notes:$('ccNotes').value.trim(),
+    asset:pickedAsset?{path:pickedAsset.path,thumbnail:pickedAsset.thumbnail||'',filename:pickedAsset.filename||''}:null
+  };
+  if(editingId)entries=entries.map(x=>x.id===editingId?data:x);else entries.push(data);
+  ccPersist();dlg.close();
+  if(view.mode==='month'){const d=fromYmd(data.date);view.y=d.getFullYear();view.m=d.getMonth();}
+  ccRender();
+  ccToast(editingId?'Updated':'Added to the schedule');
+  editingId=null;
+});
+$('ccDelete').onclick=()=>{
+  if(!editingId)return;
+  if(!confirm('Delete this item from the schedule?'))return;
+  entries=entries.filter(x=>x.id!==editingId);
+  ccPersist();editingId=null;dlg.close();ccRender();ccToast('Deleted');
+};
+
+/* asset picker — fed by CCIMGS (every image in manifest.json) */
+const pdlg=$('ccPicker'),pgrid=$('ccPgrid'),pq=$('ccPq');
+function renderPicker(){
+  const q=pq.value.trim().toLowerCase();
+  const list=CCIMGS.filter(a=>{
+    if(!a.thumbnail)return false;
+    if(!q)return true;
+    const hay=[a.filename,a.path,a.description].concat(a.tags||[]).join(' ').toLowerCase();
+    return q.split(/\s+/).every(t=>hay.indexOf(t)!==-1);
+  });
+  pgrid.innerHTML=list.length?list.map(a=>{
+    const i=CCIMGS.indexOf(a);
+    return '<button type="button" data-a="'+i+'" title="'+escC(a.description||a.filename)+'">'+
+      '<img src="'+escC(a.thumbnail)+'" alt="" loading="lazy"><span class="fn">'+escC(a.filename)+'</span></button>';
+  }).join(''):'<p class="cc-empty" style="grid-column:1/-1">No images match “'+escC(q)+'”.</p>';
+}
+$('ccPickAsset').onclick=()=>{
+  if(!CCIMGS.length){ccToast(libState==='loading'?'Still loading the asset library, try again in a second':'Asset library unavailable, serve the site over http');return;}
+  pq.value='';renderPicker();pdlg.showModal();pq.focus();
+};
+pq.addEventListener('input',renderPicker);
+pgrid.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;setAsset(CCIMGS[+b.getAttribute('data-a')]);pdlg.close();});
+$('ccPClose').onclick=()=>pdlg.close();
+pdlg.addEventListener('click',e=>{if(e.target===pdlg)pdlg.close();});
+
+/* export / import */
+$('ccExport').onclick=()=>{
+  const blob=new Blob([JSON.stringify({wcdwCalendar:1,exported:new Date().toISOString(),entries},null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='wcdw-content-calendar.json';
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);
+  ccToast('Schedule exported');
+};
+$('ccImport').onclick=()=>$('ccImportFile').click();
+$('ccImportFile').addEventListener('change',function(){
+  const f=this.files&&this.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const data=JSON.parse(r.result);
+      let list=Array.isArray(data)?data:(data.entries||[]);
+      list=list.filter(e=>e&&e.id&&e.date);
+      if(!list.length){ccToast('No schedule entries found in that file');return;}
+      const byId={};entries.concat(list).forEach(e=>{byId[e.id]=e;});
+      entries=Object.keys(byId).map(k=>byId[k]);
+      ccPersist();ccRender();
+      ccToast('Imported '+list.length+' item'+(list.length===1?'':'s'));
+    }catch(e){ccToast('Could not read that file, is it a calendar export?');}
+  };
+  r.readAsText(f);
+  this.value='';
+});
+
+/* toast + copy */
+let toastT;
+function ccToast(msg){const t=$('ccToast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
+function ccCopy(txt,msg){
+  const done=()=>ccToast(msg||'Copied');
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,()=>{legacyCopy(txt);done();});}
+  else{legacyCopy(txt);done();}
+}
+
+ccRender();
+/* deep link: /calendar redirects here with #calendar */
+if(location.hash==='#calendar')showTab('cal');
+})();
 </script>
 <script type="text/html" id="mail01"><!DOCTYPE html>
 <html lang="en">
