@@ -1,0 +1,5 @@
+{
+  "wcdwCalendar": 1,
+  "note": "Published posting & send schedule shown on the Campaign Studio's Calendar tab. To update it: open index.html#calendar-edit, make your changes, click 'Download calendar.json', then upload the downloaded file here (replacing this one).",
+  "entries": []
+}
