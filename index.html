@@ -765,7 +765,7 @@ const BODIES=[
 ];
 
 const ASSETS=[
-  {t:"2026 Messaging Guide",type:'Guide',cat:'media',status:'live',doc:'brand/wcdw-messaging-toolkit-v3.pdf',head:"White Cane. I Can.",body:"The official 2026 messaging toolkit (v3, 14 pages): the creative platform, voice, approved copy, audiences and campaign phases the Studio is built on."},
+  {t:"2026 Messaging Guide",type:'Guide',cat:'brand',status:'live',doc:'brand/wcdw-messaging-toolkit-v3.pdf',head:"White Cane. I Can.",body:"The official 2026 messaging toolkit (v3, 14 pages): the creative platform, voice, approved copy, audiences and campaign phases the Studio is built on."},
   {t:"Save-the-date email",type:'Email',cat:'email',status:'live',mode:'email',file:'mail01',head:"Save the date: White Cane Day Walk",cta:"Save your spot",body:"Walk with us for independence. Join Envision Saturday, Oct. 17 at the Dallas Zoo for the White Cane Day Walk, an evening of community, awareness and action supporting people who are blind or have low vision across North Texas. Save the date and plan to walk with us."},
   {t:"Registration open email",type:'Email',cat:'email',status:'live',mode:'email',file:'mail02',head:"Registration is open",cta:"Register now",body:"Registration is open. Join Envision at the Dallas Zoo on Saturday, Oct. 17 and walk with us for independence. Register, start a team or make a gift to support Envision\u2019s work for people who are blind or have low vision across North Texas."},
   {t:"Start-a-team email",type:'Email',cat:'email',status:'live',mode:'email',file:'mail03',head:"Start your team",cta:"Start your team",body:"Start your team and invite others to walk with you for independence. Bring friends, family, coworkers or your community group to the White Cane Day Walk and help support independence across North Texas."},
@@ -778,11 +778,12 @@ const ASSETS=[
 ];
 
 /* ---------- assets render ---------- */
-const CATS=[['all','All'],['email','Emails'],['media','Media / PSA'],['banner','Banners'],['social','Social'],['photos','Photos']];
+const CATS=[['all','All'],['email','Emails'],['media','Media / PSA'],['banner','Banners'],['social','Social'],['brand','Brand & logos'],['photos','Photos']];
 let activeCat='all';
 let LIBRARY=[];           /* [{name, src(full-res path), thumb(thumbnail), cat}] populated from manifest.json */
 let BANNERS=[];           /* [{name, title, src, thumb, dim}] premade email banners from manifest.json */
 let SOCIAL=[];            /* [{name, title, src, thumb, dim}] premade social graphics from manifest.json */
+let BRAND=[];             /* [{name, title, src, thumb, dim}] brand images (logos etc.) from manifest.json */
 let CCIMGS=[];            /* [{path, thumbnail, filename, description, tags}] every image, for the calendar's picker */
 let libState='loading';   /* 'loading' | 'ready' | 'error' */
 const grid=document.getElementById('assetGrid'),filters=document.getElementById('filters');
@@ -804,6 +805,7 @@ function renderAssets(){grid.innerHTML='';
   });
   if(activeCat==='all'||activeCat==='banner')renderBannerTiles();
   if(activeCat==='all'||activeCat==='social')renderSocialTiles();
+  if(activeCat==='all'||activeCat==='brand')renderBrandTiles();
   if(activeCat==='all'||activeCat==='photos')renderPhotoTiles();
   updateAssetCount();
 }
@@ -811,6 +813,7 @@ function updateAssetCount(){
   let n=ASSETS.filter(a=>activeCat==='all'||a.cat===activeCat).length;
   if(activeCat==='all'||activeCat==='banner')n+=BANNERS.length;
   if(activeCat==='all'||activeCat==='social')n+=SOCIAL.length;
+  if(activeCat==='all'||activeCat==='brand')n+=BRAND.length;
   if(activeCat==='all'||activeCat==='photos')n+=LIBRARY.length;
   const label=activeCat==='all'?'':' · '+(CATS.find(c=>c[0]===activeCat)||['',''])[1];
   document.getElementById('assetCount').textContent='Showing '+n+' asset'+(n===1?'':'s')+label;
@@ -826,6 +829,19 @@ function renderBannerTiles(){
     const acts=el.querySelector('.acts');
     acts.appendChild(mkAct('View',()=>openPhoto(bn)));
     acts.appendChild(mkAct('Download',()=>downloadPhoto(bn)));
+    grid.appendChild(el);
+  });
+}
+function renderBrandTiles(){
+  BRAND.forEach(br=>{
+    const el=document.createElement('div');el.className='asset';
+    el.innerHTML=`<div class="thumb photo"><img src="${ph_esc(br.thumb||br.src)}" alt="${ph_esc(br.name)}" loading="lazy"></div>
+      <div class="body"><h3>${ph_esc(br.title)}</h3>
+      <div class="meta">Brand asset${br.dim?' &middot; '+ph_esc(br.dim):''}</div>
+      <div class="acts"></div></div>`;
+    const acts=el.querySelector('.acts');
+    acts.appendChild(mkAct('View',()=>openPhoto(br)));
+    acts.appendChild(mkAct('Download',()=>downloadPhoto(br)));
     grid.appendChild(el);
   });
 }
@@ -1033,6 +1049,8 @@ function loadLibrary(){
       BANNERS=imgs.filter(a=>/^email-banners\//.test(a.path||''))
         .map(a=>({name:a.description||titleFromPath(a.path),title:titleFromPath(a.path),src:a.path,thumb:a.thumbnail,dim:a.dimensions||''}));
       SOCIAL=imgs.filter(a=>/^social\//.test(a.path||''))
+        .map(a=>({name:a.description||titleFromPath(a.path),title:titleFromPath(a.path),src:a.path,thumb:a.thumbnail,dim:a.dimensions||''}));
+      BRAND=imgs.filter(a=>/^brand\//.test(a.path||''))
         .map(a=>({name:a.description||titleFromPath(a.path),title:titleFromPath(a.path),src:a.path,thumb:a.thumbnail,dim:a.dimensions||''}));
       CCIMGS=imgs.map(a=>({path:a.path,thumbnail:a.thumbnail||'',filename:(a.path||'').split('/').pop(),description:a.description||'',tags:a.tags||[]}));
       libState=LIBRARY.length?'ready':'error';
