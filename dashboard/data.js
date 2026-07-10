@@ -439,6 +439,61 @@ window.WCDW_MANIFEST = {
       ]
     },
     {
+      "path": "brand/wcdw-logo-clean-fifth-third.png",
+      "filename": "wcdw-logo-clean-fifth-third.png",
+      "category": "brand",
+      "type": "image",
+      "dimensions": "2000x1414",
+      "thumbnail": "dashboard/thumbnails/brand/wcdw-logo-clean-fifth-third.jpg",
+      "description": "Official 2026 event logo, clean version: 'Walk for Independence, White Cane Day Walk' with white-cane motif, Envision and Dallas Zoo lockups, and 'Presented by Fifth Third'. Hosted for emails at https://mcusercontent.com/6e3f0d354d8de00f19f8da328/images/1d45fe92-09b4-80a5-d1eb-50b9c1939685.png",
+      "tags": [
+        "brand",
+        "logo",
+        "White Cane Day Walk",
+        "Walk for Independence",
+        "Fifth Third",
+        "sponsor",
+        "clean",
+        "print",
+        "email"
+      ]
+    },
+    {
+      "path": "brand/wcdw-logo-mockup-zoo-animals.png",
+      "filename": "wcdw-logo-mockup-zoo-animals.png",
+      "category": "brand",
+      "type": "image",
+      "dimensions": "2000x1414",
+      "thumbnail": "dashboard/thumbnails/brand/wcdw-logo-mockup-zoo-animals.jpg",
+      "description": "2026 event logo mockup with Dallas Zoo flavor: green elephants, a hanging monkey and walkers with white canes above the 'Walk for Independence, White Cane Day Walk' lockup.",
+      "tags": [
+        "brand",
+        "logo",
+        "mockup",
+        "White Cane Day Walk",
+        "Walk for Independence",
+        "zoo animals",
+        "elephants",
+        "monkey"
+      ]
+    },
+    {
+      "path": "brand/wcdw-2026-messaging-guide.html",
+      "filename": "wcdw-2026-messaging-guide.html",
+      "category": "brand",
+      "type": "html",
+      "description": "The 2026 Messaging Guide as a standalone, printable document: five pillars, primary messages, approved headlines and CTAs, the audience playbook, campaign phases, language guardrails, voice and palette.",
+      "tags": [
+        "brand",
+        "messaging guide",
+        "copy",
+        "guardrails",
+        "voice",
+        "audiences",
+        "2026"
+      ]
+    },
+    {
       "path": "brand/white-cane-day-logo-animation.mp4",
       "filename": "white-cane-day-logo-animation.mp4",
       "category": "brand",
