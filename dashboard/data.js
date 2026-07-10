@@ -421,24 +421,6 @@ window.WCDW_MANIFEST = {
       ]
     },
     {
-      "path": "brand/envision-dallas-building-exterior.png",
-      "filename": "envision-dallas-building-exterior.png",
-      "category": "brand",
-      "type": "image",
-      "dimensions": "1536x1024",
-      "thumbnail": "dashboard/thumbnails/brand/envision-dallas-building-exterior.jpg",
-      "description": "Clean exterior photo of the Envision Dallas building (brown brick, blue/green logo signage) under a blue sky.",
-      "tags": [
-        "brand",
-        "building",
-        "exterior",
-        "Envision Dallas",
-        "logo",
-        "blue sky",
-        "marketing"
-      ]
-    },
-    {
       "path": "brand/wcdw-logo-clean-fifth-third.png",
       "filename": "wcdw-logo-clean-fifth-third.png",
       "category": "brand",
