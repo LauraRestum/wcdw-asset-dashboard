@@ -11,7 +11,12 @@ Two tools for **Envision — "Celebrating Independence: White Cane Day Walk"** a
 
 Both tools read **[`manifest.json`](manifest.json)** as the single source of truth (the dashboard also embeds it in `dashboard/data.js` so it works from disk). Thumbnails in `dashboard/thumbnails/` (~2 MB total) keep the gallery fast; the ~345 MB of originals are only fetched when you open or download an asset.
 
+## External media & partner guide
+
+Everything **external** people (media, sponsors, community partners) need lives in a separate, shareable sibling repo: **[envision-wcdw-media-guide](https://github.com/LauraRestum/envision-wcdw-media-guide)**. It's a single page in the Studio's design with the approved talking points, language rules, brand basics, PSA scripts, and a downloadable asset library (photos exported at press/web resolution from this repo's originals). Keep full-resolution originals and internal-only material here; anything meant for outside hands goes there.
+
 ## Running it locally
+
 
 The Studio fetches `manifest.json`, so it must be **served over http** (not opened from `file://`):
 
