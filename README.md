@@ -131,6 +131,9 @@ Read **[`manifest.json`](manifest.json)** — a machine-readable index of every 
 | File | What it shows |
 | --- | --- |
 | `envision-dallas-building-exterior.png` | Clean exterior photo of the Envision Dallas building (brown brick, blue/green logo signage) under a blue sky. |
+| `wcdw-2026-messaging-guide.html` | The 2026 Messaging Guide as a standalone, printable document: pillars, primary messages, headline/CTA banks, audience playbook, phases, guardrails, voice and palette. Downloadable from the Studio's asset library and the dashboard. |
+| `wcdw-logo-clean-fifth-third.png` | Official 2026 event logo, clean version (2000×1414) with the "Presented by Fifth Third" lockup. Hosted for emails at `https://mcusercontent.com/6e3f0d354d8de00f19f8da328/images/1d45fe92-09b4-80a5-d1eb-50b9c1939685.png` — every email footer uses that URL. |
+| `wcdw-logo-mockup-zoo-animals.png` | 2026 event logo mockup (2000×1414) with Dallas Zoo flavor: green elephants, a hanging monkey and walkers with white canes. |
 | `white-cane-day-logo-animation.mp4` | Animated hero/background video (1280×720, ~52 s, H.264): the "Celebrating Independence — White Cane Day Walk — Dallas Zoo" logo animating in. |
 
 ## email/
