@@ -576,7 +576,7 @@
           <li><span class="no">✕</span> the Zoo as the headline</li>
         </ul></div>
       </div>
-      <p style="margin:.9rem 0 0"><a href="brand/wcdw-2026-messaging-guide.html" download="wcdw-2026-messaging-guide.html">Download the full 2026 Messaging Guide</a></p>
+      <p style="margin:.9rem 0 0"><a href="brand/wcdw-messaging-toolkit-v3.pdf" download="wcdw-messaging-toolkit-v3.pdf">Download the full 2026 Messaging Toolkit (PDF)</a></p>
     </details>
   </section>
 
@@ -765,7 +765,7 @@ const BODIES=[
 ];
 
 const ASSETS=[
-  {t:"2026 Messaging Guide",type:'Guide',cat:'media',status:'live',doc:'brand/wcdw-2026-messaging-guide.html',head:"The 2026 Messaging Guide",body:"Every approved message in one printable document: the five pillars, primary messages, headline and CTA banks, the audience playbook, campaign phases, language guardrails, voice and palette."},
+  {t:"2026 Messaging Guide",type:'Guide',cat:'media',status:'live',doc:'brand/wcdw-messaging-toolkit-v3.pdf',head:"White Cane. I Can.",body:"The official 2026 messaging toolkit (v3, 14 pages): the creative platform, voice, approved copy, audiences and campaign phases the Studio is built on."},
   {t:"Save-the-date email",type:'Email',cat:'email',status:'live',mode:'email',file:'mail01',head:"Save the date: White Cane Day Walk",cta:"Save your spot",body:"Walk with us for independence. Join Envision Saturday, Oct. 17 at the Dallas Zoo for the White Cane Day Walk, an evening of community, awareness and action supporting people who are blind or have low vision across North Texas. Save the date and plan to walk with us."},
   {t:"Registration open email",type:'Email',cat:'email',status:'live',mode:'email',file:'mail02',head:"Registration is open",cta:"Register now",body:"Registration is open. Join Envision at the Dallas Zoo on Saturday, Oct. 17 and walk with us for independence. Register, start a team or make a gift to support Envision\u2019s work for people who are blind or have low vision across North Texas."},
   {t:"Start-a-team email",type:'Email',cat:'email',status:'live',mode:'email',file:'mail03',head:"Start your team",cta:"Start your team",body:"Start your team and invite others to walk with you for independence. Bring friends, family, coworkers or your community group to the White Cane Day Walk and help support independence across North Texas."},
@@ -902,11 +902,12 @@ renderAssets();
 function mkAct(label,fn){const b=document.createElement('button');b.className='act';b.textContent=label;b.onclick=fn;return b;}
 function assetText(a){if(a.view)return a.view;if(a.cat==='social')return a.body||a.head||'';const p=[];if(a.head)p.push(a.head);if(a.body)p.push(a.body);if(a.cta)p.push('CTA: '+a.cta);return p.join('\n\n');}
 function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
-/* Documents shipped as repo files (e.g. the messaging guide) open in the email modal so View / Download / Copy all work. */
+/* Documents shipped as repo files (e.g. the messaging toolkit PDF) preview in the modal iframe with a Download action. */
 function openDoc(a){
-  fetch(a.doc).then(r=>{if(!r.ok)throw 0;return r.text();})
-    .then(t=>openEmail(a.t,t))
-    .catch(()=>window.open(a.doc,'_blank'));
+  resetModal();$('mTitle').textContent=a.t;
+  const fr=$('mFrame');fr.removeAttribute('srcdoc');fr.src=a.doc;fr.hidden=false;
+  $('mActs').hidden=false;$('mDl').textContent='Download';$('mDl').onclick=()=>downloadAsset(a);
+  openModalEl();
 }
 function downloadAsset(a){if(a.doc)return fetch(a.doc).then(r=>{if(!r.ok)throw 0;return r.blob();}).then(b=>dl(b,a.doc.split('/').pop())).catch(()=>window.open(a.doc,'_blank'));
   if(a.file)return dl(new Blob([getMail(a.file)],{type:'text/html'}),'wcdw-'+slug(a.t)+'.html');
@@ -929,7 +930,7 @@ function previewInner(a){
 
 /* ---------- modal ---------- */
 function getMail(id){const e=document.getElementById(id);return e?e.textContent:'';}
-function resetModal(){const fr=$('mFrame');fr.hidden=true;fr.srcdoc='';$('mImgWrap').hidden=true;$('mPrev').hidden=true;$('mNext').hidden=true;$('mCount').hidden=true;seriesView=null;$('mImg').removeAttribute('src');$('mBody').hidden=true;$('mActs').hidden=true;$('mDl').onclick=null;const c=$('mCopy');c.hidden=true;c.onclick=null;c.textContent='Copy HTML';}
+function resetModal(){const fr=$('mFrame');fr.hidden=true;fr.removeAttribute('srcdoc');fr.removeAttribute('src');$('mImgWrap').hidden=true;$('mPrev').hidden=true;$('mNext').hidden=true;$('mCount').hidden=true;seriesView=null;$('mImg').removeAttribute('src');$('mBody').hidden=true;$('mActs').hidden=true;$('mDl').onclick=null;const c=$('mCopy');c.hidden=true;c.onclick=null;c.textContent='Copy HTML';}
 function copyText(txt,btn,label){const done=()=>{const o=btn.textContent;btn.textContent=label||'Copied!';setTimeout(()=>{btn.textContent=o;},1400);};
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,()=>{legacyCopy(txt);done();});}
   else{legacyCopy(txt);done();}}

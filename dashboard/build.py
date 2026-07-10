@@ -35,6 +35,8 @@ def kind(path):
         return "video"
     if ext in (".html", ".htm"):
         return "html"
+    if ext == ".pdf":
+        return "pdf"
     return "other"
 
 
