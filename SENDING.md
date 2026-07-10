@@ -4,8 +4,8 @@ The Campaign Studio produces clean, escaped, mostly compliant HTML — but a few
 
 ## Every send
 - [ ] **Hosted hero image.** If you added a photo, it must be a **hosted `https://` URL** (paste one into "Or paste a hosted image URL", or upload the photo to your ESP and use its URL). Uploaded/`data:` images and relative paths are stripped by Gmail and Outlook — the hero will be blank. The Studio warns you in the brand check when the image won't survive.
-- [ ] **Merge tags match your ESP.** The generator footer uses **Mailchimp** syntax: `*|UNSUB|*`, `*|UPDATE_PROFILE|*`, `*|LIST:ADDRESS|*`. If you use a different ESP (Constant Contact, HubSpot, etc.), swap these for that tool's unsubscribe / address tags. A dead Unsubscribe link is a CAN-SPAM violation.
-- [ ] **Physical mailing address** resolves (it comes from `*|LIST:ADDRESS|*` — confirm your ESP's list address is set) or replace it with the real address.
+- [ ] **Merge tags match your ESP.** The generator footer uses **Mailchimp** syntax: `*|UNSUB|*`, `*|UPDATE_PROFILE|*`. If you use a different ESP (Constant Contact, HubSpot, etc.), swap these for that tool's unsubscribe tags. A dead Unsubscribe link is a CAN-SPAM violation.
+- [ ] **Physical mailing address** is correct. The footer is hardcoded to **1801 Valley View Lane, Farmers Branch, TX 75234** — update it if the campus address changes.
 - [ ] **One primary CTA.** The brand check enforces this; don't add a second button.
 - [ ] **Brand check is green** (no red "to fix" items).
 - [ ] **Registration link** points to the right place (`https://whitecanedaywalk.com`).
