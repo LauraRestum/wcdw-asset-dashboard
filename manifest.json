@@ -476,18 +476,21 @@
       ]
     },
     {
-      "path": "brand/wcdw-2026-messaging-guide.html",
-      "filename": "wcdw-2026-messaging-guide.html",
+      "path": "brand/wcdw-messaging-toolkit-v3.pdf",
+      "filename": "wcdw-messaging-toolkit-v3.pdf",
       "category": "brand",
-      "type": "html",
-      "description": "The 2026 Messaging Guide as a standalone, printable document: five pillars, primary messages, approved headlines and CTAs, the audience playbook, campaign phases, language guardrails, voice and palette.",
+      "type": "pdf",
+      "thumbnail": "dashboard/thumbnails/brand/wcdw-messaging-toolkit-v3.jpg",
+      "description": "The official 2026 Messaging Toolkit (v3, 14 pages): the 'White Cane. I Can.' creative platform, voice, approved copy, audiences and campaign phases for the White Cane Day Walk. Source design lives in Canva (WCDW_Messaging_Toolkit_v3).",
       "tags": [
         "brand",
         "messaging guide",
+        "messaging toolkit",
+        "White Cane I Can",
         "copy",
-        "guardrails",
         "voice",
         "audiences",
+        "pdf",
         "2026"
       ]
     },

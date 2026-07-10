@@ -503,6 +503,7 @@
     function typeBadge(a) {
       if (a.type === "video") return '<span class="badge-type">▶ Video</span>';
       if (a.type === "html")  return '<span class="badge-type">&lt;/&gt; ' + (a.category === "email" ? "Email HTML" : "Document") + '</span>';
+      if (a.type === "pdf")   return '<span class="badge-type">📄 PDF</span>';
       return '<span class="badge-type">' + (a.dimensions ? "Photo" : "Image") + '</span>';
     }
     function thumbFor(a) {
@@ -570,7 +571,7 @@
         m = '<video src="'+esc(a.path)+'" controls autoplay playsinline ' +
             (a.thumbnail?('poster="'+esc(a.thumbnail)+'"'):'')+'>Your browser cannot play this video. ' +
             '<a href="'+esc(a.path)+'">Download it instead.</a></video>';
-      } else if (a.type === "html") {
+      } else if (a.type === "html" || a.type === "pdf") {
         m = '<iframe src="'+esc(a.path)+'" title="'+(a.category === "email" ? "Email preview: " : "Preview: ")+esc(a.filename)+'"></iframe>';
       } else {
         m = '<a class="btn" href="'+esc(a.path)+'">Open file</a>';
