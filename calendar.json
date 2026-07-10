@@ -18,19 +18,8 @@
       }
     },
     {
-      "id": "e-pride-email",
-      "date": "2026-07-10",
-      "time": "",
-      "channel": "email",
-      "status": "planned",
-      "title": "Disability Pride Month email",
-      "copy": "Subject: It's Disability Pride Month. Walk with us.\nPreview: Celebrate community and independence with Envision at the White Cane Day Walk.",
-      "notes": "Disability Pride Month (July)",
-      "asset": null
-    },
-    {
       "id": "e-pride-fb",
-      "date": "2026-07-10",
+      "date": "2026-07-17",
       "time": "",
       "channel": "facebook",
       "status": "planned",
@@ -41,7 +30,7 @@
     },
     {
       "id": "e-pride-ig",
-      "date": "2026-07-10",
+      "date": "2026-07-17",
       "time": "",
       "channel": "instagram",
       "status": "planned",
