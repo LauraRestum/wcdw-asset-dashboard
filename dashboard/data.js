@@ -479,8 +479,8 @@ window.WCDW_MANIFEST = {
       ]
     },
     {
-      "path": "brand/white-cane-day-logo-animation.mp4",
-      "filename": "white-cane-day-logo-animation.mp4",
+      "path": "brand/white-cane-day-walk-video.mp4",
+      "filename": "white-cane-day-walk-video.mp4",
       "category": "brand",
       "type": "video",
       "dimensions": "1280x720",
