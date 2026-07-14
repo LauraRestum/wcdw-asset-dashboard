@@ -13,7 +13,7 @@ Both tools read **[`manifest.json`](manifest.json)** as the single source of tru
 
 ## External media & partner guide
 
-Everything **external** people (media, sponsors, community partners) need lives in a separate, shareable sibling repo: **[envision-wcdw-media-guide](https://github.com/LauraRestum/envision-wcdw-media-guide)**, published at **<https://laurarestum.github.io/envision-wcdw-media-guide/>** (linked from both tools' headers). It's a single page in the Studio's design with the approved talking points, language rules, brand basics, PSA scripts, and a downloadable asset library (photos exported at press/web resolution from this repo's originals). Keep full-resolution originals and internal-only material here; anything meant for outside hands goes there.
+Everything **external** people (media, sponsors, community partners) need lives in a separate, shareable sibling repo: **[envision-wcdw-media-guide](https://github.com/LauraRestum/envision-wcdw-media-guide)**, published at **<https://laurarestum.github.io/envision-wcdw-media-guide/>** (linked from the Studio's top bar and hero, so the internal team can reach it in one click). It's a single page in the Studio's design with the approved talking points, language rules, brand basics, PSA scripts, and a downloadable asset library (photos exported at press/web resolution from this repo's originals). Keep full-resolution originals and internal-only material here; anything meant for outside hands goes there.
 
 ## Running it locally
 

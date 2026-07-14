@@ -95,6 +95,8 @@
   .pill{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);
     backdrop-filter:blur(6px);padding:.5rem .9rem;border-radius:6px;font-size:.76rem;font-weight:600}
   .pill b{color:#fff} .pill .lo{color:rgba(255,255,255,.6)}
+  a.pill{color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:.45rem}
+  a.pill:hover{background:rgba(255,255,255,.2)}
   .count b{color:var(--gold);font-size:1.05rem}
   .fade{opacity:0;transform:translateY(16px);animation:up .7s ease forwards}
   .fade.d1{animation-delay:.15s}.fade.d2{animation-delay:.28s}.fade.d3{animation-delay:.4s}
@@ -371,7 +373,7 @@
 <nav class="topbar" aria-label="Site">
   <a class="tb-brand" href="index.html">White Cane Day Walk</a>
   <div class="tb-actions">
-    <a class="tb-link" href="https://laurarestum.github.io/envision-wcdw-media-guide/" target="_blank" rel="noopener">Media &amp; partner guide <span aria-hidden="true">↗</span></a>
+    <a class="tb-link" href="https://laurarestum.github.io/envision-wcdw-media-guide/" target="_blank" rel="noopener"><span aria-hidden="true">🌐</span> Media &amp; partner guide <span aria-hidden="true">↗</span></a>
     <button class="tb-btn" id="themeBtn" type="button" aria-pressed="false">
       <span id="themeIcon" aria-hidden="true">☾</span><span id="themeLabel">Dark</span>
     </button>
@@ -390,6 +392,7 @@
     <div class="hero-meta fade d3">
       <div class="pill"><b>Sat, Oct 17</b> <span class="lo">· Dallas Zoo</span></div>
       <div class="pill count" id="countdownPill"><b>96</b> <span class="lo">days out</span></div>
+      <a class="pill" href="https://laurarestum.github.io/envision-wcdw-media-guide/" target="_blank" rel="noopener"><span aria-hidden="true">🌐</span> <b>Media &amp; partner guide</b> <span class="lo">↗</span></a>
     </div>
   </div>
 </header>
